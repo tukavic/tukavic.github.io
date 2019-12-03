@@ -4,11 +4,11 @@
 <html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>test-post - aPaperADay</title>
+    <title>chicken-implementation - aPaperADay</title>
 <meta charset="utf-8">
 <meta name="X-UA-Compatible" content="IE=edge">
 <meta name="author" content="Luke Thomas">
-<meta name="description" content="">
+<meta name="description" content="Implementation DetailsThe architecture used by Kaiming et...">
 <meta name="keywords" content="">
 
     <meta charset="utf-8">
@@ -18,7 +18,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?70278920">
+<link rel="stylesheet" href="/css/journal.css?67127605">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -61,7 +61,7 @@
      v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
     <div class="drawer-content">
         <div class="drawer-menu">
-            <a class="a-block drawer-menu-item false" href="apaperaday.com">
+            <a class="a-block drawer-menu-item false" href="www.apaperaday.com">
                 Home
             </a>
             
@@ -121,7 +121,7 @@
         
         Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
         
-        &copy; 2019 <a href="apaperaday.com">aPaperADay</a>
+        &copy; 2019 <a href="www.apaperaday.com">aPaperADay</a>
     </div>
 </div>
 <div ref="extraContainer" class="extra-container">
@@ -144,10 +144,10 @@
             <div class="post-head-wrapper-text-only"
                  style="background-image: url('')">
                 <div class="post-title">
-                    test-post
+                    chicken-implementation
                     <div class="post-meta">
-                        <time datetime="2019-12-03T03:46:01.000Z" itemprop="datePublished">
-                            2019-12-02 19:46
+                        <time datetime="2019-12-03T17:09:56.000Z" itemprop="datePublished">
+                            2019-12-03 09:09
                         </time>&nbsp;
                         
     
@@ -158,7 +158,14 @@
     
             <div class="post-body-wrapper">
                 <div class="post-body">
-                    
+                    <h1 id="Implementation-Details"><a href="#Implementation-Details" class="headerlink" title="Implementation Details"></a>Implementation Details</h1><p>The architecture used by Kaiming et al. is similar to VGG-19, with a few minor differences.  They cite their changes were motivated by faster running speeds.  Their table shows their full architectural structure.  A key takeaway is the proposed initialization method allows them to apply scale jittering from the beginning because they are enabled to train deeper models from the get go and not just during fine tuning. Their input size was 224x224.<br>Data augmentation used</p>
+<ul>
+<li>scale randomly jittered</li>
+<li>random horizontal flip</li>
+<li>random color altering</li>
+</ul>
+<p>They used the strategy from the SPP-net paper which is a multi-view testing on feature maps.  It’s a pyramid analysis with the feature map from my limited understanding.</p>
+
                 </div>
             </div>
     
@@ -183,7 +190,7 @@
     
     Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
     
-    &copy; 2019 <a href="apaperaday.com">aPaperADay</a>
+    &copy; 2019 <a href="www.apaperaday.com">aPaperADay</a>
 </div>
 </div>
 
@@ -198,7 +205,7 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?73538100"></script>
+<script src="/js/journal.js?68496831"></script>
 
 
 
