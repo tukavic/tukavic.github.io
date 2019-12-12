@@ -4,11 +4,11 @@
 <html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>Kaiming PReLU - aPaperADay</title>
+    <title>Graphcore&#39;s Scheduling Processing summary - aPaperADay</title>
 <meta charset="utf-8">
 <meta name="X-UA-Compatible" content="IE=edge">
 <meta name="author" content="Luke Thomas">
-<meta name="description" content="Rectified Linear Unit (ReLU), is one of several keys to the recent success of deep networks, and studying them has yielded important results.">
+<meta name="description" content="The early section in the patent gives a summary of the proposed scheduling mechanism of supervisors and workers.">
 <meta name="keywords" content="">
 
     <meta charset="utf-8">
@@ -18,7 +18,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?97087138">
+<link rel="stylesheet" href="/css/journal.css?3959361">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -160,10 +160,10 @@
             <div class="post-head-wrapper-text-only"
                  style="background-image: url('')">
                 <div class="post-title">
-                    Kaiming PReLU
+                    Graphcore&#39;s Scheduling Processing summary
                     <div class="post-meta">
-                        <time datetime="2019-12-04T16:02:38.000Z" itemprop="datePublished">
-                            2019-12-04 08:02
+                        <time datetime="2019-12-12T15:59:10.000Z" itemprop="datePublished">
+                            2019-12-12 07:59
                         </time>&nbsp;
                         
     
@@ -171,11 +171,9 @@
                         
                         <i class="material-icons" style="">label</i>
                         
-                        <a href='/tags/Kaiming/'>Kaiming</a>, 
+                        <a href='/tags/Graphcore/'>Graphcore</a>, 
                         
-                        <a href='/tags/Delving-Deep-into-Rectifiers/'>Delving Deep into Rectifiers</a>, 
-                        
-                        <a href='/tags/PReLU/'>PReLU</a>
+                        <a href='/tags/Patent/'>Patent</a>
                         
                         
                     </div>
@@ -184,22 +182,19 @@
     
             <div class="post-body-wrapper">
                 <div class="post-body">
-                    <h1 id="PReLU"><a href="#PReLU" class="headerlink" title="PReLU"></a>PReLU</h1><p>Rectified Linear Unit (ReLU), is one of several keys to the recent success of deep networks, [other researchers] have rarely focused on the properties of the rectifiers.<br>First, [Kaiming et al] propose a new generalization of ReLU, which we call Parametric Rectified Linear Unit (PReLU). This activation function adaptively learns the parameters of the rectifiers, and improves accuracy at negligible extra computational cost.</p>
-<p>[LT] its interesting that ReLUs switched with PReLUs, give an immediate 1.2% going over ReLU baseline.  This begs the question, is there any advantage to parameterizing the coefficient of the positive part?<br>Then we [Kaiming et al] train the same architecture from scratch, with all ReLUs replaced by PReLUs (Table 2). The top-1 error is reduced to 32.64%. This is a 1.2% gain over the ReLU baseline.<br>update formulations of {ai} are simply derived from the chain rule.<br>f (yi ) = max(0, yi ) + ai min(0, yi )</p>
+                    <h1 id="A-Subtle-Compromise"><a href="#A-Subtle-Compromise" class="headerlink" title="A Subtle Compromise"></a>A Subtle Compromise</h1><p>Paragraph [008] hints to a subtle compromise between a fully hardware approach to coordinating the execution of concurrent threads versus a fully programmatic software approach.</p>
+<p>I believe their distinction lies primarily in the ISA to allow opcodes to dictate the current workers attachment to the execution unit.  The two types of threads that can be attached to the execution unit are <strong>workers</strong> and <strong>supervisor</strong>.  There is always provision in the context registers for the supervisor thread, and he always begins a timeslot.</p>
+<p>The key are the opcodes which allow the threads to <code>exit</code> and <code>relinquish</code>.  The supervisor always begins the timeslot, and has an opcode which allows it to give control up to a specific worker with a specific context via <code>relinquish</code>.  The supervisor is the only thread permitted to execute that opcode.  Similarly, the worker threads can give control back to the supervisor via <code>exit</code>.</p>
 
                 </div>
             </div>
     
             <nav class="post-pagination">
     
-    <a class="newer-posts" href="/12/05/2019/chicken-discussion/">
-        Previous post<br>Kaiming Discussion and key takeaways
-    </a>
-    
     <span class="page-number"></span>
     
-    <a class="older-posts" href="/12/03/2019/chicken-implementation/">
-        Next post<br>Kaiming Implementation Details
+    <a class="older-posts" href="/12/11/2019/gc-context-and-concurrency/">
+        Next post<br>Graphcore Patent - Context and Concurrency
     </a>
     
 </nav>
@@ -230,7 +225,7 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?70172157"></script>
+<script src="/js/journal.js?82829329"></script>
 
 
 
