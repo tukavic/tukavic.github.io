@@ -4,11 +4,11 @@
 <html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>3 Graphcore Patent Details 1 - aPaperADay</title>
+    <title>ULM-FiT Getting Started - aPaperADay</title>
 <meta charset="utf-8">
 <meta name="X-UA-Compatible" content="IE=edge">
 <meta name="author" content="Luke Thomas">
-<meta name="description" content="The Barrel Threaded M+1 idea">
+<meta name="description" content="I get started on the ULMFiT paper, looking at the introduced ideas.">
 <meta name="keywords" content="">
 
     <meta charset="utf-8">
@@ -18,7 +18,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?66965165">
+<link rel="stylesheet" href="/css/journal.css?59724459">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -160,10 +160,10 @@
             <div class="post-head-wrapper-text-only"
                  style="background-image: url('')">
                 <div class="post-title">
-                    3 Graphcore Patent Details 1
+                    ULM-FiT Getting Started
                     <div class="post-meta">
-                        <time datetime="2019-12-14T02:27:25.000Z" itemprop="datePublished">
-                            2019-12-13 20:27
+                        <time datetime="2019-12-26T17:19:48.000Z" itemprop="datePublished">
+                            2019-12-26 11:19
                         </time>&nbsp;
                         
     
@@ -171,9 +171,7 @@
                         
                         <i class="material-icons" style="">label</i>
                         
-                        <a href='/tags/Graphcore/'>Graphcore</a>, 
-                        
-                        <a href='/tags/Patent/'>Patent</a>
+                        <a href='/tags/ULMFiT/'>ULMFiT</a>
                         
                         
                     </div>
@@ -182,23 +180,23 @@
     
             <div class="post-body-wrapper">
                 <div class="post-body">
-                    <h1 id="Barrel-Threaded-M-1"><a href="#Barrel-Threaded-M-1" class="headerlink" title="Barrel Threaded M+1"></a>Barrel Threaded M+1</h1><p>Barrel threading is the technique well known in the industry used to “hide pipeline latency”.  It involves, in my understanding, quite a complex sum of components, but is effectively dilating the time between adjacent instructions by running multiple threads of instructions interleaved.  This increases time between each thread’s instructions which effectively hides the latencies that would be incurred if you tried to run a single thread at max speed.</p>
-<p>Barrel Threading is the technique of running multiple threads in a regular or weighted round robin scheduling scheme.  The patent notes each thread gets its own context, which is a set of registers retaining information such as where in the program the thread is, and the values of the registers the thread is working with.  </p>
-<p>I’m unsure how unique the supervisor worker and context is, but the patent points out the need to always add an extra register context for the supervisor.  The supervisor manages instructions to deal with outside memory or network cards (para [0043]).  The number of threads in a single execution unit is around four to six.  This is probably in line with the amount of time needed to dilate to hide the latencies, without over complicating the architecture.  Note this idea of dilation as a reason is my own and not used by the verbiage of the patent.</p>
+                    <h1 id="What-is-Inductive-Transfer-learning"><a href="#What-is-Inductive-Transfer-learning" class="headerlink" title="What is Inductive Transfer learning?"></a>What is Inductive Transfer learning?</h1><p>The paper’s introduction does not deeply answer that question; however, it does contrast the idea of <em>inductive</em> transfer learning with <em>transductive</em> transfer learning.</p>
+<p>Inductive transfer learning is popular in CV and is described quite simply as a transfer technique targeting only the models first layer.</p>
+<p>The previous issue with using transfer learning effectively in the past was not with the idea of using it for NLP, but rather the lack of knowledge of <em>how</em>.  NLP models typically are shallower, thus requiring different fine-tuning methods compared to the deeper networks effective with CV tasks.</p>
+<h2 id="A-key-quote-on-page-one"><a href="#A-key-quote-on-page-one" class="headerlink" title="A key quote on page one"></a>A key quote on page one</h2><blockquote>
+<p>The same 3-layer LSTM architecture— with the same hyperparameters and no additions other than tuned dropout hyperparameters— outperforms highly engineered models and transfer learning approaches on six widely studied text classification tasks.</p>
+</blockquote>
+<p>With a generic approach able to outperform highly engineered models, it sounds like this paper is gearing up to be an interesting paper.</p>
 
                 </div>
             </div>
     
             <nav class="post-pagination">
     
-    <a class="newer-posts" href="/12/14/2019/gc-scheduler-control/">
-        Previous post<br>3 Graphcore Patent- Scheduler Control
-    </a>
-    
     <span class="page-number"></span>
     
-    <a class="older-posts" href="/12/12/2019/gc-scheduling-summary/">
-        Next post<br>3 Graphcore&#39;s Scheduling Processing summary
+    <a class="older-posts" href="/12/25/2019/christmas/">
+        Next post<br>Merry Christmas
     </a>
     
 </nav>
@@ -229,7 +227,7 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?66257625"></script>
+<script src="/js/journal.js?15570972"></script>
 
 
 
