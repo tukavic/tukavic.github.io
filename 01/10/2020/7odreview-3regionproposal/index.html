@@ -4,11 +4,11 @@
 <html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>6 YOLO Algorithm - aPaperADay</title>
+    <title>7 Object Detection w/ DL A Review - Region Proposal networks - aPaperADay</title>
 <meta charset="utf-8">
 <meta name="X-UA-Compatible" content="IE=edge">
 <meta name="author" content="Luke Thomas">
-<meta name="description" content="YOLO is built on a SxS grid consisting of predictions from the grid.">
+<meta name="description" content="The Region proposal frameworks are looked at.">
 <meta name="keywords" content="">
 
     <meta charset="utf-8">
@@ -18,7 +18,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?47899013">
+<link rel="stylesheet" href="/css/journal.css?14570496">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -160,10 +160,10 @@
             <div class="post-head-wrapper-text-only"
                  style="background-image: url('')">
                 <div class="post-title">
-                    6 YOLO Algorithm
+                    7 Object Detection w/ DL A Review - Region Proposal networks
                     <div class="post-meta">
-                        <time datetime="2020-01-03T18:51:15.000Z" itemprop="datePublished">
-                            2020-01-03 10:51
+                        <time datetime="2020-01-10T20:26:19.000Z" itemprop="datePublished">
+                            2020-01-10 12:26
                         </time>&nbsp;
                         
     
@@ -171,7 +171,7 @@
                         
                         <i class="material-icons" style="">label</i>
                         
-                        <a href='/tags/You-Only-Look-Once-YOLO/'>You Only Look Once (YOLO)</a>
+                        <a href='/tags/Object-Detection-with-Deep-Learning-A-Review/'>Object Detection with Deep Learning- A Review</a>
                         
                         
                     </div>
@@ -180,26 +180,36 @@
     
             <div class="post-body-wrapper">
                 <div class="post-body">
-                    <h1 id="Unified-Detection"><a href="#Unified-Detection" class="headerlink" title="Unified Detection"></a>Unified Detection</h1><p>The YOLO algorithm is primarily different in the unification of the detection and localization algorithm.  Here, we’ll look at the algorithm itself.</p>
-<p><strong>S x S grid</strong> The input image is divided into an S x S grid.  If the <em>center</em> of the object falls within that grid box, it is the boxes responsibility to claim the bounding box for that object.  With an S x S grid, you can predict multiple bounding boxes on the same image.</p>
-<p><strong><em>B</em> bounding boxes</strong> Each grid cell predicts <em>B</em> bounding boxes and confidence scores.  The confidence score is the PR(Object) * IOU truth/pred.  The IOU method is interesting becuase you only want to predict with confidence, that which your grid is able to see. Thus if you are able to see the center, in general you should be able to predict the class most confidently.</p>
-<p><strong>Predictions</strong> Each bounding box consists of 5 predictions <em>x,y,w,h</em> and confidence.  (<em>x,y</em>) is the center, and <em>w,h</em> are relative to the whole image.  The confidence is as shown before, a IOU between the predicted box and any ground truth box.</p>
-<p><strong><em>C</em> Conditional Classes</strong> Each grid cell also predicts <em>C</em> conditional class probabilities.  They are conditioned on the grid cell containing an object.</p>
-<p>Figure 2 shows this process:<br><img src="figure2.png" alt=""></p>
+                    <h1 id="A-multistep-process"><a href="#A-multistep-process" class="headerlink" title="A multistep process"></a>A multistep process</h1><p>The largest differnce between the two main methods of OD is pipelining the process or not.  Region propsal networks use a multi-part pipeline, that emulate how we might assume that our own brain works.  The Region proposal aspect is similar to what we’d deem “attention”, then the rest of the network extracts and classifies the features.  This paper reviews the popular methods:</p>
+<h3 id="R-CNN"><a href="#R-CNN" class="headerlink" title="R-CNN"></a>R-CNN</h3><p>Seems to be the father of the regional proposal.  Strong in its use of CNN’s, but lacking in speed.  It’s based on this pipeline.</p>
+<ol>
+<li>Region proposal generation.  Using selective search, it will generate about 2k region proposals for each method.  It uses selective search.  This article gives a good breakdown of SS <a href="https://www.learnopencv.com/selective-search-for-object-detection-cpp-python/" target="_blank" rel="noopener">https://www.learnopencv.com/selective-search-for-object-detection-cpp-python/</a></li>
+<li>CNN feature extraction.  The pixels of each proposed region are adjusted to pass through the CNN network to extract a 4096-dimensional feature as the final representation.  </li>
+<li>Classification and localization - uses SVMs to predict the class while greedy non-max suppression (NMS) is used to produce final bounding boxes.</li>
+</ol>
+<p><strong>Problems</strong> Each subsequent model is an attempt to improve one or more problems to R-CNN</p>
+<p><img src="figure3.png" alt=""></p>
+<h3 id="SPP-net-that-is-Spacial-Pyramid-Pooling-network"><a href="#SPP-net-that-is-Spacial-Pyramid-Pooling-network" class="headerlink" title="SPP-net (that is Spacial Pyramid Pooling) network"></a>SPP-net (that is Spacial Pyramid Pooling) network</h3><p>This is a network based on the idea of having an intermediate layer, created from 3 different scales.  This layer is shown below in figure4 as the spatial pyramid pooling layer.</p>
+<p><img src="figure4.png" alt=""></p>
+<h3 id="Fast-R-CNN"><a href="#Fast-R-CNN" class="headerlink" title="Fast R-CNN"></a>Fast R-CNN</h3><p>Although the SPP-net adds impressive results, it still suffers from many of the same slow pipeline issues as R-CNN.  Fast R-CNN addresses this by adding the ROI pooling layer and merging the output prediction into a multitask problem to predict both class and bbox from same ROI feature vector.</p>
+<p>The loss function to train this multi-task output is a key addition to Fast R-CNN</p>
+<h3 id="Faster-R-CNN"><a href="#Faster-R-CNN" class="headerlink" title="Faster R-CNN"></a>Faster R-CNN</h3><p>Faster R-CNN addresses the regional proposal issue with a Region Proposal Network, which is based on CNNs.  </p>
+<p>This allows end to end training with backprop, however, at current time, it only runs at 5 FPS.</p>
+<p><img src="figure6.png" alt=""></p>
+<p>###R-FCN<br>SotA image <em>classification</em> networks are fully convolutional, and it would seem natural to construct the same for OD networks; however, it is empirically shown that is not the case.<br>[47] K. He, X. Zhang, S. Ren, and J. Sun, “Deep residual learning for image<br>recognition,” in CVPR, 2016.</p>
+<p>As the paper concludes, it is due to the “dilemma of respecting translation variance in object detection compared with increasing translation invariance in image classification.  In other words, shifting an object inside an image should be indicriminative in image classification, but” [is meaningful in bounding box predicting].</p>
+<p>Since the RoI pooling layer can break down that invariance, Li et al. proposed a region-based fully convolutional network.</p>
+<p>With R-FCN, powerful classification networks can be adopted which utilizes many shared layers.</p>
 
                 </div>
             </div>
     
             <nav class="post-pagination">
     
-    <a class="newer-posts" href="/01/04/2020/6yolo-3training/">
-        Previous post<br>6 YOLO Training
-    </a>
-    
     <span class="page-number"></span>
     
-    <a class="older-posts" href="/01/02/2020/6yolo-1introduction/">
-        Next post<br>6 YOLO Introduction
+    <a class="older-posts" href="/01/09/2020/7odreview-2outline/">
+        Next post<br>7 Object Detection w/ DL A Review - Outline
     </a>
     
 </nav>
@@ -230,7 +240,7 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?75772123"></script>
+<script src="/js/journal.js?48224632"></script>
 
 
 
