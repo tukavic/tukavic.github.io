@@ -4,11 +4,11 @@
 <html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>6 YOLO Algorithm - aPaperADay</title>
+    <title>8 Colorization - H function - aPaperADay</title>
 <meta charset="utf-8">
 <meta name="X-UA-Compatible" content="IE=edge">
 <meta name="author" content="Luke Thomas">
-<meta name="description" content="YOLO is built on a SxS grid consisting of predictions from the grid.">
+<meta name="description" content="The H function produces the final Y_hat from probability distribution Z_hat.">
 <meta name="keywords" content="">
 
     <meta charset="utf-8">
@@ -18,7 +18,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?61627464">
+<link rel="stylesheet" href="/css/journal.css?3669493">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -168,10 +168,10 @@
             <div class="post-head-wrapper-text-only"
                  style="background-image: url('')">
                 <div class="post-title">
-                    6 YOLO Algorithm
+                    8 Colorization - H function
                     <div class="post-meta">
-                        <time datetime="2020-01-03T18:51:15.000Z" itemprop="datePublished">
-                            2020-01-03 10:51
+                        <time datetime="2020-01-18T16:34:27.000Z" itemprop="datePublished">
+                            2020-01-18 08:34
                         </time>&nbsp;
                         
     
@@ -179,7 +179,7 @@
                         
                         <i class="material-icons" style="">label</i>
                         
-                        <a href='/tags/You-Only-Look-Once-YOLO/'>You Only Look Once (YOLO)</a>
+                        <a href='/tags/Colorful-Image-Colorization/'>Colorful Image Colorization</a>
                         
                         
                     </div>
@@ -188,26 +188,24 @@
     
             <div class="post-body-wrapper">
                 <div class="post-body">
-                    <h1 id="Unified-Detection"><a href="#Unified-Detection" class="headerlink" title="Unified Detection"></a>Unified Detection</h1><p>The YOLO algorithm is primarily different in the unification of the detection and localization algorithm.  Here, we’ll look at the algorithm itself.</p>
-<p><strong>S x S grid</strong> The input image is divided into an S x S grid.  If the <em>center</em> of the object falls within that grid box, it is the boxes responsibility to claim the bounding box for that object.  With an S x S grid, you can predict multiple bounding boxes on the same image.</p>
-<p><strong><em>B</em> bounding boxes</strong> Each grid cell predicts <em>B</em> bounding boxes and confidence scores.  The confidence score is the PR(Object) * IOU truth/pred.  The IOU method is interesting becuase you only want to predict with confidence, that which your grid is able to see. Thus if you are able to see the center, in general you should be able to predict the class most confidently.</p>
-<p><strong>Predictions</strong> Each bounding box consists of 5 predictions <em>x,y,w,h</em> and confidence.  (<em>x,y</em>) is the center, and <em>w,h</em> are relative to the whole image.  The confidence is as shown before, a IOU between the predicted box and any ground truth box.</p>
-<p><strong><em>C</em> Conditional Classes</strong> Each grid cell also predicts <em>C</em> conditional class probabilities.  They are conditioned on the grid cell containing an object.</p>
-<p>Figure 2 shows this process:<br><img src="figure2.png" alt=""></p>
+                    <h3 id="The-H-function"><a href="#The-H-function" class="headerlink" title="The H function"></a>The <em>H</em> function</h3><p>The full system <em>F</em> is a chain of the CNN <em>G</em> to produce probability distribution from the input, and <em>H</em> which predicts the final pixel value based on the outputs of <em>G</em>.  This covers the entire algorithm.</p>
+<p>I looked at <em>G</em> yesterday, so today I’ll define the <em>H</em> function.</p>
+<p>There are a number of options to convert the probability distribution to pixel values.</p>
+<p><strong>Mode</strong> You can use the mode of the probability distribution to return Y_hat.  This is shown as the right most images in fig 4.  It gives vibrant colors but at the expense of spatially inconsistent results.  See the red spot on the bus.</p>
+<p><strong>Mean</strong> The mean produces a spatially consistent result, at the expense of color vibrancy.</p>
+<p><strong>Annealed Mean</strong> The authors choose to interpolate between the mean and mode to attempt the best of both worlds.  There is a parameter <em>T</em> which corresponds to the temperature of the softmax distributions, which can be adjusted.  They then take the <em>mean</em> of that readjustment.  </p>
+<p><img src="eq5.png" alt=""> </p>
+<p><img src="fig4.png" alt=""></p>
 
                 </div>
             </div>
     
             <nav class="post-pagination">
     
-    <a class="newer-posts" href="/01/04/2020/6yolo-3training/">
-        Previous post<br>6 YOLO Training
-    </a>
-    
     <span class="page-number"></span>
     
-    <a class="older-posts" href="/01/02/2020/6yolo-1introduction/">
-        Next post<br>6 YOLO Introduction
+    <a class="older-posts" href="/01/17/2020/8colorization-2approach/">
+        Next post<br>8 Colorization - Approach
     </a>
     
 </nav>
@@ -238,7 +236,7 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?17562269"></script>
+<script src="/js/journal.js?43212567"></script>
 
 
 
