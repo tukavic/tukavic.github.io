@@ -4,11 +4,11 @@
 <html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>1 Kaiming Implementation Details - aPaperADay</title>
+    <title>9 Mixtape - Softmax Bottleneck - aPaperADay</title>
 <meta charset="utf-8">
 <meta name="X-UA-Compatible" content="IE=edge">
 <meta name="author" content="Luke Thomas">
-<meta name="description" content="The architecture used by Kaiming et al. is similar to VGG-19, with a few minor differences.">
+<meta name="description" content="I try to briefly explain the softmax bottleneck outlined by the paper.">
 <meta name="keywords" content="">
 
     <meta charset="utf-8">
@@ -18,7 +18,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?76355930">
+<link rel="stylesheet" href="/css/journal.css?46625181">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -168,10 +168,10 @@
             <div class="post-head-wrapper-text-only"
                  style="background-image: url('')">
                 <div class="post-title">
-                    1 Kaiming Implementation Details
+                    9 Mixtape - Softmax Bottleneck
                     <div class="post-meta">
-                        <time datetime="2019-12-03T17:09:56.000Z" itemprop="datePublished">
-                            2019-12-03 09:09
+                        <time datetime="2020-01-23T16:38:28.000Z" itemprop="datePublished">
+                            2020-01-23 08:38
                         </time>&nbsp;
                         
     
@@ -179,9 +179,7 @@
                         
                         <i class="material-icons" style="">label</i>
                         
-                        <a href='/tags/Kaiming/'>Kaiming</a>, 
-                        
-                        <a href='/tags/Delving-Deep-into-Rectifiers/'>Delving Deep into Rectifiers</a>
+                        <a href='/tags/Mixtape-Breaking-the-Softmax-Bottleneck-Efficiently/'>Mixtape; Breaking the Softmax Bottleneck Efficiently</a>
                         
                         
                     </div>
@@ -190,28 +188,20 @@
     
             <div class="post-body-wrapper">
                 <div class="post-body">
-                    <h1 id="Implementation-Details"><a href="#Implementation-Details" class="headerlink" title="Implementation Details"></a>Implementation Details</h1><p>The architecture used by Kaiming et al. is similar to VGG-19, with a few minor differences.  They cite their changes were motivated by faster running speeds.  Their table shows their full architectural structure.  A key takeaway is the proposed initialization method allows them to apply scale jittering from the beginning because they are enabled to train deeper models from the get go and not just during fine tuning. Their input size was 224x224.<br>Data augmentation used</p>
-<ul>
-<li>scale randomly jittered</li>
-<li>random horizontal flip</li>
-<li>random color altering</li>
-</ul>
-<p>They used the strategy from the SPP-net paper which is a multi-view testing on feature maps.  It’s a pyramid analysis with the feature map from my limited understanding.</p>
-<p><img src="KMcomparison.png" alt=""></p>
+                    <h2 id="Softmax-bottlneck"><a href="#Softmax-bottlneck" class="headerlink" title="Softmax bottlneck"></a>Softmax bottlneck</h2><p>As discussed yesterday, the softmax bottleneck is the problem that low dimension information can only support a limited amount of information transfer.  In other words, the softmax is not able to predict as accurately as needed the complexities of language given its vectored form.</p>
+<p>The proof is based in the inability of the softmax to contain the ground truth (<strong>P*</strong>) of the corollary below:</p>
+<p><img src="cor1.png" alt=""></p>
+<p>Where <em>d</em> is the rank of the embedding size of softmax function.  It is provable that if the softmax embedding space is less than the rank of the ground truth, there exists the context where your output will not equal the ground truth, therefore it is not expressive enough due to being able to hold information in rank.</p>
 
                 </div>
             </div>
     
             <nav class="post-pagination">
     
-    <a class="newer-posts" href="/12/04/2019/chicken-prelu/">
-        Previous post<br>1 Kaiming PReLU
-    </a>
-    
     <span class="page-number"></span>
     
-    <a class="older-posts" href="/12/02/2019/chicken-comparisons/">
-        Next post<br>1 Kaiming Comparison with “Xavier’ Initialization
+    <a class="older-posts" href="/01/22/2020/9mixtape-1introduction/">
+        Next post<br>9 Mixtape - Introductions
     </a>
     
 </nav>
@@ -242,7 +232,7 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?56462589"></script>
+<script src="/js/journal.js?59293488"></script>
 
 
 
