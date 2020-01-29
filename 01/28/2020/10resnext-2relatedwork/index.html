@@ -4,11 +4,11 @@
 <html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>4 Finishing up Benchmarking - aPaperADay</title>
+    <title>10 ResNeXt - Related Work - aPaperADay</title>
 <meta charset="utf-8">
 <meta name="X-UA-Compatible" content="IE=edge">
 <meta name="author" content="Luke Thomas">
-<meta name="description" content="Finishing up the 90 page benchmarking results, nuanced results.">
+<meta name="description" content="The paper does a nice pass at related works used so that the reader can better understand the method they are about to outline.">
 <meta name="keywords" content="">
 
     <meta charset="utf-8">
@@ -18,7 +18,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?19996004">
+<link rel="stylesheet" href="/css/journal.css?86964507">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -168,10 +168,10 @@
             <div class="post-head-wrapper-text-only"
                  style="background-image: url('')">
                 <div class="post-title">
-                    4 Finishing up Benchmarking
+                    10 ResNeXt - Related Work
                     <div class="post-meta">
-                        <time datetime="2019-12-25T00:25:41.000Z" itemprop="datePublished">
-                            2019-12-24 16:25
+                        <time datetime="2020-01-29T06:15:23.000Z" itemprop="datePublished">
+                            2020-01-28 22:15
                         </time>&nbsp;
                         
     
@@ -179,7 +179,7 @@
                         
                         <i class="material-icons" style="">label</i>
                         
-                        <a href='/tags/Dissecting-the-Graphcore-IPU-Architecture-via-Microbenchmarking/'>Dissecting the Graphcore IPU Architecture via Microbenchmarking</a>
+                        <a href='/tags/ResNeXt/'>ResNeXt</a>
                         
                         
                     </div>
@@ -188,24 +188,21 @@
     
             <div class="post-body-wrapper">
                 <div class="post-body">
-                    <h1 id="Per-Section-Breakdown"><a href="#Per-Section-Breakdown" class="headerlink" title="Per Section Breakdown"></a>Per Section Breakdown</h1><h2 id="5-1-Matrix-Multiplication"><a href="#5-1-Matrix-Multiplication" class="headerlink" title="5.1 Matrix Multiplication"></a>5.1 Matrix Multiplication</h2><p>Matmul is a popular proxy for chip performance.  In single precision, IPU is clear winner, but in mixed precision, the comparison does not yield a clear winner.<br>Each major chip has specialized hardware to create speedups for the heavily used operations.  <em>Accumulating Matrix Product</em> (AMP) is the IPU hardware to accelerate matrix computations, similar to GPU’s TensorCore.</p>
-<p><img src="table51.png" alt=""></p>
-<h2 id="5-2-Convolution"><a href="#5-2-Convolution" class="headerlink" title="5.2 Convolution"></a>5.2 Convolution</h2><p>The convolution provides interesting discussion, exposing the IPUs preference for smaller batch sizes (due to memory limits) while at the same time, the GPU is limited because it doesn’t start to utilize resources efficiently until batch sizes reach 512+.  For instance, the ResNeXt architecture sees speedups of 700x due to lack of consideration for GPU efficiency.</p>
-<h2 id="5-3-PRNG"><a href="#5-3-PRNG" class="headerlink" title="5.3 PRNG"></a>5.3 PRNG</h2><p>The Pseudo-Random Number generation hardware (PRNG) is created on dedicated, in-core PRNG hardware yielding 4.9x more aggregate throughput than the V100, it generates lower quality of randomness in comparison.</p>
+                    <h2 id="Related-Work"><a href="#Related-Work" class="headerlink" title="Related Work"></a>Related Work</h2><p>This section is a huge benefit to me as it outlines some previous knowledge that I need in order to navigate their methodology.</p>
+<p><strong>Multi-Branch Convolutional Networks</strong> The Inception network is based on creating functional multi-branch architecture.  ResNets can be viewed as 2-branch networks where one of the branches is the identity function.  Finally they note decision forests are a multi-branch network of split learned function shaped as a tree.</p>
+<p><strong>Grouped Convolutions</strong> Date back to AlexNet at least.  The original motivation was to split the large model across multiple GPUs; however, this was functional, and probably not meant as a technique for increasing accuracy.  A special case of grouped convolutions is channel-wise convolutions.  That is, the number of groups is the same as channels.</p>
+<p><strong>Compressing convolution networks</strong> Decomposition, which is a technique used to reduce the redundancy of deep NN graphs, is a long time technique for compressing complexity. Though decomposition is typically used to compress the convolutional network, here the paper uses it for increasing representational power.</p>
+<p><strong>Ensembling</strong> is another common technique to improve accuracy by training independent models and aggregating their outputs.  Some interpret ResNets as an ensemble of shallower networks, which results from ResNet’s additive behaviors.  Though this is partially true across the aggregate of transforms, they note that their model is trained jointly, so the ‘smaller networks’ are not trained independently.</p>
 
                 </div>
             </div>
     
             <nav class="post-pagination">
     
-    <a class="newer-posts" href="/12/25/2019/christmas/">
-        Previous post<br>Merry Christmas
-    </a>
-    
     <span class="page-number"></span>
     
-    <a class="older-posts" href="/12/21/2019/4dtcipu-6interconnect/">
-        Next post<br>4 Point to point BMs
+    <a class="older-posts" href="/01/27/2020/10resnext-1intro/">
+        Next post<br>10 ResNeXt - Introduction
     </a>
     
 </nav>
@@ -236,7 +233,7 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?36420832"></script>
+<script src="/js/journal.js?77777676"></script>
 
 
 
