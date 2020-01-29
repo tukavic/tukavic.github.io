@@ -4,11 +4,11 @@
 <html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>3 Graphcore Patent- Scheduler Control - aPaperADay</title>
+    <title>10 ResNeXt - Method - aPaperADay</title>
 <meta charset="utf-8">
 <meta name="X-UA-Compatible" content="IE=edge">
 <meta name="author" content="Luke Thomas">
-<meta name="description" content="While the scheduler controls workers as they work and exit, but additional complexities to exit can provide the programmer fundamental information.">
+<meta name="description" content="We look in depth at the repeatable template that fills the ResNeXt network.">
 <meta name="keywords" content="">
 
     <meta charset="utf-8">
@@ -18,7 +18,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?68771368">
+<link rel="stylesheet" href="/css/journal.css?97982623">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -168,10 +168,10 @@
             <div class="post-head-wrapper-text-only"
                  style="background-image: url('')">
                 <div class="post-title">
-                    3 Graphcore Patent- Scheduler Control
+                    10 ResNeXt - Method
                     <div class="post-meta">
-                        <time datetime="2019-12-14T16:38:20.000Z" itemprop="datePublished">
-                            2019-12-14 08:38
+                        <time datetime="2020-01-29T16:46:10.000Z" itemprop="datePublished">
+                            2020-01-29 08:46
                         </time>&nbsp;
                         
     
@@ -179,9 +179,7 @@
                         
                         <i class="material-icons" style="">label</i>
                         
-                        <a href='/tags/Graphcore/'>Graphcore</a>, 
-                        
-                        <a href='/tags/Patent/'>Patent</a>
+                        <a href='/tags/ResNeXt/'>ResNeXt</a>
                         
                         
                     </div>
@@ -190,24 +188,21 @@
     
             <div class="post-body-wrapper">
                 <div class="post-body">
-                    <h1 id="Scheduler-Control"><a href="#Scheduler-Control" class="headerlink" title="Scheduler Control"></a>Scheduler Control</h1><p>The scheduler is controlled by the two commands <code>EXIT</code> and <code>RUN</code>.  <code>EXIT</code> gives the worker’s time slot back to the supervisor. While the supervisor issues the <code>RUN</code> instruction to give the SLOT to a particular worker.  Some embodiments include a <code>RUNALL</code> which sets multiple workers in a single instruction.</p>
-<h2 id="The-complexities-of-Exit"><a href="#The-complexities-of-Exit" class="headerlink" title="The complexities of Exit"></a>The complexities of <code>Exit</code></h2><p>Embodiments can vary in the complexity of how a worker exits its timeslot.  This comes from the variety of potential amounts of information that one would want to receive from a workers process.  The proposal was essentially an aggregator, of either a single or multi bits.  The complexities include if ALL workers failed, if AT LEAST ONE worker failed, or if SOME MIX of workers failed.  </p>
-<p>The meaning of the bits is given to the programmer via the <code>EXIT</code> operands and the supervisors ‘EXIT STATUS REGISTER’.  Programmatically one could choose to exit failure with either 0 or 1, and then the ESR can be interpreted any number of ways.</p>
-<h2 id="Convergence"><a href="#Convergence" class="headerlink" title="Convergence"></a>Convergence</h2><p>The ESR can be used to have workers feedback convergence information.  In machine intelligence, often you want to manipulate a graph until some level of error or probability converges to a degree of <em>n</em> error.  For instance, workers could test for results less than or greater than <em>n</em> and <code>EXIT</code> accordingly.  Said results could be regions of error, degrees of confidence, etc.   </p>
+                    <h2 id="The-Template"><a href="#The-Template" class="headerlink" title="The Template"></a>The Template</h2><p>The ResNeXt Architecture pulls heavily from the VGG/ResNet style with repeatable blocks stacked to build the network.  The hyper-parameter selection process can be simplified to keep the same parameters for each block, or rather template.  This allows research to be performed on other variables, if the template provides a controlled environment.  Two simple rules are kept from VGG style: (i) blocks of the same size share the same width and filter sizes and (ii) computational complexity is roughly kept for each block.  Downsampling could reduce the amount of complexity to a block, so typically the width is scaled to maintain consistent flops per block.</p>
+<h2 id="Revisiting-Simple-Neurons"><a href="#Revisiting-Simple-Neurons" class="headerlink" title="Revisiting Simple Neurons"></a>Revisiting Simple Neurons</h2><p>Figure 2 shows the basics of a simple neuron, and it provides some insight into the power of the <em>split-merge-transform</em> strategy.  This paper proposes viewing the ResNeXt network as a “Network in Neuron”, where the template block follows <em>split-merge-transform</em>.</p>
+<p>In the simple neuron figure, you can see how the input <strong><em>x</em></strong> can be <em>split</em> into <em>D</em> separate lower dimensional values.  They are <em>merged</em> with the sum function at the bottom and in the case of the simple neuron, are <em>transformed</em> with a simple scalar <em>w</em>.  </p>
+<p><img src="fig2.png" alt=""></p>
+<h2 id="Casting-the-problem-into-Cardinality"><a href="#Casting-the-problem-into-Cardinality" class="headerlink" title="Casting the problem into Cardinality"></a>Casting the problem into Cardinality</h2><p>The paper uses the idea of the simple neuron as an split-merge-transform function which can be expanded into a greater context of the ResNeXt block.  The Cardinality is a measure of the set of transforms to be aggregated.  Like <em>D</em> in the above figure, the cardinality composes the amount of transforms used in each aggregating block.  This is the papers explanation of the “Next” dimension and they have shown by experiments that the cardinality can be more effective as a measure of an essential dimension.</p>
 
                 </div>
             </div>
     
             <nav class="post-pagination">
     
-    <a class="newer-posts" href="/12/16/2019/4dtgcipu-first/">
-        Previous post<br>4 IPU Microbenchmarking intro
-    </a>
-    
     <span class="page-number"></span>
     
-    <a class="older-posts" href="/12/13/2019/gc-details/">
-        Next post<br>3 Graphcore Patent Details 1
+    <a class="older-posts" href="/01/28/2020/10resnext-2relatedwork/">
+        Next post<br>10 ResNeXt - Related Work
     </a>
     
 </nav>
@@ -238,7 +233,7 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?98669344"></script>
+<script src="/js/journal.js?99024672"></script>
 
 
 
