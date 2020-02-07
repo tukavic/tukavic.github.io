@@ -4,11 +4,11 @@
 <html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>Tags: Mixtape; Breaking the Softmax Bottleneck Efficiently - aPaperADay</title>
+    <title>12 Dropout - Motivations - aPaperADay</title>
 <meta charset="utf-8">
 <meta name="X-UA-Compatible" content="IE=edge">
 <meta name="author" content="Luke Thomas">
-<meta name="description" content="A Blog Powered By Hexo">
+<meta name="description" content="Dropout pulls its intuitions from Biology, particularly the reality that most complex organisms optimize in gene sharing.">
 <meta name="keywords" content="">
 
     <meta charset="utf-8">
@@ -18,7 +18,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?12747460">
+<link rel="stylesheet" href="/css/journal.css?69197168">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -157,91 +157,65 @@
         </a>
 
         
-        
-
-        
-
-        
-        
     </div>
 </div>
 
+
+
 <div ref="streamContainer" class="stream-container">
     <div class="post-list-container post-list-container-shadow">
-        <div class="post-item-wrapper post-item-wrapper-no-hover">
-            <div class="post-item post-item-no-gaps">
-                <div class="post-item-info-wrapper">
-                    <div class="post-item-title  post-item-title-small">
-                        <a href="/tags/">Tags</a> / Mixtape; Breaking the Softmax Bottleneck Efficiently
+        <div class="post">
+            <div class="post-head-wrapper-text-only"
+                 style="background-image: url('')">
+                <div class="post-title">
+                    12 Dropout - Motivations
+                    <div class="post-meta">
+                        <time datetime="2020-02-07T14:48:45.000Z" itemprop="datePublished">
+                            2020-02-07 06:48
+                        </time>&nbsp;
+                        
+    
+                        
+                        
+                        <i class="material-icons" style="">label</i>
+                        
+                        <a href='/tags/Dropout/'>Dropout</a>
+                        
+                        
                     </div>
                 </div>
             </div>
+    
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <p>In Biology, both sexual and asexual reproduction are valid ways of creating organisms.  However, all of the most complicated organisms utilize sexual reproduction.  The reason believed for this is the inclination to favor genes who are able to operate with other genes, as opposed to co-adapted genes.  Essentially, it appears the gene mechanism was optimized to favor robustness in genes.  </p>
+<p>Neural networks find many intuitions from natural biology, because firstly they were inspired by them, but also because we have a wealth of experience with them, while at the same time not yet being able to fully comprehend these complex realities.  I think it is good to try to tie these complex ideas onto something we have studied relatively deeper.  </p>
+<p>Dropout works by forcing the hidden units of the network to be more robust in themselves.  Dropout prevents a large co-adaption of the network, which reduces specialization and increases generality.  It was found that a dropout probability of 0.5 is used, which is interesting given the idea that gene sharing takes half from each parent.  Much of the original gene doesn’t directly contribute to the next.</p>
+<h3 id="Related-work"><a href="#Related-work" class="headerlink" title="Related work"></a>Related work</h3><p>Previous work from the context of Denoising Autoencoders (DAE), shows that adding noise to the inputs can produce a stronger network.</p>
+<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>The specifics of dropout are pretty simple.  Build a randomly populated binary vector <strong>r</strong> and logically AND it with previous output layers <strong>y</strong> such that the zeros in <strong>r</strong> will zero out the outputs in <strong>y</strong>.  <em>z</em> is generated with normal w<em>x + b activations using thinned *</em>y**.</p>
+<p><img src="eq1.png" alt=""></p>
+<p>Below you can see a graphic representation where <strong>r</strong> gates the <strong>y</strong> outputs.</p>
+<p><img src="fig3.png" alt=""></p>
+
+                </div>
+            </div>
+    
+            <nav class="post-pagination">
+    
+    <span class="page-number"></span>
+    
+    <a class="older-posts" href="/02/06/2020/12dropout-1intro/">
+        Next post<br>12 Dropout - Introductions
+    </a>
+    
+</nav>
+
+    
+            
+
+
         </div>
-        
-        <a href="/01/25/2020/9mixtape-4conclusions/" class="a-block">
-            <div class="post-item-wrapper">
-                <div class="post-item post-item-no-gaps">
-                    <div class="post-item-info-wrapper">
-                        <div class="post-item-title">
-                            9 Mixtape - Conclusions
-                        </div>
-                        <div class="post-item-meta">
-                            2020-01-25
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-        
-        <a href="/01/24/2020/9mixtape-3vectorspacelogitgate/" class="a-block">
-            <div class="post-item-wrapper">
-                <div class="post-item post-item-no-gaps">
-                    <div class="post-item-info-wrapper">
-                        <div class="post-item-title">
-                            9 Mixtape - Vector Space Logit Gating
-                        </div>
-                        <div class="post-item-meta">
-                            2020-01-24
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-        
-        <a href="/01/23/2020/9mixtape-2smbottleneck/" class="a-block">
-            <div class="post-item-wrapper">
-                <div class="post-item post-item-no-gaps">
-                    <div class="post-item-info-wrapper">
-                        <div class="post-item-title">
-                            9 Mixtape - Softmax Bottleneck
-                        </div>
-                        <div class="post-item-meta">
-                            2020-01-23
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-        
-        <a href="/01/22/2020/9mixtape-1introduction/" class="a-block">
-            <div class="post-item-wrapper">
-                <div class="post-item post-item-no-gaps">
-                    <div class="post-item-info-wrapper">
-                        <div class="post-item-title">
-                            9 Mixtape - Introductions
-                        </div>
-                        <div class="post-item-meta">
-                            2020-01-22
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-        
-
-        
     </div>
-
     <div class="single-column-footer">
     Proudly published with Hexo<br>
     
@@ -262,7 +236,9 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?57180958"></script>
+<script src="/js/journal.js?6615195"></script>
+
+
 
 </body>
 </html>
