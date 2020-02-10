@@ -18,7 +18,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?85604094">
+<link rel="stylesheet" href="/css/journal.css?87277726">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -188,18 +188,20 @@
     
             <div class="post-body-wrapper">
                 <div class="post-body">
-                    <h2 id="model-capacity">Model Capacity</h2>
-<p>One major contribution that this paper adds is the limiting of hyperparameter tuning, (and this is based on the template structure they have chosen) so that they can experiment with a subset of parameters, namely the difference in bottleneck width of ResNet vs. the Cardinality of ResNeXt. At the same time, by keeping all the residual blocks of similar parameter complexity, it is an apples to apples comparison if the improvement is a matter of better architecture or simply higher compute.</p>
-<p>This is seen in table 2: <img src="table2.png"></p>
-<h2 id="cardinality-vs.-width">Cardinality Vs. Width</h2>
+                    <h2 id="model-capacity"><a class="markdownIt-Anchor" href="#model-capacity"></a> Model Capacity</h2>
+<p>One major contribution that this paper adds is the limiting of hyperparameter tuning, (and this is based on the template structure they have chosen) so that they can experiment with a subset of parameters, namely the difference in bottleneck width of ResNet vs. the Cardinality of ResNeXt.  At the same time, by keeping all the residual blocks of similar parameter complexity, it is an apples to apples comparison if the improvement is a matter of better architecture or simply higher compute.</p>
+<p>This is seen in table 2:<br>
+<img src="table2.png" alt></p>
+<h2 id="cardinality-vs-width"><a class="markdownIt-Anchor" href="#cardinality-vs-width"></a> Cardinality Vs. Width</h2>
 <p>The experiments section focuses on the advantages of cardinality, in contrast to the typical width of the ResNet architect.</p>
-<p>Table 3 below shows the advantages to increasing cardinality <img src="table3.png"></p>
-<p>ResneXt reduces the baseline of ResNet from 23.9% and inceasing cardinality improves upon that baseline. Significantly, <em>ResNeXt has a much lower training error, indicating that the model is producing stronger representations</em>. This means its fundamentally capturing the semantics more strongly. I think this is the most key sentence in the paper, as it shows the benefit the ResNeXt offers.</p>
+<p>Table 3 below shows the advantages to increasing cardinality<br>
+<img src="table3.png" alt></p>
+<p>ResneXt reduces the baseline of ResNet from 23.9% and inceasing cardinality improves upon that baseline.  Significantly, <em>ResNeXt has a much lower training error, indicating that the model is producing stronger representations</em>.  This means its fundamentally capturing the semantics more strongly.  I think this is the most key sentence in the paper, as it shows the benefit the ResNeXt offers.</p>
 <p>ResNeXt was also shown to be less dependent on the residual connection as compared to ResNet.</p>
 <p>Finally tests on ImageNet 5k (which is a larger dataset with 5k output classes) show that the additional data still improves the model, showing the stronger representation power of ResNeXt.</p>
-<p><img src="table6.png"></p>
-<h2 id="conclusion">Conclusion</h2>
-<p>It seems to me that the ResNeXt architecture is an excellent alternative to the ResNet working with similar complexity and providing some 1-2% benefits over ResNet. This advantage stems from the apparent <strong>stronger representation power</strong> over the typical ResNet.</p>
+<p><img src="table6.png" alt></p>
+<h2 id="conclusion"><a class="markdownIt-Anchor" href="#conclusion"></a> Conclusion</h2>
+<p>It seems to me that the ResNeXt architecture is an excellent alternative to the ResNet working with similar complexity and providing some 1-2% benefits over ResNet.  This advantage stems from the apparent <strong>stronger representation power</strong> over the typical ResNet.</p>
 
                 </div>
             </div>
@@ -244,7 +246,7 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?52807551"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/js/journal.js?39688398"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 

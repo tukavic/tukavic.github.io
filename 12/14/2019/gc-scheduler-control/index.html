@@ -18,7 +18,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?9681204">
+<link rel="stylesheet" href="/css/journal.css?90231762">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -190,13 +190,13 @@
     
             <div class="post-body-wrapper">
                 <div class="post-body">
-                    <h1 id="scheduler-control">Scheduler Control</h1>
-<p>The scheduler is controlled by the two commands <code>EXIT</code> and <code>RUN</code>. <code>EXIT</code> gives the worker&apos;s time slot back to the supervisor. While the supervisor issues the <code>RUN</code> instruction to give the SLOT to a particular worker. Some embodiments include a <code>RUNALL</code> which sets multiple workers in a single instruction.</p>
-<h2 id="the-complexities-of-exit">The complexities of <code>Exit</code></h2>
-<p>Embodiments can vary in the complexity of how a worker exits its timeslot. This comes from the variety of potential amounts of information that one would want to receive from a workers process. The proposal was essentially an aggregator, of either a single or multi bits. The complexities include if ALL workers failed, if AT LEAST ONE worker failed, or if SOME MIX of workers failed.</p>
-<p>The meaning of the bits is given to the programmer via the <code>EXIT</code> operands and the supervisors &apos;EXIT STATUS REGISTER&apos;. Programmatically one could choose to exit failure with either 0 or 1, and then the ESR can be interpreted any number of ways.</p>
-<h2 id="convergence">Convergence</h2>
-<p>The ESR can be used to have workers feedback convergence information. In machine intelligence, often you want to manipulate a graph until some level of error or probability converges to a degree of <em>n</em> error. For instance, workers could test for results less than or greater than <em>n</em> and <code>EXIT</code> accordingly. Said results could be regions of error, degrees of confidence, etc.</p>
+                    <h1 id="scheduler-control"><a class="markdownIt-Anchor" href="#scheduler-control"></a> Scheduler Control</h1>
+<p>The scheduler is controlled by the two commands <code>EXIT</code> and <code>RUN</code>.  <code>EXIT</code> gives the worker&#x2019;s time slot back to the supervisor. While the supervisor issues the <code>RUN</code> instruction to give the SLOT to a particular worker.  Some embodiments include a <code>RUNALL</code> which sets multiple workers in a single instruction.</p>
+<h2 id="the-complexities-of-exit"><a class="markdownIt-Anchor" href="#the-complexities-of-exit"></a> The complexities of <code>Exit</code></h2>
+<p>Embodiments can vary in the complexity of how a worker exits its timeslot.  This comes from the variety of potential amounts of information that one would want to receive from a workers process.  The proposal was essentially an aggregator, of either a single or multi bits.  The complexities include if ALL workers failed, if AT LEAST ONE worker failed, or if SOME MIX of workers failed.</p>
+<p>The meaning of the bits is given to the programmer via the <code>EXIT</code> operands and the supervisors &#x2018;EXIT STATUS REGISTER&#x2019;.  Programmatically one could choose to exit failure with either 0 or 1, and then the ESR can be interpreted any number of ways.</p>
+<h2 id="convergence"><a class="markdownIt-Anchor" href="#convergence"></a> Convergence</h2>
+<p>The ESR can be used to have workers feedback convergence information.  In machine intelligence, often you want to manipulate a graph until some level of error or probability converges to a degree of <em>n</em> error.  For instance, workers could test for results less than or greater than <em>n</em> and <code>EXIT</code> accordingly.  Said results could be regions of error, degrees of confidence, etc.</p>
 
                 </div>
             </div>
@@ -241,7 +241,7 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?82501028"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/js/journal.js?43090239"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 

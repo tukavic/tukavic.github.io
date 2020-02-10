@@ -18,7 +18,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?65206283">
+<link rel="stylesheet" href="/css/journal.css?50924204">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -190,14 +190,20 @@
     
             <div class="post-body-wrapper">
                 <div class="post-body">
-                    <h1 id="key-takeaways">Key takeaways</h1>
-<p>A neural network is a matrix multiplication machine. If you continue to multiply numbers over and over, three things can happen.<br>
-1. You can explode the results, such that the outputs are so large there is nothing to them. 2. You can squeeze the results such that the outputs are so small as being indiscriminate, or 3. You can produce steady numbers through many mulitiplications.</p>
+                    <h1 id="key-takeaways"><a class="markdownIt-Anchor" href="#key-takeaways"></a> Key takeaways</h1>
+<p>A neural network is a matrix multiplication machine.  If you continue to multiply numbers over and over, three things can happen.</p>
+<ol>
+<li>You can explode the results, such that the outputs are so large there is nothing to them.</li>
+<li>You can squeeze the results such that the outputs are so small as being indiscriminate, or</li>
+<li>You can produce steady numbers through many mulitiplications.</li>
+</ol>
 <blockquote>
-<p>The key takeaway from &quot;Delving Deep into Rectifies&quot; is you initiate your model to survive many multiplications of random numbers until the true information starts to propagate to the weights.</p>
+<p>The key takeaway from &#x201C;Delving Deep into Rectifies&#x201D; is you initiate your model to survive many multiplications of random numbers until the true information starts to propagate to the weights.</p>
 </blockquote>
-<p>The most impactful equation is (9) <img src="var.png"> They state: <em>This product [(9)] is the key to the initialization design. A proper initialization method should avoid reducing or magnifying the magnitudes of input signals exponentially.</em></p>
-<p>Thus, if you take a normal random distribution, by multiply your initialized values by SQRT(2/nl) where nl is the number of nodes in the layer, it allows your initialized weights to take on what I like to think of as the right heaviness. Since the weights are random, they are not encoding any useful information, but by being initialized correctly, they are setup to survive many multiplications until the algorithm has had a chance to tune those weights.</p>
+<p>The most impactful equation is (9)<br>
+<img src="var.png" alt><br>
+They state: <em>This product [(9)] is the key to the initialization design. A proper initialization method should avoid reducing or magnifying the magnitudes of input signals exponentially.</em></p>
+<p>Thus, if you take a normal random distribution, by multiply your initialized values by SQRT(2/nl) where nl is the number of nodes in the layer, it allows your initialized weights to take on what I like to think of as the right heaviness.  Since the weights are random, they are not encoding any useful information, but by being initialized correctly, they are setup to survive many multiplications until the algorithm has had a chance to tune those weights.</p>
 
                 </div>
             </div>
@@ -242,7 +248,7 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?83699939"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/js/journal.js?9935200"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 

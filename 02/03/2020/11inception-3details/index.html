@@ -18,7 +18,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?80114837">
+<link rel="stylesheet" href="/css/journal.css?35664581">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -188,10 +188,10 @@
     
             <div class="post-body-wrapper">
                 <div class="post-body">
-                    <h2 id="dense-sparsity">Dense Sparsity</h2>
-<p>The main idea of Inception is creating a method for obtaining a level of sparsity within the functional blocks of dense matrices. As mentioned before, this is motivated by the current hardwares affinity to dense matrices. Thus the goal is to find the optimal local block which can be used in a dense configuration and repeat it spatially.</p>
-<p>As suggested by Arora et al. in [2] they suggest a layer by layer construction based on correlation statistics from the output of the layers. These &quot;Inception&quot; modules are stacked on top of each other. In order to avoid patch alignment issues, the current instance is limited to 1x1, 3x3, and 5x5 convolutions. A liberal use of 1x1 convolutions are used in order to reduce the complexity that would be incurred by the 5x5 convolutions. The paper states that even a modest amount of 5x5 convolutions can be prohibitively expensive. You can see in figure 2 how they used 1x1 convolutions to reduce the dimensions in hopes of capturing the most amount of information in the lowest dimension embedding. The 1x1 convolutions are dual purpose as they also include the ReLu nonlinearity.</p>
-<p><img src="fig2.png"></p>
+                    <h2 id="dense-sparsity"><a class="markdownIt-Anchor" href="#dense-sparsity"></a> Dense Sparsity</h2>
+<p>The main idea of Inception is creating a method for obtaining a level of sparsity within the functional blocks of dense matrices.  As mentioned before, this is motivated by the current hardwares affinity to dense matrices.  Thus the goal is to find the optimal local block which can be used in a dense configuration and repeat it spatially.</p>
+<p>As suggested by Arora et al. in [2] they suggest a layer by layer construction based on correlation statistics from the output of the layers.  These &#x201C;Inception&#x201D; modules are stacked on top of each other.  In order to avoid patch alignment issues, the current instance is limited to 1x1, 3x3, and 5x5 convolutions.  A liberal use of 1x1 convolutions are used in order to reduce the complexity that would be incurred by the 5x5 convolutions.  The paper states that even a modest amount of 5x5 convolutions can be prohibitively expensive.  You can see in figure 2 how they used 1x1 convolutions to reduce the dimensions in hopes of capturing the most amount of information in the lowest dimension embedding.  The 1x1 convolutions are dual purpose as they also include the ReLu nonlinearity.</p>
+<p><img src="fig2.png" alt></p>
 <p>Inception networks are typically built with the module above, and it was found to be better to only use inception models at the higher layers, while lower layers remain standard convolution.</p>
 <p>The main benefits of inception is the ability to create larger networks with computationally realistic budgets, but the drawback is the manual construction which is needed in order to make that happen.</p>
 <p>[2] Sanjeev Arora, Aditya Bhaskara, Rong Ge, and Tengyu Ma. Provable bounds for learning some deep representations. CoRR, abs/1310.6343, 2013.</p>
@@ -239,7 +239,7 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?38815228"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/js/journal.js?22914471"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 

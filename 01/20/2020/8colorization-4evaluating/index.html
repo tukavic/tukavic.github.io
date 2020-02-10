@@ -18,7 +18,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?37126581">
+<link rel="stylesheet" href="/css/journal.css?76795755">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -188,15 +188,15 @@
     
             <div class="post-body-wrapper">
                 <div class="post-body">
-                    <h3 id="evaluating-quality">Evaluating Quality</h3>
-<p>How would you go about proposing a way to determine how quality an algorithm is if its is based on plausibility? The authors propose a subjective technique using Amazon&apos;s Mechanical Turk (AMT), as well as quantitive results.</p>
-<h3 id="perceptual-realism">1. Perceptual Realism</h3>
-<p>By using AMT, they setup an experiment for each of the algorithms tested to source the subjective predictions of 40 human individuals to attempt to classify which image was falsely colorized. If the same colorization was used for both images, you would expect the human classifier to be wrong 50% of the time; interestingly, there are some sets of photos that either have white balance issues, or odd colors, where the humans prefer the false colorization over the real images colors. Figure 6 gives examples of which pictures caused the human graders to be fooled more often or not.</p>
-<p><img src="fig6.png"></p>
-<h3 id="semantic-interpretability">2. Semantic Interpretability</h3>
-<p>Semantic Interpretability is just a confusing way of asking a ML model trained on ImageNet of picture with real colors how well a falsely colorized picture still holds pertinent information. For instance, the experimenters used VGG, and found that with ground truth colors, the algorithm classified at 68.3%, while colorization schemes dropped that performance anywhere from 59% to 54%.</p>
-<h3 id="raw-accuracy-auc">3. Raw Accuracy (AuC)</h3>
-<p>They computed raw prediction accuracy as a by-metric. This is not the perfect metric because their aim was a plausibility, not reaching ground truth. They use this method to show the influence of desaturated values on raw performance, by re-balancing the pixel values due to rarity, and found their algorithm produces state of art results.</p>
+                    <h3 id="evaluating-quality"><a class="markdownIt-Anchor" href="#evaluating-quality"></a> Evaluating Quality</h3>
+<p>How would you go about proposing a way to determine how quality an algorithm is if its is based on plausibility?  The authors propose a subjective technique using Amazon&#x2019;s Mechanical Turk (AMT), as well as quantitive results.</p>
+<h3 id="1-perceptual-realism"><a class="markdownIt-Anchor" href="#1-perceptual-realism"></a> 1. Perceptual Realism</h3>
+<p>By using AMT, they setup an experiment for each of the algorithms tested to source the subjective predictions of 40 human individuals to attempt to classify which image was falsely colorized.  If the same colorization was used for both images, you would expect the human classifier to be wrong 50% of the time; interestingly, there are some sets of photos that either have white balance issues, or odd colors, where the humans prefer the false colorization over the real images colors.  Figure 6 gives examples of which pictures caused the human graders to be fooled more often or not.</p>
+<p><img src="fig6.png" alt></p>
+<h3 id="2-semantic-interpretability"><a class="markdownIt-Anchor" href="#2-semantic-interpretability"></a> 2. Semantic Interpretability</h3>
+<p>Semantic Interpretability is just a confusing way of asking a ML model trained on ImageNet of picture with real colors how well a falsely colorized picture still holds pertinent information.  For instance, the experimenters used VGG, and found that with ground truth colors, the algorithm classified at 68.3%, while colorization schemes dropped that performance anywhere from 59% to 54%.</p>
+<h3 id="3-raw-accuracy-auc"><a class="markdownIt-Anchor" href="#3-raw-accuracy-auc"></a> 3. Raw Accuracy (AuC)</h3>
+<p>They computed raw prediction accuracy as a by-metric.  This is not the perfect metric because their aim was a plausibility, not reaching ground truth.  They use this method to show the influence of desaturated values on raw performance, by re-balancing the pixel values due to rarity, and found their algorithm produces state of art results.</p>
 
                 </div>
             </div>
@@ -241,7 +241,7 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?83685775"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/js/journal.js?32174165"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
