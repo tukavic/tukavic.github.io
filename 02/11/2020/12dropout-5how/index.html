@@ -4,11 +4,11 @@
 <html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 
 <head>
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><title>10 ResNeXt - Related Work - aPaperADay</title>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><title>12 Dropout - Affects, the big HOW - aPaperADay</title>
 <meta charset="utf-8">
 <meta name="X-UA-Compatible" content="IE=edge">
 <meta name="author" content="Luke Thomas">
-<meta name="description" content="The paper does a nice pass at related works used so that the reader can better understand the method they are about to outline.">
+<meta name="description" content="This section will analyze how dropout affects the NN its augments.">
 <meta name="keywords" content="">
 
     <meta charset="utf-8">
@@ -18,7 +18,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?41030738">
+<link rel="stylesheet" href="/css/journal.css?2599137">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -168,10 +168,10 @@
             <div class="post-head-wrapper-text-only"
                  style="background-image: url('')">
                 <div class="post-title">
-                    10 ResNeXt - Related Work
+                    12 Dropout - Affects, the big HOW
                     <div class="post-meta">
-                        <time datetime="2020-01-29T06:15:23.000Z" itemprop="datePublished">
-                            2020-01-28 22:15
+                        <time datetime="2020-02-11T21:27:01.000Z" itemprop="datePublished">
+                            2020-02-11 13:27
                         </time>&nbsp;
                         
     
@@ -179,7 +179,7 @@
                         
                         <i class="material-icons" style="">label</i>
                         
-                        <a href='/tags/ResNeXt/'>ResNeXt</a>
+                        <a href='/tags/tag/'>tag</a>
                         
                         
                     </div>
@@ -188,26 +188,34 @@
     
             <div class="post-body-wrapper">
                 <div class="post-body">
-                    <h2 id="related-work"><a class="markdownIt-Anchor" href="#related-work"></a> Related Work</h2>
-<p>This section is a huge benefit to me as it outlines some previous knowledge that I need in order to navigate their methodology.</p>
-<p><strong>Multi-Branch Convolutional Networks</strong> The Inception network is based on creating functional multi-branch architecture.  ResNets can be viewed as 2-branch networks where one of the branches is the identity function.  Finally they note decision forests are a multi-branch network of split learned function shaped as a tree.</p>
-<p><strong>Grouped Convolutions</strong> Date back to AlexNet at least.  The original motivation was to split the large model across multiple GPUs; however, this was functional, and probably not meant as a technique for increasing accuracy.  A special case of grouped convolutions is channel-wise convolutions.  That is, the number of groups is the same as channels.</p>
-<p><strong>Compressing convolution networks</strong> Decomposition, which is a technique used to reduce the redundancy of deep NN graphs, is a long time technique for compressing complexity. Though decomposition is typically used to compress the convolutional network, here the paper uses it for increasing representational power.</p>
-<p><strong>Ensembling</strong> is another common technique to improve accuracy by training independent models and aggregating their outputs.  Some interpret ResNets as an ensemble of shallower networks, which results from ResNet&#x2019;s additive behaviors.  Though this is partially true across the aggregate of transforms, they note that their model is trained jointly, so the &#x2018;smaller networks&#x2019; are not trained independently.</p>
+                    <p>We&#x2019;ll analyze these three effects:</p>
+<ul>
+<li>quality of features</li>
+<li>sparsity of hidden units</li>
+<li>effect of hyperparameters</li>
+</ul>
+<h3 id="quality-of-features"><a class="markdownIt-Anchor" href="#quality-of-features"></a> Quality of features</h3>
+<p><img src="fig7.png" alt></p>
+<p>This is really quite amazing.  Fig7 shows hidden units of a autoencoder trained to reconstruct MNIST images.  The without dropout network clearly has learned co-adaptions while dropout has forced hidden units of the dropout network to be more robust to other inputs, and it appears clear the units for the dropout networks are much more productive.</p>
+<h3 id="sparsity-of-hidden-units"><a class="markdownIt-Anchor" href="#sparsity-of-hidden-units"></a> Sparsity of hidden units</h3>
+<p><img src="fig8.png" alt></p>
+<p>The dropout technique has generated sparsity in the activations without explicitly regularizing for it.  From the paper, &#x2018;In a good sparse model, there should only be a few highly activated units for any data case. Moreover, the average activation of any unit across data cases should be low.&#x2019;  The mean activation in the dropout network is .7 compared to the mean activation of 2 in the network not using dropout.</p>
+<h3 id="effects-of-hyperparameters"><a class="markdownIt-Anchor" href="#effects-of-hyperparameters"></a> Effects of hyperparameters</h3>
+<p>Dropout has a tunable parameter <em>p</em>, which is the probability of each dropout unit being utilized in a given minibatch.</p>
+<p>Figure 9 looks at the response of the MNIST autoencoder network to two cases.  <em>n</em> is the number of hidden units in a particular layer, <em>p</em> is the dropout probability.  The experiment shows the lowest test error when the product of probability and number of layers is fixed when <em>p</em> = 0.6.  Though they mention that generically the <em>p</em> = 0.5 is the value they typically use.</p>
+<p><img src="fig9.png" alt></p>
+<p>Additionally, the effect of dataset size yields a point where dropout starts to add beneficial results once a dataset reaches a certain size (presumably where overfitting starts to become problematic).</p>
+<p>finally they look at the expensive but more accurate way of scaling down the weights by using Monte Carlo analysis.  Turns out that their proposed solution is within one standard deviation from the true Monte Carlo estimation, however, the Monte Carlo must run more than 50 times to begin to match the approximate weight scaling proposed by the paper.</p>
 
                 </div>
             </div>
     
             <nav class="post-pagination">
     
-    <a class="newer-posts" href="/01/29/2020/10resnext-3method/">
-        Previous post<br>10 ResNeXt - Method
-    </a>
-    
     <span class="page-number"></span>
     
-    <a class="older-posts" href="/01/27/2020/10resnext-1intro/">
-        Next post<br>10 ResNeXt - Introduction
+    <a class="older-posts" href="/02/10/2020/12dropout-4experiments/">
+        Next post<br>12 Dropout - Results on Datasets
     </a>
     
 </nav>
@@ -238,7 +246,7 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?8677870"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/js/journal.js?67310985"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
