@@ -4,11 +4,11 @@
 <html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 
 <head>
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><title>4 IPU Microbenchmarking Subsystems - aPaperADay</title>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><title>12 Dropout - applied to RBMs - aPaperADay</title>
 <meta charset="utf-8">
 <meta name="X-UA-Compatible" content="IE=edge">
 <meta name="author" content="Luke Thomas">
-<meta name="description" content="A deeper look at each subsystem is reviewed to show some impressive numbers.">
+<meta name="description" content="Restricted Boltzmann machines can also benefit from the use of dropout.">
 <meta name="keywords" content="">
 
     <meta charset="utf-8">
@@ -18,7 +18,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?41707845">
+<link rel="stylesheet" href="/css/journal.css?94875386">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -52,7 +52,7 @@
 <noscript>
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Lora|Montserrat|Anonymous+Pro:400|Material+Icons"/>
-</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</noscript><!-- hexo-inject:begin --><link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css'><!-- hexo-inject:end -->
 </head>
 <body>
 <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="top"></div>
@@ -168,10 +168,10 @@
             <div class="post-head-wrapper-text-only"
                  style="background-image: url('')">
                 <div class="post-title">
-                    4 IPU Microbenchmarking Subsystems
+                    12 Dropout - applied to RBMs
                     <div class="post-meta">
-                        <time datetime="2019-12-17T15:34:11.000Z" itemprop="datePublished">
-                            2019-12-17 07:34
+                        <time datetime="2020-02-13T05:07:19.000Z" itemprop="datePublished">
+                            2020-02-12 21:07
                         </time>&nbsp;
                         
     
@@ -179,7 +179,7 @@
                         
                         <i class="material-icons" style="">label</i>
                         
-                        <a href='/tags/Dissecting-the-Graphcore-IPU-Architecture-via-Microbenchmarking/'>Dissecting the Graphcore IPU Architecture via Microbenchmarking</a>
+                        <a href='/tags/tag/'>tag</a>
                         
                         
                     </div>
@@ -188,30 +188,21 @@
     
             <div class="post-body-wrapper">
                 <div class="post-body">
-                    <h1 id="arithmetic-throughput"><a class="markdownIt-Anchor" href="#arithmetic-throughput"></a> Arithmetic Throughput</h1>
-<p>The amount of data that can be crunched is impressive in the IPU at 31.1 TFlops/s in single precision and 124.5 TFlops/s in mixed precision.</p>
-<p>A key to this speed is the <em>Accumulating Matrix Product</em> (AMP).  The paper didn&#x2019;t go into much detail on it; aside from stating that it accelerates Matmul and Convs.</p>
-<p>Actual arithmetic performance depends heavily on the actual workload used, so microbenchmarks should be taken with a grain of salt.</p>
-<h1 id="memory-architecture"><a class="markdownIt-Anchor" href="#memory-architecture"></a> Memory Architecture</h1>
-<p>the nominal aggregate bandwidth for the entire IPU memory is 45 TB/s, with a latency of 6 clock cycles.  I think that reveals why there are 6 threads to each tile.  It gives you the least complexity while hiding the maximum amount of latency.</p>
-<p>The cumulated memory on IPU is 304 MiB and typically sufficient for contemporary ML applications.  If you need more memory, the interconnect architecture future proofs the IPU.</p>
-<h1 id="interconnect-architecture"><a class="markdownIt-Anchor" href="#interconnect-architecture"></a> Interconnect Architecture</h1>
-<p>Per IPU board there are two IPUs giving 608MiB, but with native inter chip communication, the programmer can effectively expand their entire on chip memory as they expand compute.  This provides two main benefits: <strong>performance</strong> and <strong>programmability</strong>.<br>
-Performance is attributed to the linear scaling of the power as you scale IPUs, while programmability comes from the nice abstraction layer from the programmer that does not need to add extra effort to increase the amount of resources that can be used by the hardware.</p>
+                    <p>The dropout unit is applied very similarly to RBMs as standard neural networks.  There is a vector of binary random variables <strong>r</strong> which augments the original RBM. Each random variable <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><mo>&#x2282;</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">r\sub{j}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&#x2282;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05724em;">j</span></span></span></span></span> takes a 1 or 0 per probability <em>p</em>.</p>
+<p>Figure 12 shows effect on hidden units.</p>
+<p><img src="fig12.png" alt></p>
+<p>Dropout appears to reduce co-adaptations in RBMs resulting in better generalization.  It has a positive effect on sparsity as well.</p>
+<p>I&#x2019;m less familiar with RBMs so I can&#x2019;t conclude why this section was included in the paper except to show that dropout extends its usefulness beyond standard neural nets.</p>
 
                 </div>
             </div>
     
             <nav class="post-pagination">
     
-    <a class="newer-posts" href="/12/18/2019/4dtgcipu-third/">
-        Previous post<br>4 IPU BSP
-    </a>
-    
     <span class="page-number"></span>
     
-    <a class="older-posts" href="/12/16/2019/4dtgcipu-first/">
-        Next post<br>4 IPU Microbenchmarking intro
+    <a class="older-posts" href="/02/11/2020/12dropout-5how/">
+        Next post<br>12 Dropout - Affects, the big HOW
     </a>
     
 </nav>
@@ -242,7 +233,7 @@ Performance is attributed to the linear scaling of the power as you scale IPUs, 
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?20071477"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/js/journal.js?78627945"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
