@@ -4,11 +4,11 @@
 <html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 
 <head>
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><title>8 Colorization - Evaluation - aPaperADay</title>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><title>13 Fastai - Applications - aPaperADay</title>
 <meta charset="utf-8">
 <meta name="X-UA-Compatible" content="IE=edge">
 <meta name="author" content="Luke Thomas">
-<meta name="description" content="How do you evaluate if your colorization algorithm is plausible?">
+<meta name="description" content="This is a look at the primary applications Fastai is tuned to achieve.">
 <meta name="keywords" content="">
 
     <meta charset="utf-8">
@@ -18,7 +18,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?36129075">
+<link rel="stylesheet" href="/css/journal.css?91546794">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -168,10 +168,10 @@
             <div class="post-head-wrapper-text-only"
                  style="background-image: url('')">
                 <div class="post-title">
-                    8 Colorization - Evaluation
+                    13 Fastai - Applications
                     <div class="post-meta">
-                        <time datetime="2020-01-21T06:47:54.000Z" itemprop="datePublished">
-                            2020-01-20 22:47
+                        <time datetime="2020-02-26T05:54:26.000Z" itemprop="datePublished">
+                            2020-02-25 21:54
                         </time>&nbsp;
                         
     
@@ -179,7 +179,7 @@
                         
                         <i class="material-icons" style="">label</i>
                         
-                        <a href='/tags/Colorful-Image-Colorization/'>Colorful Image Colorization</a>
+                        <a href='/tags/fastai/'>fastai</a>
                         
                         
                     </div>
@@ -188,29 +188,28 @@
     
             <div class="post-body-wrapper">
                 <div class="post-body">
-                    <h3 id="evaluating-quality"><a class="markdownIt-Anchor" href="#evaluating-quality"></a> Evaluating Quality</h3>
-<p>How would you go about proposing a way to determine how quality an algorithm is if its is based on plausibility?  The authors propose a subjective technique using Amazon&#x2019;s Mechanical Turk (AMT), as well as quantitive results.</p>
-<h3 id="1-perceptual-realism"><a class="markdownIt-Anchor" href="#1-perceptual-realism"></a> 1. Perceptual Realism</h3>
-<p>By using AMT, they setup an experiment for each of the algorithms tested to source the subjective predictions of 40 human individuals to attempt to classify which image was falsely colorized.  If the same colorization was used for both images, you would expect the human classifier to be wrong 50% of the time; interestingly, there are some sets of photos that either have white balance issues, or odd colors, where the humans prefer the false colorization over the real images colors.  Figure 6 gives examples of which pictures caused the human graders to be fooled more often or not.</p>
-<p><img src="fig6.png" alt></p>
-<h3 id="2-semantic-interpretability"><a class="markdownIt-Anchor" href="#2-semantic-interpretability"></a> 2. Semantic Interpretability</h3>
-<p>Semantic Interpretability is just a confusing way of asking a ML model trained on ImageNet of picture with real colors how well a falsely colorized picture still holds pertinent information.  For instance, the experimenters used VGG, and found that with ground truth colors, the algorithm classified at 68.3%, while colorization schemes dropped that performance anywhere from 59% to 54%.</p>
-<h3 id="3-raw-accuracy-auc"><a class="markdownIt-Anchor" href="#3-raw-accuracy-auc"></a> 3. Raw Accuracy (AuC)</h3>
-<p>They computed raw prediction accuracy as a by-metric.  This is not the perfect metric because their aim was a plausibility, not reaching ground truth.  They use this method to show the influence of desaturated values on raw performance, by re-balancing the pixel values due to rarity, and found their algorithm produces state of art results.</p>
+                    <h1 id="applications"><a class="markdownIt-Anchor" href="#applications"></a> Applications</h1>
+<p>The library is sleek.  In 8 lines of code you can train a state of the art vision classifier on the Oxford IIT pets dataset.  The running thread through all the applications is the familiarity between very different datasets.  It all includes importing the library, pulling in the data, creating a learner, and training the model.  These steps are unsurprisingly similar between applications because deep learning is applicable to in variety of cases.</p>
+<p><strong>Abstractions</strong> Another key area to the Fastai library is abstractions it provides.  All models will share attributes, thus there is the <code>Learner</code> class for that.  All models must train, so there are a variety of function calls which can be used for that, ie <code>model.fit_one_cycle(4)</code></p>
+<p><strong>Best Practices</strong> A nice bonus to the library is the current best practices built into the library defaults.  Instead of expecting a user to have full knowledge of what the current best practices are, the model will default to generically proven values which yield generally good results.  This allows better models to be discovered faster, with less tuning on the code side.</p>
+<p>The applications provided by the library are as follows:</p>
+<ol>
+<li>Vision</li>
+<li>Text</li>
+<li>Tabular</li>
+<li>Collaborative Filtering</li>
+</ol>
+<p>Each follows a similar code structure and allow the engineer to use their own data to get excellent results quickly on a number of application areas, as well as encouraging engineers to tinker in sundry applications.</p>
 
                 </div>
             </div>
     
             <nav class="post-pagination">
     
-    <a class="newer-posts" href="/01/21/2020/8colorization-5conclusion/">
-        Previous post<br>8 Colorization - Conclusion
-    </a>
-    
     <span class="page-number"></span>
     
-    <a class="older-posts" href="/01/18/2020/8colorization-3Hfunction/">
-        Next post<br>8 Colorization - H function
+    <a class="older-posts" href="/02/24/2020/13fastai-1intro/">
+        Next post<br>13 Fastai - Introductions
     </a>
     
 </nav>
@@ -241,7 +240,7 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?53944368"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/js/journal.js?34681469"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
