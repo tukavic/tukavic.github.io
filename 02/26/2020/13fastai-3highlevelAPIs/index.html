@@ -4,11 +4,11 @@
 <html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 
 <head>
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><title>13 Fastai - Introductions - aPaperADay</title>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><title>13 Fastai - High Level APIs - aPaperADay</title>
 <meta charset="utf-8">
 <meta name="X-UA-Compatible" content="IE=edge">
 <meta name="author" content="Luke Thomas">
-<meta name="description" content="A first look at the version 2 of fastai release on arxiv">
+<meta name="description" content="The Fastai library is a well structured library, accessible from the highest level, while following the best software engineering practices.">
 <meta name="keywords" content="">
 
     <meta charset="utf-8">
@@ -18,7 +18,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?70761412">
+<link rel="stylesheet" href="/css/journal.css?67612548">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -165,13 +165,13 @@
 <div ref="streamContainer" class="stream-container">
     <div class="post-list-container post-list-container-shadow">
         <div class="post">
-            <div class="post-head-wrapper"
-                 style="background-image: url('/02/24/2020/13fastai-1intro/fig1.png')">
+            <div class="post-head-wrapper-text-only"
+                 style="background-image: url('')">
                 <div class="post-title">
-                    13 Fastai - Introductions
+                    13 Fastai - High Level APIs
                     <div class="post-meta">
-                        <time datetime="2020-02-25T03:44:27.000Z" itemprop="datePublished">
-                            2020-02-24 19:44
+                        <time datetime="2020-02-27T05:03:34.000Z" itemprop="datePublished">
+                            2020-02-26 21:03
                         </time>&nbsp;
                         
     
@@ -179,7 +179,7 @@
                         
                         <i class="material-icons" style="">label</i>
                         
-                        <a href='/tags/fastai/'>fastai</a>
+                        <a href='/tags/Fastai/'>Fastai</a>
                         
                         
                     </div>
@@ -188,28 +188,18 @@
     
             <div class="post-body-wrapper">
                 <div class="post-body">
-                    <h2 id="fastai-a-layered-api-for-deep-learning"><a class="markdownIt-Anchor" href="#fastai-a-layered-api-for-deep-learning"></a> fastai: A Layered API for Deep Learning</h2>
-<p>The paper is longer than I want to spend reading in depth, so I will try to skim intelligently and spend about 5 days on this paper.  The abstract generally will call out the important points from the perspective of the authors, and from this abstract, it appears important the various levels of abstraction, the ease for new programmers, and the novel 2-way callback system.</p>
-<p><strong>Design Goals</strong> approachable and rapidly productive.  With the multi-tiered API format, the authors believe to have successfully met their design goals.  Two competitors to the library they call out as Keras and PyTorch which each have their own benefits in approachability and expressivity.</p>
-<p>Fig1 shows the layers of the API abstractions:</p>
-<p><img src="fig1.png" alt></p>
-<p>The authors explain each of the layers</p>
-<p><strong>High Level</strong> is made for beginners and practitioners who are using deep learning in applications where it has successfully been applied before.  Though it is able to derive state of the art results, its is going to be generally not surpassing the SOTA.  The high level abstraction is intelligent as it is able to detect the best loss function for instance.  The pros are this can be fairly good for getting good early results, but can lead to practitioners not understanding exactly what is going on with their models.</p>
-<p><strong>Mid Level</strong> provides the core of the deep learning methods. Built on previous optimized libraries, the underlying code is not hidden or protected from the user so they can dive in themselves and adjust code as needed.</p>
+                    <p>I started reading the book &#x201C;Pragmatic Programmer&#x201D; by David Thomas and Andrew Hunt today and they were outlining the fundamentals of programming that last the change in technology and trends.  One of those lasting practices is abstraction.  Good abstraction is very valuable, and that theme sings true in the fastai library.  Reading through the High Level API section, it is apparent that the abstraction layers are built into the library for the same reason that abstraction is powerful.</p>
+<p><strong>DRY</strong> That is, &#x201C;<strong>D</strong>on&#x2019;t <strong>R</strong>epeat <strong>Y</strong>ourself&#x201D;</p>
 
                 </div>
             </div>
     
             <nav class="post-pagination">
     
-    <a class="newer-posts" href="/02/25/2020/13fastai-2applications/">
-        Previous post<br>13 Fastai - Applications
-    </a>
-    
     <span class="page-number"></span>
     
-    <a class="older-posts" href="/02/18/2020/12dropout-7conclusions/">
-        Next post<br>12 Dropout - Conclusions
+    <a class="older-posts" href="/02/25/2020/13fastai-2applications/">
+        Next post<br>13 Fastai - Applications
     </a>
     
 </nav>
@@ -240,7 +230,7 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?1801025"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/js/journal.js?30881078"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
