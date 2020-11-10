@@ -4,11 +4,11 @@
 <html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 
 <head>
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><title>4 Local Memory BMs - aPaperADay</title>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><title>15 Attention review - aPaperADay</title>
 <meta charset="utf-8">
 <meta name="X-UA-Compatible" content="IE=edge">
 <meta name="author" content="Luke Thomas">
-<meta name="description" content="The latency and bandwidth are reviewed in ch 3.">
+<meta name="description" content="I look at the high level model architecture of the Transformer network from &#34;Attention Is All You Need&#34;">
 <meta name="keywords" content="">
 
     <meta charset="utf-8">
@@ -18,7 +18,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?17468151">
+<link rel="stylesheet" href="/css/journal.css?47706755">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -52,7 +52,7 @@
 <noscript>
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Lora|Montserrat|Anonymous+Pro:400|Material+Icons"/>
-</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</noscript><!-- hexo-inject:begin --><link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css'><!-- hexo-inject:end -->
 </head>
 <body>
 <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="top"></div>
@@ -165,13 +165,13 @@
 <div ref="streamContainer" class="stream-container">
     <div class="post-list-container post-list-container-shadow">
         <div class="post">
-            <div class="post-head-wrapper-text-only"
-                 style="background-image: url('')">
+            <div class="post-head-wrapper"
+                 style="background-image: url('https://www.apaperaday.com/11/10/2020/15attention-2modeloverview/fig1.png')">
                 <div class="post-title">
-                    4 Local Memory BMs
+                    15 Attention review
                     <div class="post-meta">
-                        <time datetime="2019-12-20T15:26:23.000Z" itemprop="datePublished">
-                            2019-12-20 07:26
+                        <time datetime="2020-11-10T05:12:36.000Z" itemprop="datePublished">
+                            2020-11-09 21:12
                         </time>&nbsp;
                         
     
@@ -179,7 +179,9 @@
                         
                         <i class="material-icons" style="">label</i>
                         
-                        <a href='/tags/Dissecting-the-Graphcore-IPU-Architecture-via-Microbenchmarking/'>Dissecting the Graphcore IPU Architecture via Microbenchmarking</a>
+                        <a href='/tags/NLP/'>NLP</a>, 
+                        
+                        <a href='/tags/Attention/'>Attention</a>
                         
                         
                     </div>
@@ -188,32 +190,27 @@
     
             <div class="post-body-wrapper">
                 <div class="post-body">
-                    <h1 id="latency"><a class="markdownIt-Anchor" href="#latency"></a> Latency</h1>
-<p>Latency is quite simple on local memory, which is a key advantage to the system.  All tiles reading a value from its local memory is 6 clock cycles regardless of loading and independent of other tiles.  This is consistent and explained by the Architecture.</p>
-<h1 id="bandwidth"><a class="markdownIt-Anchor" href="#bandwidth"></a> Bandwidth</h1>
-<h3 id="read-bandwidth"><a class="markdownIt-Anchor" href="#read-bandwidth"></a> Read Bandwidth</h3>
-<p>The theoretical bandwidth is 31.1 TB/s, which is the product of each tiles read of 16 bytes per clock, with CLK = 1.6GHz and the tile count of 1,216.</p>
-<p>Table 3.1 shows the best summary of results.  Its important to note that practical user bandwidth, programming without any optimization, should expect to see a quarter of the theoretical limit: 7.59GB/s.</p>
-<p><img src="table31.png" alt></p>
-<p>The size of block accessed also affect performance.  As a rule of thumb, any accesses greater than 8KB return &gt;95% of theoretical performance.</p>
-<p>Figure 3.1 shows this:</p>
-<p><img src="figure31.png" alt></p>
-<h3 id="write-bandwidth"><a class="markdownIt-Anchor" href="#write-bandwidth"></a> Write Bandwidth</h3>
-<p>Writing can achieve the full theoretical bandwidth.  Each tile is spec&#x2019;ed to write 8 bytes per clock cycle (half of read&#x2019;s 16 bytes/clk).  Thus 15.5 TB/s is the expected write bandwidth.</p>
+                    <h1 id="introduction"><a class="markdownIt-Anchor" href="#introduction"></a> Introduction</h1>
+<p>Recurrent Neural networks, LSTM&#x2019;s and GRU&#x2019;s have been typical model choices for the state of the art in sequence to sequence translation.  This paper proposes a using exclusively the attention mechanism that was previously played only a part in the greater network.  While retaining the classic encoder-decoder architecture, they leverage the attention mechanism to full effect.</p>
+<p>One immediate benefit of using exclusively attention is the alleviation of the sequential bottleneck inherent in the past recurrent network structure.</p>
+<h1 id="background"><a class="markdownIt-Anchor" href="#background"></a> Background</h1>
+<p>Many groups have worked towards reducing the sequential computation bottleneck, such as the Extended Neural GPU, ByteNet, and ConvS2S, all which use CNN&#x2019;s as their basic building block.  However, these methods of computing hidden representations in parallel all paid either a linear or logarithmic complexity to learn distant relationships between positions.  The transformer has reduced this cost to effectively linear.  There are some caveats being the loss of resolution in the averaging attention-weighted positions, which they counteract with Multi-Head Attention.</p>
+<p><strong>Self Attention</strong> or &#x2018;intra-attention&#x2019; in an attention mechanism used successfully in the past.  It is a process of codifying the relationships relating different positions of a single sequence into a single representation.</p>
+<h1 id="model-architecture"><a class="markdownIt-Anchor" href="#model-architecture"></a> Model Architecture</h1>
+<p>At the highest level, the architecture is split into an encoder-decoder scheme.  The left is the encoder, while the right is the decoder as seen in figure 1.</p>
+<p><img src="fig1.png" alt></p>
+<p><strong>Encoder</strong>  The encoder is composed of 6 identically stacked encoding layers build from two fundamental sublayers.  The first is the Multi-Head Attention layer, which feeds into a fully connected feed-forward network.  There is a residual connection for each sublayer, and for simplicity, all layers produce output dimensions of 512.</p>
+<p><strong>Decoder</strong> The decoding layers also employ a stack of 6 identical layers.  The decoder has an additional Multi-Head Attention mechanism that is fed by the output of the encoder.  The paper also describes a mechanism to make sure the decode layer is never attending to positions beyond the current <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span>.</p>
 
                 </div>
             </div>
     
             <nav class="post-pagination">
     
-    <a class="newer-posts" href="/12/21/2019/4dtcipu-6interconnect/">
-        Previous post<br>4 Point to point BMs
-    </a>
-    
     <span class="page-number"></span>
     
-    <a class="older-posts" href="/12/19/2019/4dtgcipu-fourth/">
-        Next post<br>4 Experimental Setup
+    <a class="older-posts" href="/11/06/2020/15attention-1prework/">
+        Next post<br>15 Attention review
     </a>
     
 </nav>
@@ -244,7 +241,7 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?2709736"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/js/journal.js?43232758"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
