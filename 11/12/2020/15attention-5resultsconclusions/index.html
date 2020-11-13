@@ -4,11 +4,11 @@
 <html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 
 <head>
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><title>15attention-5resultsconclusions - aPaperADay</title>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><title>15 Transformer - Training, Results, Conclusions - aPaperADay</title>
 <meta charset="utf-8">
 <meta name="X-UA-Compatible" content="IE=edge">
 <meta name="author" content="Luke Thomas">
-<meta name="description" content="">
+<meta name="description" content="I wrap up the Transformer paper with a look at their training, results, and conclusions.">
 <meta name="keywords" content="">
 
     <meta charset="utf-8">
@@ -18,7 +18,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?45547100">
+<link rel="stylesheet" href="/css/journal.css?27383977">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -52,7 +52,7 @@
 <noscript>
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Lora|Montserrat|Anonymous+Pro:400|Material+Icons"/>
-</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</noscript><!-- hexo-inject:begin --><link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css'><!-- hexo-inject:end -->
 </head>
 <body>
 <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="top"></div>
@@ -168,7 +168,7 @@
             <div class="post-head-wrapper-text-only"
                  style="background-image: url('')">
                 <div class="post-title">
-                    15attention-5resultsconclusions
+                    15 Transformer - Training, Results, Conclusions
                     <div class="post-meta">
                         <time datetime="2020-11-13T02:22:54.000Z" itemprop="datePublished">
                             2020-11-12 18:22
@@ -179,7 +179,9 @@
                         
                         <i class="material-icons" style="">label</i>
                         
-                        <a href='/tags/tag/'>tag</a>
+                        <a href='/tags/NLP/'>NLP</a>, 
+                        
+                        <a href='/tags/Attention/'>Attention</a>
                         
                         
                     </div>
@@ -188,7 +190,20 @@
     
             <div class="post-body-wrapper">
                 <div class="post-body">
-                    
+                    <h2 id="training"><a class="markdownIt-Anchor" href="#training"></a> Training</h2>
+<p>This is a very open paper where there is actually enough information for someone to go out and try this for themselves.  I appreciate the transparency the paper gives.</p>
+<p>They trained English-German on 4.5M sentence pairs, while English-French was trained on a much larger 36M sentences.</p>
+<p>Their base model and variants only consumed about 8 hours of time with 8 P100 GPUs.  The largest model they trained which provided SOTA results was only 3.5 days, which was a noticeable fraction smaller than all other SOTA contenders.  This is in a large part a testament to the computational parallelization attention provides.</p>
+<p>They used the Adam optimizer and employed dropout on (1) each sub-layer before being added to the next sub-layer input, (2) on the sums of the embeddings and (3) on the positional encodings in both the encoder and decoder stacks. <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mrow><mi>d</mi><mi>r</mi><mi>o</mi><mi>p</mi></mrow></msub><mo>=</mo><mn>0.1</mn></mrow><annotation encoding="application/x-tex">P_{drop} = 0.1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">d</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span><span class="mord mathdefault mtight">o</span><span class="mord mathdefault mtight">p</span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">1</span></span></span></span></p>
+<h2 id="results"><a class="markdownIt-Anchor" href="#results"></a> Results</h2>
+<p>On machine translation, which seems to be the focus of the technique to start, the transformer achieves state of the art on English-to German translation suing only a fraction of the training cost to competitive models.  OnEnglish-to-French, they achieved single model state of the art, at 1/4 of the training cost of the previous best.  Results can be seen below in table 2.</p>
+<p><img src="table2.png" alt></p>
+<h2 id="model-variations"><a class="markdownIt-Anchor" href="#model-variations"></a> Model Variations</h2>
+<p>I like getting to see in what ways they have experimented around in modulating the hyperparameters to see the particular hyperparameters effect on their model.  Below they summarized well the variations they tried, namely changing the number of attention heads <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>h</mi></mrow><annotation encoding="application/x-tex">h</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">h</span></span></span></span> or the dimension of the key or value parameters <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>d</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">d_k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>d</mi><mi>v</mi></msub></mrow><annotation encoding="application/x-tex">d_v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> respectively.</p>
+<p><img src="table3.png" alt></p>
+<h2 id="conclusions"><a class="markdownIt-Anchor" href="#conclusions"></a> Conclusions</h2>
+<p>A large part that I got from this paper was the effectiveness of the attention mechanism for GPU utilization and computational efficiency.  It really can move the needle to find efficient ways to compute the layers of a network without necessarily adding anything particularly novel.  The self-attention only mechanism is very compelling and I&#x2019;m glad to have gotten through this paper.</p>
+
                 </div>
             </div>
     
@@ -228,7 +243,7 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?71597363"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/js/journal.js?15704223"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
