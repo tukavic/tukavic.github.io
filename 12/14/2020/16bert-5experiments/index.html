@@ -18,7 +18,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?87300896">
+<link rel="stylesheet" href="/css/journal.css?40943150">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -193,17 +193,17 @@
                     <h3 id="glue"><a class="markdownIt-Anchor" href="#glue"></a> GLUE</h3>
 <p>The General Language Understanding Evaluation (GLUE) benchmark is a collection of natural language understanding tasks.  GLUE was fine-tuned by adding only an additional classification layer weights <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>W</mi><mo>&#x2208;</mo><msup><mi mathvariant="double-struck">R</mi><mrow><mi>K</mi><mi>x</mi><mi>H</mi></mrow></msup></mrow><annotation encoding="application/x-tex">W \in \mathbb{R}^{KxH}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72243em;vertical-align:-0.0391em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">W</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&#x2208;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8413309999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord"><span class="mord mathbb">R</span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.07153em;">K</span><span class="mord mathdefault mtight">x</span><span class="mord mathdefault mtight" style="margin-right:0.08125em;">H</span></span></span></span></span></span></span></span></span></span></span></span> where <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>K</mi></mrow><annotation encoding="application/x-tex">K</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">K</span></span></span></span> is the number of labels.  Standard classification loss is computed with <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>W</mi></mrow><annotation encoding="application/x-tex">W</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">W</span></span></span></span>.  They found that fine-tuning was sometimes unstable on small datasets, so they mitigated the problem with random restarts and manually selecting best models.</p>
 <p>Results are shown in Table 1. BERT outperforms all previous systems on all tasks by a significant margin.</p>
-<p><a href="table1.png"></a></p>
+<p><img src="table1.png" alt></p>
 <h3 id="squad-v11"><a class="markdownIt-Anchor" href="#squad-v11"></a> SQuAD v1.1</h3>
 <p>The Stanford Question Answering Dataset is a collection of 100k question/answer pairs.  The task is to predict the answer span given a passage.  BERT is augmented only with single additional start <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span> and end <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>E</mi></mrow><annotation encoding="application/x-tex">E</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span></span></span></span> vectors.  Table2 shows the leaderboard results at the time of the paper&#x2019;s writing.</p>
-<p><a href="table2.png"></a></p>
+<p><img src="table2.png" alt></p>
 <h3 id="squad-v20"><a class="markdownIt-Anchor" href="#squad-v20"></a> SQuAD v2.0</h3>
 <p>SQuAD v2.0 extends v1.1 by allowing for the possibility that no short answer exists in the provided paragraph.  This makes the problem more realistic.</p>
 <p>To account for this potential situation, the BERT model treats the questions that do not have an answers as having an answer span with start and end at the <code>[CLS]</code> token.  The model saw a +5.1 boost in F1 over previous best.</p>
 <h3 id="swag"><a class="markdownIt-Anchor" href="#swag"></a> SWAG</h3>
 <p>The Situations with Adversarial Generations dataset contains 113k sentence-pair completion examples that evaluate common sense reasoning.  Given a sentence the task is to choose the most plausible continuation among four choices.</p>
 <p>Table 4 shows BERTs results.</p>
-<p><a href="table4.png"></a></p>
+<p><img src="table4.png" alt></p>
 
                 </div>
             </div>
@@ -244,7 +244,7 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?38702617"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/js/journal.js?42856954"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
