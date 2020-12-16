@@ -4,11 +4,11 @@
 <html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 
 <head>
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><title>11 Inception - Results - aPaperADay</title>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><title>16 BERT Ablation Studies and Conclusion - aPaperADay</title>
 <meta charset="utf-8">
 <meta name="X-UA-Compatible" content="IE=edge">
 <meta name="author" content="Luke Thomas">
-<meta name="description" content="The paper ends with the results from ILSVRC14 and conclusions">
+<meta name="description" content="Let&#39;s wrap up the BERT paper.">
 <meta name="keywords" content="">
 
     <meta charset="utf-8">
@@ -18,7 +18,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?43967599">
+<link rel="stylesheet" href="/css/journal.css?80168861">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -168,10 +168,10 @@
             <div class="post-head-wrapper-text-only"
                  style="background-image: url('')">
                 <div class="post-title">
-                    11 Inception - Results
+                    16 BERT Ablation Studies and Conclusion
                     <div class="post-meta">
-                        <time datetime="2020-02-05T16:44:40.000Z" itemprop="datePublished">
-                            2020-02-05 08:44
+                        <time datetime="2020-12-16T06:00:45.000Z" itemprop="datePublished">
+                            2020-12-15 22:00
                         </time>&nbsp;
                         
     
@@ -179,7 +179,9 @@
                         
                         <i class="material-icons" style="">label</i>
                         
-                        <a href='/tags/Inception/'>Inception</a>
+                        <a href='/tags/NLP/'>NLP</a>, 
+                        
+                        <a href='/tags/BERT/'>BERT</a>
                         
                         
                     </div>
@@ -188,29 +190,24 @@
     
             <div class="post-body-wrapper">
                 <div class="post-body">
-                    <h3 id="classification-challenge"><a class="markdownIt-Anchor" href="#classification-challenge"></a> Classification challenge</h3>
-<p>This paper was written describing the model used in the ILSVRC14 Classification challenge.  The task is to classify the validation set of ImageNet (100k images) the most accurately given a model or ensemble of models.  The challenge uses the Top-5 error rate for ranking purposes.</p>
-<p>They ran 7 independent models and ensembled them for the competition.  The results of the ensemble gained about 3% from 40%-&gt;43% over a single model.</p>
-<p>The table below shows the relative cost and improvements for performing additional aggressive cropping on the inputs:</p>
-<p><img src="table3.png" alt></p>
-<p>GoogLeNet final submission lands at 6.67% error rate on Top-5 which is a 40% reduction from the previous year&#x2019;s winner.  All top contenders in 2014 used CNNs projecting their rise in popularity and usefulness.</p>
-<p>ILSVRC14 also includes object detection with bounding box predictions.  The team used R-CNN which is slow, but allowed them to take the Inception network and use it as the region proposal network.  They achieved good results without context modeling or bounding box regression, and believe that better results could have been achieved with those techniques; however, they simply ran out of time.</p>
-<h2 id="conclusions"><a class="markdownIt-Anchor" href="#conclusions"></a> Conclusions</h2>
-<p>The key takeaway from this papers is the idea that a sparse network built of dense blocks is a good enough approximation of the sparsity desired from &#x2018;natural&#x2019; computation machines which gives significant improvement of results at only a modest increase in compute.</p>
+                    <p>The Paper outlines number of ablation studies that were done to test the relative importance of each aspect of the model.</p>
+<p><strong>Effect of Pre-training Tasks:</strong> The main contribution by this paper is the argument of the benefit of using a bidirectionally pre-trained transformer architecture.  This was achieved via a masked language model with the <code>MASK</code> token, as well as implementing &#x201C;next sentence prediction&#x201D; (NSP).  The ablation study shows the importance for a few NLP tasks which require MLM and NSP. The results of this study are shown in table 5.</p>
+<p><img src="table5.png" alt></p>
+<p><strong>Effect of Model Size:</strong> Here the team shows that model size does have a significant effect not only on large scale tasks (language translation), but also on small scale tasks (provided the model has been sufficiently trained).  This is probably in part due to the fundamental benefit of a solid language model, pre-trained bidirectionally.</p>
+<p><strong>Feature-based approach with BERT:</strong>  Feature based approaches have the benefit of pre-computing an expensive representation while running individual experiments on cheaper models derived from the representation.  Although the details of BERT in the paper were shown against the fine-tuning approach, table 7 shows the feature-based approach is only 0.3 F1 behind fine-tuning the entire model, demonstrating the effectiveness of both approaches.</p>
+<p><img src="table7.png" alt></p>
+<h3 id="conclusion"><a class="markdownIt-Anchor" href="#conclusion"></a> Conclusion</h3>
+<p>BERT has not only shown impressive results with the power of bi-directional pre-training, the model has so far stood the test of time and has generated strong interest in the community.  It is exciting to see how these strong language models can perform so powerfully on these NLP tasks, and I&#x2019;m looking forward to how the field will move forward.</p>
 
                 </div>
             </div>
     
             <nav class="post-pagination">
     
-    <a class="newer-posts" href="/02/06/2020/12dropout-1intro/">
-        Previous post<br>12 Dropout - Introductions
-    </a>
-    
     <span class="page-number"></span>
     
-    <a class="older-posts" href="/02/04/2020/11inception-4GoogLeNet/">
-        Next post<br>11 Inception - GoogLeNet
+    <a class="older-posts" href="/12/14/2020/16bert-5experiments/">
+        Next post<br>16 BERT Experiments
     </a>
     
 </nav>
@@ -241,7 +238,7 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?43949617"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/js/journal.js?4796548"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
