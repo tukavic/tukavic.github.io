@@ -1,0 +1,276 @@
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><title>17 The Anatomy of a Large-Scale Hypertextual Web Search Engine - aPaperADay</title>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="Luke Thomas">
+<meta name="description" content="I investigate the internal structure of the 2000 era Google Search Engine">
+<meta name="keywords" content="">
+
+    <meta charset="utf-8">
+    <meta name="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="renderer" content="webkit">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/journal.css?41081854">
+
+<script src="/js/loadCSS.js"></script>
+<script>
+    loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Material+Icons");
+    (function (d) {
+        var config = {
+                kitId: 'dwg1tuc',
+                scriptTimeout: 3000,
+                async: true
+            },
+            h = d.documentElement, t = setTimeout(function () {
+                h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive";
+            }, config.scriptTimeout), tk = d.createElement("script"), f = false,
+            s = d.getElementsByTagName("script")[0], a;
+        h.className += " wf-loading";
+        tk.src = 'https://use.typekit.net/' + config.kitId + '.js';
+        tk.async = true;
+        tk.onload = tk.onreadystatechange = function () {
+            a = this.readyState;
+            if (f || a && a != "complete" && a != "loaded") return;
+            f = true;
+            clearTimeout(t);
+            try {
+                Typekit.load(config)
+            } catch (e) {
+            }
+        };
+        s.parentNode.insertBefore(tk, s)
+    })(document);
+</script>
+<noscript>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Lora|Montserrat|Anonymous+Pro:400|Material+Icons"/>
+</noscript><!-- hexo-inject:begin --><link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css'><!-- hexo-inject:end -->
+</head>
+<body>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="top"></div>
+<div id="app">
+<div class="single-column-drawer-container" ref="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            <a class="a-block drawer-menu-item false" href="www.apaperaday.com">
+                Home
+            </a>
+            
+            <a class="a-block drawer-menu-item false" href="/archives">
+                Archive
+            </a>
+            
+
+            
+            
+            <a class="a-block drawer-menu-item false" href="/post.html">
+                
+            </a>
+            
+            <a class="a-block drawer-menu-item false" href="/About/index.html">
+                About
+            </a>
+            
+
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div ref="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a ref="navTitle" class="navbar-brand" href="/">
+            aPaperADay
+        </a>
+    </div>
+</nav>
+<div class="single-column-header-container" ref="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="/">
+        <div class="single-column-header-title">aPaperADay</div>
+        <div class="single-column-header-subtitle"></div>
+    </a>
+</div>
+<div ref="sideContainer" class="side-container">
+    <a class="a-block nav-head false" href="/">
+        <div class="nav-title">
+            aPaperADay.
+        </div>
+        <div class="nav-subtitle">
+            read part of a deep<br>learning paper a day
+        </div>
+    </a>
+
+    <div class="nav-link-list">
+        
+        <a class="a-block no-tint nav-link-item false" href="/archives">
+            Archive
+        </a>
+        
+
+        
+        
+        <a class="a-block nav-link-item false" href="/post.html">
+            
+        </a>
+        
+        <a class="a-block nav-link-item false" href="/About/index.html">
+            About
+        </a>
+        
+
+        
+    </div>
+
+    
+    <div class="nav-footer">
+        Proudly published with Hexo<br>
+        
+        Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
+        
+        &copy; 2020 <a href="www.apaperaday.com">aPaperADay</a>
+    </div>
+</div>
+<div ref="extraContainer" class="extra-container">
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+
+        
+    </div>
+</div>
+
+
+
+<div ref="streamContainer" class="stream-container">
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            <div class="post-head-wrapper-text-only"
+                 style="background-image: url('')">
+                <div class="post-title">
+                    17 The Anatomy of a Large-Scale Hypertextual Web Search Engine
+                    <div class="post-meta">
+                        <time datetime="2020-12-18T02:54:29.000Z" itemprop="datePublished">
+                            2020-12-17 18:54
+                        </time>&nbsp;
+                        
+    
+                        
+                        
+                        <i class="material-icons" style="">label</i>
+                        
+                        <a href='/tags/Google/'>Google</a>, 
+                        
+                        <a href='/tags/Search/'>Search</a>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+    
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <p><em>This is a bit of a departure from the regular, today I looked at some fundamentals of search</em></p>
+<h2 id="from-google-cluster"><a class="markdownIt-Anchor" href="#from-google-cluster"></a> From <a href="https://static.googleusercontent.com/media/research.google.com/en//archive/googlecluster-ieee.pdf" target="_blank" rel="noopener">Google Cluster</a></h2>
+<p>Query execution consists of two major phases. In the first phase, the index servers consult an inverted index that maps each query word to a matching list of documents (the hit list). The index servers then determine a set of relevant documents by intersecting the hit lists of the individual query words, and they compute a relevance score for each document. This relevance score determines the order of results on the output page.</p>
+<p>The search process is challenging because of the large amount of data: The raw documents comprise several tens of terabytes of uncompressed data, and the inverted index resulting from this raw data is itself many terabytes of data. Fortunately, the search is highly parallelizable by dividing the index into pieces (index shards), each having a randomly chosen subset of documents from the full index. A pool of machines serves requests for each shard, and the overall index cluster contains one pool for each shard.</p>
+<p>The final result of this first phase of query execution is an ordered list of document identifiers (docids).</p>
+<p><img src="figure1.png" alt></p>
+<p>As Figure 1 shows, the second phase involves taking this list of docids and computing the actual title and uniform resource locator of these documents, along with a query-specific document summary.</p>
+<p>A lot of the document talks about price/performance characteristics that the team traded off to have the most efficient setup.  All their focus is performance/$ without getting distracted on any other metric.  Their description of the search problem is reassuring because that is effectively how I envision it.  It is a two step process, generating the index, and then ranking hits from that index.  I think there is a potential for BERT to help with the index, so the full system is auto-indexed or learned instead of trying to hand craft it.</p>
+<h2 id="from-the-anatomy-of-a-large-scale-hypertextual-web-search-engine"><a class="markdownIt-Anchor" href="#from-the-anatomy-of-a-large-scale-hypertextual-web-search-engine"></a> From <a href="http://infolab.stanford.edu/~backrub/google.html" target="_blank" rel="noopener">The Anatomy of a Large-Scale Hypertextual Web Search Engine</a></h2>
+<blockquote>
+<p>The web creates new challenges for information retrieval.<br>
+The paper introduces the web in contrast to hand curated search engines like Yahoo! as it explains how the technique and scale of the design works.  Google was chosen as a name because it is a common spelling of googol, or <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><msup><mn>0</mn><mn>1</mn></msup><mn>00</mn></mrow><annotation encoding="application/x-tex">10^100</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span></span></span></span></span><span class="mord">0</span><span class="mord">0</span></span></span></span>, inspired by the scale at which they aspire to work.</p>
+</blockquote>
+<p>My aim from this paper is to understand the mechanics of search, and what system pieces are required to make an engine that can serve relevant information.  They predict that the web may be an index of a billion documents in 2000.  The problem Google solved in 2000 may be similar to the problems today we may be solving at company-wide levels.</p>
+<p>I want to keep an eye on the differences that Google faced with the web versus what problems I may run into by indexing a known corpus for search-ability.  The web is itself very dynamic.  Additions to the graph arrive exponentially.</p>
+<p>At scale, they note the balance between a growing internet and the growth of the technology that supports it.   Hardware does grow while the internet also grows, but there are notable lagging technologies that slow the direct application of improved hardware: disk seek time is a notable one, and one I believe we still must deal with today.</p>
+<p><strong>Quality Matters</strong> because people are only able to view a limited number of documents, though the corpus is massive.  This human limitation will not change.  The paper notes: This very high precision is important even at the expense of recall.</p>
+<p><strong>First Key Feature</strong> using link information to aid in high precision results.  This is PageRank.  It uses knowledge of the links between sites to aid in the recommendation of sites.  Some form of this I believe must still be used today at Google.  If interested, the web is full of information on PageRank, so I&#x2019;ll pass over it.</p>
+<p><strong>Second Key Feature</strong> Anchor text is the placeholder text to show a user instead of the link.  This is done via the anchor tag in html <code>&lt;a href = &apos;http://www.somesite.com&apos;&gt;This is my anchor text&lt;/a&gt;</code>.  Google exploits this for further information about relevance.  The paper also notes of other features, such as location information.</p>
+<h3 id="architecture-overview"><a class="markdownIt-Anchor" href="#architecture-overview"></a> Architecture Overview</h3>
+<p><img src="fig1.png" alt><br>
+The text of this page is worth pasting directly:<br>
+The indexing function is performed by the indexer and the sorter. The indexer performs a number of functions. It reads the repository, uncompresses the documents, and parses them. Each document is converted into a set of word occurrences called hits. The hits record the word, position in document, an approximation of font size, and capitalization. The indexer distributes these hits into a set of &#x201C;barrels&#x201D;, creating a partially sorted forward index.</p>
+<p>The indexer performs another important function. It parses out all the links in every web page and stores important information about them in an anchors file. This file contains enough information to determine where each link points from and to, and the text of the link.</p>
+<p>The URLresolver reads the anchors file and converts relative URLs into absolute URLs and in turn into docIDs. It puts the anchor text into the forward index, associated with the docID that the anchor points to. It also generates a database of links which are pairs of docIDs. The links database is used to compute PageRanks for all the documents.</p>
+<p>The sorter takes the barrels, which are sorted by docID (this is a simplification, see Section 4.2.5), and resorts them by wordID to generate the inverted index. A program called DumpLexicon takes this list together with the lexicon produced by the indexer and generates a new lexicon to be used by the searcher. The searcher is run by a web server and uses the lexicon built by DumpLexicon together with the inverted index and the PageRanks to answer queries.</p>
+<p><strong>Hit Lists</strong> The documents that contain the keys to hit words are a heavy aspect of the system requiring much storage.  By using bit level encoding, Google minimizes the impact of this storage requirement.</p>
+<p>Figure 3 shows the smashing of information into bits for this usecase:<br>
+<img src="fig3.png" alt></p>
+<p>The practicality of this paper is cool.  Often the describe design problems and why they made a particular design choice.  They decided to keep two copies of the inverted index based on separate use-cases: single vs multi-word queries.</p>
+<p><strong>Social implications</strong> the web crawler is a fascinating piece of the puzzle and includes humorous anecdotes of webmasters&#x2019; first interaction with the Google Crawler, and angry people trying to avoid the crawler.</p>
+<p>This section was key to my understanding:<br>
+<strong>Indexing Documents into Barrels</strong> &#x2013; After each document is parsed, it is encoded into a number of barrels. Every word is converted into a wordID by using an in-memory hash table &#x2013; the lexicon. New additions to the lexicon hash table are logged to a file. Once the words are converted into wordID&#x2019;s, their occurrences in the current document are translated into hit lists and are written into the forward barrels. The main difficulty with parallelization of the indexing phase is that the lexicon needs to be shared. Instead of sharing the lexicon, we took the approach of writing a log of all the extra words that were not in a base lexicon, which we fixed at 14 million words. That way multiple indexers can run in parallel and then the small log file of extra words can be processed by one final indexer.<br>
+<strong>Sorting -</strong>- In order to generate the inverted index, the sorter takes each of the forward barrels and sorts it by wordID to produce an inverted barrel for title and anchor hits and a full text inverted barrel. This process happens one barrel at a time, thus requiring little temporary storage. Also, we parallelize the sorting phase to use as many machines as we have simply by running multiple sorters, which can process different buckets at the same time. Since the barrels don&#x2019;t fit into main memory, the sorter further subdivides them into baskets which do fit into memory based on wordID and docID. Then the sorter, loads each basket into memory, sorts it and writes its contents into the short inverted barrel and the full inverted barrel.</p>
+<blockquote>
+<p>The biggest problem facing users of web search engines today is the quality of the results they get back.</p>
+</blockquote>
+<p>I think to hand spin any search engine, it is imperative to focus on precision foremost.</p>
+
+                </div>
+            </div>
+    
+            <nav class="post-pagination">
+    
+    <span class="page-number"></span>
+    
+    <a class="older-posts" href="/12/15/2020/16bert-6conclusions/">
+        Next post<br>16 BERT Ablation Studies and Conclusion
+    </a>
+    
+</nav>
+
+    
+            
+
+
+        </div>
+    </div>
+    <div class="single-column-footer">
+    Proudly published with Hexo<br>
+    
+    Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
+    
+    &copy; 2020 <a href="www.apaperaday.com">aPaperADay</a>
+</div>
+</div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"
+        integrity="sha256-EGs9T1xMHdvM1geM8jPpoo8EZ1V1VRsmcJz8OByENLA=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+        integrity="sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js"
+        integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
+        integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
+<script src="/js/journal.js?14097585"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+</body>
+</html>
