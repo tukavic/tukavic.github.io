@@ -18,7 +18,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?41081854">
+<link rel="stylesheet" href="/css/journal.css?74869267">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -200,9 +200,9 @@
 <p>A lot of the document talks about price/performance characteristics that the team traded off to have the most efficient setup.  All their focus is performance/$ without getting distracted on any other metric.  Their description of the search problem is reassuring because that is effectively how I envision it.  It is a two step process, generating the index, and then ranking hits from that index.  I think there is a potential for BERT to help with the index, so the full system is auto-indexed or learned instead of trying to hand craft it.</p>
 <h2 id="from-the-anatomy-of-a-large-scale-hypertextual-web-search-engine"><a class="markdownIt-Anchor" href="#from-the-anatomy-of-a-large-scale-hypertextual-web-search-engine"></a> From <a href="http://infolab.stanford.edu/~backrub/google.html" target="_blank" rel="noopener">The Anatomy of a Large-Scale Hypertextual Web Search Engine</a></h2>
 <blockquote>
-<p>The web creates new challenges for information retrieval.<br>
-The paper introduces the web in contrast to hand curated search engines like Yahoo! as it explains how the technique and scale of the design works.  Google was chosen as a name because it is a common spelling of googol, or <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><msup><mn>0</mn><mn>1</mn></msup><mn>00</mn></mrow><annotation encoding="application/x-tex">10^100</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span></span></span></span></span><span class="mord">0</span><span class="mord">0</span></span></span></span>, inspired by the scale at which they aspire to work.</p>
+<p>The web creates new challenges for information retrieval.</p>
 </blockquote>
+<p>The paper introduces the web in contrast to hand curated search engines like Yahoo! as it explains how the technique and scale of the design works.  Google was chosen as a name because it is a common spelling of googol, or <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><msup><mn>0</mn><mn>1</mn></msup><mn>00</mn></mrow><annotation encoding="application/x-tex">10^100</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span></span></span></span></span><span class="mord">0</span><span class="mord">0</span></span></span></span>, inspired by the scale at which they aspire to work.</p>
 <p>My aim from this paper is to understand the mechanics of search, and what system pieces are required to make an engine that can serve relevant information.  They predict that the web may be an index of a billion documents in 2000.  The problem Google solved in 2000 may be similar to the problems today we may be solving at company-wide levels.</p>
 <p>I want to keep an eye on the differences that Google faced with the web versus what problems I may run into by indexing a known corpus for search-ability.  The web is itself very dynamic.  Additions to the graph arrive exponentially.</p>
 <p>At scale, they note the balance between a growing internet and the growth of the technology that supports it.   Hardware does grow while the internet also grows, but there are notable lagging technologies that slow the direct application of improved hardware: disk seek time is a notable one, and one I believe we still must deal with today.</p>
@@ -268,7 +268,7 @@ The indexing function is performed by the indexer and the sorter. The indexer pe
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?14097585"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/js/journal.js?68426947"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
