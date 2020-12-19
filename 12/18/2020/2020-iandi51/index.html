@@ -4,11 +4,11 @@
 <html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 
 <head>
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><title>13 Fastai - Applications - aPaperADay</title>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><title>I&amp;I WW51 - aPaperADay</title>
 <meta charset="utf-8">
 <meta name="X-UA-Compatible" content="IE=edge">
 <meta name="author" content="Luke Thomas">
-<meta name="description" content="This is a look at the primary applications Fastai is tuned to achieve.">
+<meta name="description" content="Secrets of Successful Models, The Power of Language, and The Benchmarking Benefit">
 <meta name="keywords" content="">
 
     <meta charset="utf-8">
@@ -18,7 +18,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?14831652">
+<link rel="stylesheet" href="/css/journal.css?50166182">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -168,10 +168,10 @@
             <div class="post-head-wrapper-text-only"
                  style="background-image: url('')">
                 <div class="post-title">
-                    13 Fastai - Applications
+                    I&amp;I WW51
                     <div class="post-meta">
-                        <time datetime="2020-02-26T05:54:26.000Z" itemprop="datePublished">
-                            2020-02-25 21:54
+                        <time datetime="2020-12-19T01:54:33.000Z" itemprop="datePublished">
+                            2020-12-18 17:54
                         </time>&nbsp;
                         
     
@@ -179,7 +179,9 @@
                         
                         <i class="material-icons" style="">label</i>
                         
-                        <a href='/tags/fastai/'>fastai</a>
+                        <a href='/tags/BERT/'>BERT</a>, 
+                        
+                        <a href='/tags/I-I/'>I&amp;I</a>
                         
                         
                     </div>
@@ -188,32 +190,27 @@
     
             <div class="post-body-wrapper">
                 <div class="post-body">
-                    <h1 id="applications"><a class="markdownIt-Anchor" href="#applications"></a> Applications</h1>
-<p>The library is sleek.  In 8 lines of code you can train a state of the art vision classifier on the Oxford IIT pets dataset.  The running thread through all the applications is the familiarity between very different datasets.  It all includes importing the library, pulling in the data, creating a learner, and training the model.  These steps are unsurprisingly similar between applications because deep learning is applicable to in variety of cases.</p>
-<p><strong>Abstractions</strong> Another key area to the Fastai library is abstractions it provides.  All models will share attributes, thus there is the <code>Learner</code> class for that.  All models must train, so there are a variety of function calls which can be used for that, ie <code>model.fit_one_cycle(4)</code></p>
-<p><strong>Best Practices</strong> A nice bonus to the library is the current best practices built into the library defaults.  Instead of expecting a user to have full knowledge of what the current best practices are, the model will default to generically proven values which yield generally good results.  This allows better models to be discovered faster, with less tuning on the code side.</p>
-<p>The applications provided by the library are as follows:</p>
-<ol>
-<li>Vision</li>
-<li>Text</li>
-<li>Tabular</li>
-<li>Collaborative Filtering</li>
-</ol>
-<p>Each follows a similar code structure and allow the engineer to use their own data to get excellent results quickly on a number of application areas, as well as encouraging engineers to tinker in sundry applications.</p>
+                    <p><em>I want to try doing something different for Friday&#x2019;s where I will reflect by posting my Interpretation and Imagination from the content of the past week.  It has been shown that self-play is a powerful tool for learning, and this is me leveraging the advantages I still have over computers by trying to imagine what all of this may lead to.</em></p>
+<h2 id="secrets-of-successful-models"><a class="markdownIt-Anchor" href="#secrets-of-successful-models"></a> Secrets of Successful Models</h2>
+<p>One repeated theme I&#x2019;ve seen in my research is the success of a architecture depends on its position in relation to the fundamental structure of the data.  The transformer is successful because it is better positioned to &#x201C;see&#x201D; long term dependencies.  I believe any successor will be even better at &#x201C;seeing&#x201D; even longer dependencies, or collating relevant information at relevant points.  This is fundamental to language. It is a channel for connecting ideas to other ideas, however remote.</p>
+<p>Another fundamental property to &#x201C;data&#x201D; is the sequence aspect.  Our brains can only process in a sequential fashion.  Time is a fundamental property of our universe, so it will be woven into the structure of everything we care about, and all structures we create, namely language, will be forced to comply to this fundamental force of time.  I anticipate the models to succeed are the models positioned to manage these fundamental forces like sequential-ness efficiently.</p>
+<h2 id="the-power-of-language"><a class="markdownIt-Anchor" href="#the-power-of-language"></a> The Power of Language</h2>
+<p>Language is such a powerful and fundamental aspect of being human, and though hard as it is, the possibility is great in creating positive good for humanity.  There is an unbelievable pool of content that text has, potentially, greater impact than other data we have.  The PB of video data we consume is certainly massive, but it does not have the personal touch of text, that was formed by the mind of individuals.  You can not grab a camera and go capture useless text, all text was written in an effort to communicate.  Thus, it is exciting to be able to pursue algorithms that can start to understand that communication.</p>
+<p>One thing I&#x2019;ve been thinking about recently is the possibility of NLP tools being used to help write better.  Grammerly is a great example of what I&#x2019;m thinking about.  It is quite intelligent to capture definitive mistakes and gently notify you of better ways of writing.  However, I am more considering the task of augmenting the text that you do write to aggressively present a rewriting of your own text for evaluation.</p>
+<p>It is orders of magnitude easier to recognize great art than it is to generate it.  I believe that these language models are getting to the point that they are able to write comprehensible text, at the expense of simultaneously generating less than beautiful text.  I don&#x2019;t see a straightforward path to an intelligent agent that is able to write as cohesively as humans, because much of our communication is based on our experience, not a statistical representation of the words we read before.  But this is quite wonderful, because it should offer a way for each human to have an expert editor or assistant that you can call on to do tasks for you.  You let them do the work, and spend your time collaborating with the tool, than fully releasing the task to it.</p>
+<p>I have not worked closely enough with these language models to have a great intuition of what they are currently able to do, but I do see how they are starting to affect my search engine results, and I see the collaboration I currently have with my search engine will only grow as more and more technologies catch up to the execution at Google.</p>
+<h2 id="the-benchmarking-benefit"><a class="markdownIt-Anchor" href="#the-benchmarking-benefit"></a> The Benchmarking Benefit</h2>
+<p>I have read multiple times this week how benchmarks interplay with progress.  A beautiful thing about Imagenet is the quantitative-ness you can put to a model.  It allows the scientific method to be used by all, that is to be sure, but I think it influences us more than that.  There is a level of competitiveness that is innate to the human condition that causes us to work simply to best another man (see Ecc 4:4).  The benchmark also provides clear winners: either the results are SOTA or not.  There is little gray area.  Though benchmarks are not the silver bullet to progress, I see the good of them.</p>
 
                 </div>
             </div>
     
             <nav class="post-pagination">
     
-    <a class="newer-posts" href="/02/26/2020/13fastai-3highlevelAPIs/">
-        Previous post<br>13 Fastai - High Level APIs
-    </a>
-    
     <span class="page-number"></span>
     
-    <a class="older-posts" href="/02/24/2020/13fastai-1intro/">
-        Next post<br>13 Fastai - Introductions
+    <a class="older-posts" href="/12/17/2020/17search-everything/">
+        Next post<br>17 The Anatomy of a Large-Scale Hypertextual Web Search Engine
     </a>
     
 </nav>
@@ -244,7 +241,7 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?17054880"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/js/journal.js?55471845"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
