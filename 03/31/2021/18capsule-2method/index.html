@@ -4,11 +4,11 @@
 <html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 
 <head>
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><title>4 IPU BSP - aPaperADay</title>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><title>18 CapsNets - Getting the method - aPaperADay</title>
 <meta charset="utf-8">
 <meta name="X-UA-Compatible" content="IE=edge">
 <meta name="author" content="Luke Thomas">
-<meta name="description" content="The Bulk Synchronous Parallel Model is discussed.">
+<meta name="description" content="I explore the details of the introduction and look deeper at the gist of the model.">
 <meta name="keywords" content="">
 
     <meta charset="utf-8">
@@ -18,7 +18,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?15813552">
+<link rel="stylesheet" href="/css/journal.css?57002697">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -168,10 +168,10 @@
             <div class="post-head-wrapper-text-only"
                  style="background-image: url('')">
                 <div class="post-title">
-                    4 IPU BSP
+                    18 CapsNets - Getting the method
                     <div class="post-meta">
-                        <time datetime="2019-12-19T00:37:45.000Z" itemprop="datePublished">
-                            2019-12-18 16:37
+                        <time datetime="2021-04-01T03:21:45.000Z" itemprop="datePublished">
+                            2021-03-31 20:21
                         </time>&nbsp;
                         
     
@@ -179,7 +179,7 @@
                         
                         <i class="material-icons" style="">label</i>
                         
-                        <a href='/tags/Dissecting-the-Graphcore-IPU-Architecture-via-Microbenchmarking/'>Dissecting the Graphcore IPU Architecture via Microbenchmarking</a>
+                        <a href='/tags/CapsNets/'>CapsNets</a>
                         
                         
                     </div>
@@ -188,28 +188,26 @@
     
             <div class="post-body-wrapper">
                 <div class="post-body">
-                    <h1 id="bsp"><a class="markdownIt-Anchor" href="#bsp"></a> BSP</h1>
-<p><em>The IPU is a true BSP machine.</em>  It faithfully follows all aspects of the BSP paradigm.  The phases loop through <em>supersteps</em> following three particular steps.</p>
-<ul>
-<li>Local computation, with emphasis on the locality.  All used memory must be local, and each tiles local memory is where the computations are performed.</li>
-<li>Communication, where each process has opportunity to send or request (and then receive) from other memory locations</li>
-<li>and Barrier Synchronization, where all processes halt until the superstep starts a new loop.</li>
-</ul>
-<p>A key note is how faithfully the IPU implements the BSP paradigm to allow the compiler to provide known guarantees, and help the user to comprehend the way to program the device.</p>
+                    <p>There is a lot to see from the introduction.  They give a small homage to the human vision system, and discuss the hope of building a parse tree-like structure for the image.  This has interesting use cases with understanding images, and in turn projecting that understanding into language, as well as for other things that may benefit from a tree parsed structure.</p>
+<p>They provide an interesting metaphor about the parse tree being <em>carved out</em> like a sculpture is carved out of a rock.  This means the model has to be expansive enough to fit the entire full tree and the parsing is build by stripping away unactivated capsules.  Interesting if there were a way to generate the parse tree dynamically, but I believe one could make an argument based in human neuroscience for the lack of this structure.  I cannot tell either way.</p>
+<p>So this parse tree does human understandable things at the top level; namely assigning parts to wholes.</p>
+<p>The intro does a nice job of explaining in more detail the properties that the capsules themself will take on, such as encoding various types of parameters such as &#x201C;pose (position, size, orientation), deformation, velocity, albedo, hue, texture, etc.&#x201D;  Here they point out their particular way of determining the presence of objects is based on the lengths of final output capsules rather than training separate logistic units whose sole property is an existence property.</p>
+<p>The paper also mentions <em>forcing</em> the orientation to represent the properties of the entity.  This I will have to understand more.</p>
+<p>Finally, the dynamic routing mechanism is touted as a powerful system to ensure the capsules get sent to the appropriate parent. It does seem to be a bit of an attention mechanism.  There is a top-down feedback loop with increases coupling if there is agreement (and certainly slows the whole process down).</p>
+<blockquote>
+<p>I&#x2019;m not yet convinced that the top down routing is necessary.  Can you not just allow aligned vectors to explode in length?</p>
+</blockquote>
+<p>One final word.  They discuss rate-coding and place-coding, both of which are unfamiliar concepts to me.  I&#x2019;ll have to see if the paper discusses this more in detail.</p>
 
                 </div>
             </div>
     
             <nav class="post-pagination">
     
-    <a class="newer-posts" href="/12/19/2019/4dtgcipu-fourth/">
-        Previous post<br>4 Experimental Setup
-    </a>
-    
     <span class="page-number"></span>
     
-    <a class="older-posts" href="/12/17/2019/4dtgcipu-second/">
-        Next post<br>4 IPU Microbenchmarking Subsystems
+    <a class="older-posts" href="/03/29/2021/18capsule-1abstract/">
+        Next post<br>18 CapsNets - Starting on the abstract
     </a>
     
 </nav>
@@ -240,7 +238,7 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?1604458"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/js/journal.js?96881982"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
