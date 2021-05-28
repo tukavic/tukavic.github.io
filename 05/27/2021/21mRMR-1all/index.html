@@ -4,11 +4,11 @@
 <html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 
 <head>
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><title>8 Colorization - Approach - aPaperADay</title>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><title>21 mRMR - aPaperADay</title>
 <meta charset="utf-8">
 <meta name="X-UA-Compatible" content="IE=edge">
 <meta name="author" content="Luke Thomas">
-<meta name="description" content="A look at the objective function and class rebalancing approach.">
+<meta name="description" content="that is, minimum-Redundancy, Max-Dependency">
 <meta name="keywords" content="">
 
     <meta charset="utf-8">
@@ -18,7 +18,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?6500461">
+<link rel="stylesheet" href="/css/journal.css?65512408">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -52,7 +52,7 @@
 <noscript>
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Lora|Montserrat|Anonymous+Pro:400|Material+Icons"/>
-</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</noscript><!-- hexo-inject:begin --><link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css'><!-- hexo-inject:end -->
 </head>
 <body>
 <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="top"></div>
@@ -168,10 +168,10 @@
             <div class="post-head-wrapper-text-only"
                  style="background-image: url('')">
                 <div class="post-title">
-                    8 Colorization - Approach
+                    21 mRMR
                     <div class="post-meta">
-                        <time datetime="2020-01-17T16:23:59.000Z" itemprop="datePublished">
-                            2020-01-17 08:23
+                        <time datetime="2021-05-28T04:45:01.000Z" itemprop="datePublished">
+                            2021-05-27 21:45
                         </time>&nbsp;
                         
     
@@ -179,7 +179,7 @@
                         
                         <i class="material-icons" style="">label</i>
                         
-                        <a href='/tags/Colorful-Image-Colorization/'>Colorful Image Colorization</a>
+                        <a href='/tags/feature-selection/'>feature selection</a>
                         
                         
                     </div>
@@ -188,28 +188,51 @@
     
             <div class="post-body-wrapper">
                 <div class="post-body">
-                    <h3 id="objective-function"><a class="markdownIt-Anchor" href="#objective-function"></a> Objective function</h3>
-<p>Given a lightness channel <strong>X</strong>, they predict <strong>Y_hat</strong>.  These predictions work in the CIE lab color space.  <a href="https://en.wikipedia.org/wiki/CIELAB_color_space" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/CIELAB_color_space</a>  The purpose of using L<em>ab</em> is its origin in creating a color space mapped to human perception.</p>
-<p>The paper points out the need to not use the Euclidean distance as loss, due to the multimodal aspect of the problem.  Since there are a number of potential valid solutions, you do not want to simply take the distance from the mean, as you will tend to bias heavily towards an average color.  Previous works have taken such approach and yield fairly desaturated images.  In other words, the objective is not distance from a mean, but a reasonable distribution that could be a valid understanding of color.</p>
-<p>Thus, they add an intermediate function <strong>Z</strong> to predict into the color space, and use a transfer function to convert their <strong>Z</strong> to <strong>Y</strong> outputs.  Their multimodal loss is shown in (2).</p>
-<p><img src="eq2.png" alt></p>
-<h3 id="class-rebalancing"><a class="markdownIt-Anchor" href="#class-rebalancing"></a> Class rebalancing</h3>
-<p>Due to the large bias towards the average/desaturated values, the paper rebalances the rarer colors with a function <em>v</em> shown in the red box of (2).  Below in (3) shows how <em>v</em> is computed, where each pixel is weighted due to its rarity.</p>
-<p><img src="eq3.png" alt></p>
+                    <blockquote>
+<p>Feature Selection Based on Mutual Information: Criteria of Max-Dependency, Max-Relevance, and Min-Redundancy</p>
+</blockquote>
+<p>Every once in a while you read a paper with a title that leans more towards an abstract because it is so long and descriptive.  That is this paper.</p>
+<p>mRMR is a <em>feature selection</em> technique.</p>
+<blockquote>
+<p>Feature selection is an important problem for pattern classification systems.</p>
+</blockquote>
+<blockquote>
+<p>We study how to select good features according to the maximal statistical dependency criterion based on mutual information.<br>
+This is a bit of a long paper I will just scratch the surface of.  This is the essence of the paper though.  Maximal statistical dependency: selecting features that you can statistically depend on (see what i did there) being useful for informing you about the response variable.  Suppose you have 1000 tabular features, how could you possibly search the space to determine the top 10 features that not only contribute to the response variable, but also are not co-dependent features?   mRMR is the answer.</p>
+</blockquote>
+<blockquote>
+<p>we first derive an equivalent form, called minimal-redundancy-maximal-relevance criterion (mRMR)</p>
+</blockquote>
+<ul>
+<li><strong>minimal redundancy</strong> because you want to spread out the types of information you select.</li>
+<li><strong>maximal relevance</strong> because you want features that are relevant.</li>
+</ul>
+<blockquote>
+<p>In feature selection, it has been recognized that the combinations of individually good features <strong>do not necessarily lead to good classification performance</strong>.<br>
+This motivates the papers investigation of not only maximal relevance, but minimal redundancy.</p>
+</blockquote>
+<p>Note that mRMR as a framework is only a heuristic, and there is a balancing act to determine which way to lean.  This paper is</p>
+<ol>
+<li>investigating the theoretical analysis of mRMR</li>
+<li>combining mRMR with other features selection techniques</li>
+<li>comprehensive experimentation of different feature selection techniques.</li>
+</ol>
+<h2 id="mrmr-balancing"><a class="markdownIt-Anchor" href="#mrmr-balancing"></a> mRMR Balancing</h2>
+<p>Finding the optimal relevance (<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span></span></span></span>) save the minimum redundancy <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>R</mi></mrow><annotation encoding="application/x-tex">R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span></span> is computed below:</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>max</mi><mo>&#x2061;</mo><mi mathvariant="normal">&#x3A6;</mi><mo stretchy="false">(</mo><mi>D</mi><mo separator="true">,</mo><mi>R</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><mi mathvariant="normal">&#x3A6;</mi><mo>=</mo><mi>D</mi><mo>&#x2212;</mo><mi>R</mi></mrow><annotation encoding="application/x-tex">\max \Phi(D, R), \Phi=D-R
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">max</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">&#x3A6;</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">&#x3A6;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">&#x2212;</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span></span></span></p>
+<h2 id="conclusion"><a class="markdownIt-Anchor" href="#conclusion"></a> Conclusion</h2>
+<p>A main gist of the paper is a thorough analysis of mRMR and the best ways to use it.  I didn&#x2019;t cover much of the details so check out the paper if interested.  I have been primarily concerned with understanding mRMR and some intuition behind its uses.</p>
 
                 </div>
             </div>
     
             <nav class="post-pagination">
     
-    <a class="newer-posts" href="/01/18/2020/8colorization-3Hfunction/">
-        Previous post<br>8 Colorization - H function
-    </a>
-    
     <span class="page-number"></span>
     
-    <a class="older-posts" href="/01/15/2020/8colorization-1intro/">
-        Next post<br>8 Colorization - Intro
+    <a class="older-posts" href="/05/25/2021/20vpn-1all/">
+        Next post<br>20 Value Prediction Networks
     </a>
     
 </nav>
@@ -240,7 +263,7 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?59243268"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/js/journal.js?97024967"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
