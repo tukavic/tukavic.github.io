@@ -1,0 +1,261 @@
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><title>22 Machine Learning for Electronic Design Automation: A Survey - aPaperADay</title>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="Luke Thomas">
+<meta name="description" content="Every important division of machine learning, whether it be supervised learning, unsupervised learning, active learning, and reinforcement learning has been applied to Electronic Design Automation (EDA).">
+<meta name="keywords" content="">
+
+    <meta charset="utf-8">
+    <meta name="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="renderer" content="webkit">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/journal.css?38954335">
+
+<script src="/js/loadCSS.js"></script>
+<script>
+    loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Material+Icons");
+    (function (d) {
+        var config = {
+                kitId: 'dwg1tuc',
+                scriptTimeout: 3000,
+                async: true
+            },
+            h = d.documentElement, t = setTimeout(function () {
+                h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive";
+            }, config.scriptTimeout), tk = d.createElement("script"), f = false,
+            s = d.getElementsByTagName("script")[0], a;
+        h.className += " wf-loading";
+        tk.src = 'https://use.typekit.net/' + config.kitId + '.js';
+        tk.async = true;
+        tk.onload = tk.onreadystatechange = function () {
+            a = this.readyState;
+            if (f || a && a != "complete" && a != "loaded") return;
+            f = true;
+            clearTimeout(t);
+            try {
+                Typekit.load(config)
+            } catch (e) {
+            }
+        };
+        s.parentNode.insertBefore(tk, s)
+    })(document);
+</script>
+<noscript>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Lora|Montserrat|Anonymous+Pro:400|Material+Icons"/>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="top"></div>
+<div id="app">
+<div class="single-column-drawer-container" ref="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            <a class="a-block drawer-menu-item false" href="www.apaperaday.com">
+                Home
+            </a>
+            
+            <a class="a-block drawer-menu-item false" href="/archives">
+                Archive
+            </a>
+            
+
+            
+            
+            <a class="a-block drawer-menu-item false" href="/post.html">
+                
+            </a>
+            
+            <a class="a-block drawer-menu-item false" href="/About/index.html">
+                About
+            </a>
+            
+
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div ref="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a ref="navTitle" class="navbar-brand" href="/">
+            aPaperADay
+        </a>
+    </div>
+</nav>
+<div class="single-column-header-container" ref="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="/">
+        <div class="single-column-header-title">aPaperADay</div>
+        <div class="single-column-header-subtitle"></div>
+    </a>
+</div>
+<div ref="sideContainer" class="side-container">
+    <a class="a-block nav-head false" href="/">
+        <div class="nav-title">
+            aPaperADay.
+        </div>
+        <div class="nav-subtitle">
+            read part of a deep<br>learning paper a day
+        </div>
+    </a>
+
+    <div class="nav-link-list">
+        
+        <a class="a-block no-tint nav-link-item false" href="/archives">
+            Archive
+        </a>
+        
+
+        
+        
+        <a class="a-block nav-link-item false" href="/post.html">
+            
+        </a>
+        
+        <a class="a-block nav-link-item false" href="/About/index.html">
+            About
+        </a>
+        
+
+        
+    </div>
+
+    
+    <div class="nav-footer">
+        Proudly published with Hexo<br>
+        
+        Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
+        
+        &copy; 2021 <a href="www.apaperaday.com">aPaperADay</a>
+    </div>
+</div>
+<div ref="extraContainer" class="extra-container">
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+
+        
+    </div>
+</div>
+
+
+
+<div ref="streamContainer" class="stream-container">
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            <div class="post-head-wrapper-text-only"
+                 style="background-image: url('')">
+                <div class="post-title">
+                    22 Machine Learning for Electronic Design Automation: A Survey
+                    <div class="post-meta">
+                        <time datetime="2021-06-11T23:29:14.000Z" itemprop="datePublished">
+                            2021-06-11 16:29
+                        </time>&nbsp;
+                        
+    
+                        
+                        
+                        <i class="material-icons" style="">label</i>
+                        
+                        <a href='/tags/tag/'>tag</a>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+    
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <h1 id="already-but-not-yet"><a class="markdownIt-Anchor" href="#already-but-not-yet"></a> Already but not yet</h1>
+<p>Every important division of machine learning, whether it be supervised learning, unsupervised learning, active learning, and reinforcement learning has been applied to Electronic Design Automation (EDA). This paper surveys the current work being done at the intersection of these two disciplines.</p>
+<blockquote>
+<p>We observe that most work collected in this survey can be grouped into four types: decision making in traditional methods, performance prediction, black-box optimization, and automated design.</p>
+</blockquote>
+<p>I would argue that list is even ordered both in terms of difficulty and payoff.  Traditional ML methods are already used to improve performance almost every step without altering the flow very drastically.  It is comparatively easy to add <strong>traditional machine learning</strong> into the existing flows, but <strong>traditional machine learning</strong> in these cases can only hope to incrementally improve the current flow.  <strong>Performance prediction</strong> is a deeper use of ML to predict various performance metrics by using previous designs as data to train models on the quality of new designs.  The last two types of use in EDA I believe to have the greatest payoff in the future, based on the excellence these techniques can achieve in the EDA domain.  <strong>Black box optimization</strong> is the next level of optimization that aims to replace entire steps in the flow automatically.  The paper notes the stakes of these techniques as mistakes at this level will prove to be very costly.  Finally the last frontier of automation is <strong>automated design</strong>.  This hopes to use the combination of Deep Learning and Reinforcement Learning to automate complex design tasks required by EDA.  Automated design has the potential to be the most beneficial aspect of the field, as long as it is able to deliver on the promise of accurately automating this difficult task.  One open question for me is the obtainability of this technology, because many times I have seen products which promise to serve by automating a large gap in the market, but the reality of the problem vs. the actual performance of the promise differs enough to fully dominate the existing landscape.</p>
+<p>Below shows the tabular view from the paper that really highlights the four different applications from ML and the<br>
+<img src="chip_table.png" alt="chip_table"></p>
+<blockquote>
+<p>Although the study on ML for EDA can trace back to the last century, most of the works included in this survey are in recent five years.</p>
+</blockquote>
+<p>It is truly an exciting time to be looking at the EDA field because the general developments in machine learning research are so widely applicable to this important field of designing the chips of tomorrow.</p>
+<h2 id="the-paper-in-brief"><a class="markdownIt-Anchor" href="#the-paper-in-brief"></a> The Paper in Brief</h2>
+<p>This paper is too long to go into much detail, so I only list the major ideas they cover, while commenting on interesting areas to me.  The meat of the paper covers the main areas that ML for EDA is currently being applied:</p>
+<ul>
+<li>HIGH LEVEL SYNTHESIS</li>
+<li>LOGIC SYNTHESIS AND PHYSICAL DESIGN</li>
+<li>LITHOGRAPHY AND MASK SYNTHESIS</li>
+<li>ANALOG DESIGN</li>
+<li>VERIFICATION AND TESTING</li>
+<li>OTHERs (Power, etc)</li>
+</ul>
+<p>As can be seen from the overview table, the survey is very comprehensive, and I would recommend the paper highly if interested in the topic.  It is actually the best survey paper I have read in terms of quality of descriptions, and breadth of coverage.</p>
+<h2 id="conclusions"><a class="markdownIt-Anchor" href="#conclusions"></a> Conclusions</h2>
+<p>My take-away from the paper is the tension between the promise of automation unlocked by Deep Reinforcement Learning, and the ultimate reality that DeepRL will be able to provide.  RL is notorious for being difficult to perfect, and also computationally expensive for even small problems such as solving Atari.  At the scale to be useful for EDA will RL have any practical addition for the field or will it only ever promise?  Google and other companies are investing in this area, so this decade should deliver the answer.</p>
+
+                </div>
+            </div>
+    
+            <nav class="post-pagination">
+    
+    <span class="page-number"></span>
+    
+    <a class="older-posts" href="/05/27/2021/21mRMR-1all/">
+        Next post<br>21 mRMR
+    </a>
+    
+</nav>
+
+    
+            
+
+
+        </div>
+    </div>
+    <div class="single-column-footer">
+    Proudly published with Hexo<br>
+    
+    Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
+    
+    &copy; 2021 <a href="www.apaperaday.com">aPaperADay</a>
+</div>
+</div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"
+        integrity="sha256-EGs9T1xMHdvM1geM8jPpoo8EZ1V1VRsmcJz8OByENLA=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+        integrity="sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js"
+        integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
+        integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
+<script src="/js/journal.js?80963222"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+</body>
+</html>
