@@ -1,0 +1,296 @@
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><title>24 Task Aware Representation of Sentences - aPaperADay</title>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="Luke Thomas">
+<meta name="description" content="This paper frames a general formulation of BERT into a Binary classification task so that a general model can be applied across domains with low and zero shot learning.">
+<meta name="keywords" content="">
+
+    <meta charset="utf-8">
+    <meta name="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="renderer" content="webkit">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/journal.css?81923704">
+
+<script src="/js/loadCSS.js"></script>
+<script>
+    loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Material+Icons");
+    (function (d) {
+        var config = {
+                kitId: 'dwg1tuc',
+                scriptTimeout: 3000,
+                async: true
+            },
+            h = d.documentElement, t = setTimeout(function () {
+                h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive";
+            }, config.scriptTimeout), tk = d.createElement("script"), f = false,
+            s = d.getElementsByTagName("script")[0], a;
+        h.className += " wf-loading";
+        tk.src = 'https://use.typekit.net/' + config.kitId + '.js';
+        tk.async = true;
+        tk.onload = tk.onreadystatechange = function () {
+            a = this.readyState;
+            if (f || a && a != "complete" && a != "loaded") return;
+            f = true;
+            clearTimeout(t);
+            try {
+                Typekit.load(config)
+            } catch (e) {
+            }
+        };
+        s.parentNode.insertBefore(tk, s)
+    })(document);
+</script>
+<noscript>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Lora|Montserrat|Anonymous+Pro:400|Material+Icons"/>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="top"></div>
+<div id="app">
+<div class="single-column-drawer-container" ref="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            <a class="a-block drawer-menu-item false" href="www.apaperaday.com">
+                Home
+            </a>
+            
+            <a class="a-block drawer-menu-item false" href="/archives">
+                Archive
+            </a>
+            
+
+            
+            
+            <a class="a-block drawer-menu-item false" href="/post.html">
+                
+            </a>
+            
+            <a class="a-block drawer-menu-item false" href="/About/index.html">
+                About
+            </a>
+            
+
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div ref="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a ref="navTitle" class="navbar-brand" href="/">
+            aPaperADay
+        </a>
+    </div>
+</nav>
+<div class="single-column-header-container" ref="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="/">
+        <div class="single-column-header-title">aPaperADay</div>
+        <div class="single-column-header-subtitle"></div>
+    </a>
+</div>
+<div ref="sideContainer" class="side-container">
+    <a class="a-block nav-head false" href="/">
+        <div class="nav-title">
+            aPaperADay.
+        </div>
+        <div class="nav-subtitle">
+            read part of a deep<br>learning paper a day
+        </div>
+    </a>
+
+    <div class="nav-link-list">
+        
+        <a class="a-block no-tint nav-link-item false" href="/archives">
+            Archive
+        </a>
+        
+
+        
+        
+        <a class="a-block nav-link-item false" href="/post.html">
+            
+        </a>
+        
+        <a class="a-block nav-link-item false" href="/About/index.html">
+            About
+        </a>
+        
+
+        
+    </div>
+
+    
+    <div class="nav-footer">
+        Proudly published with Hexo<br>
+        
+        Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
+        
+        &copy; 2021 <a href="www.apaperaday.com">aPaperADay</a>
+    </div>
+</div>
+<div ref="extraContainer" class="extra-container">
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+
+        
+    </div>
+</div>
+
+
+
+<div ref="streamContainer" class="stream-container">
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            <div class="post-head-wrapper-text-only"
+                 style="background-image: url('')">
+                <div class="post-title">
+                    24 Task Aware Representation of Sentences
+                    <div class="post-meta">
+                        <time datetime="2021-06-30T04:08:06.000Z" itemprop="datePublished">
+                            2021-06-29 21:08
+                        </time>&nbsp;
+                        
+    
+                        
+                        
+                        <i class="material-icons" style="">label</i>
+                        
+                        <a href='/tags/NLP/'>NLP</a>, 
+                        
+                        <a href='/tags/BERT/'>BERT</a>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+    
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <h1 id="task-aware-representation-of-sentences-for-generic-text-classification"><a class="markdownIt-Anchor" href="#task-aware-representation-of-sentences-for-generic-text-classification"></a> Task-Aware Representation of Sentences for Generic Text Classification</h1>
+<h3 id="1-read-the-title-and-make-an-opinion-of-whats-in-the-paper-eg-the-area-the-task"><a class="markdownIt-Anchor" href="#1-read-the-title-and-make-an-opinion-of-whats-in-the-paper-eg-the-area-the-task"></a> 1. <strong>Read the title</strong> and make an opinion of what&#x2019;s in the paper (e.g., the area, the task)</h3>
+<blockquote>
+<p>Task-Aware Representation of Sentences for Generic Text Classification<br>
+This one is easiest for myself to work backwards.  Generic Text classification is pretty straightforward.  I understand how you would need a representation of that and representing at a sentence level is a sensible choice.  Lastly task aware is unclear to me.  What would make a model task aware and what exactly does that mean.</p>
+</blockquote>
+<h3 id="2-read-the-abstract-well-and-form-a-hypothesis-of"><a class="markdownIt-Anchor" href="#2-read-the-abstract-well-and-form-a-hypothesis-of"></a> 2. <strong>Read the abstract well</strong> and form a hypothesis of</h3>
+<ol>
+<li>What&#x2019;s new in the paper?</li>
+<li>Do you have a clear <em>overview</em> about what the paper is all about?</li>
+</ol>
+<blockquote>
+<p>State-of-the-art approaches for text classification leverage a transformer architecture with a linear layer on top that outputs a class distribution for a given prediction problem.</p>
+</blockquote>
+<p>Yes this is true.</p>
+<blockquote>
+<p>While effective, this approach suffers from conceptual limitations that affect its utility in few-shot or zero-shot transfer learning scenarios.</p>
+</blockquote>
+<p>Ahh, ok, this is a good motivating sentence.  I&#x2019;m assuming that they will take a different approach than a linear layer on top.</p>
+<blockquote>
+<p>First, the number of classes to predict needs to be pre-defined. In a transfer learning setting, in which new classes are added to an already trained classifier, all information contained in a linear layer is therefore discarded, and a new layer is trained from scratch. Second, this approach only learns the semantics of classes implicitly from training examples, as opposed to leveraging the explicit semantic information provided by the natural language names of the classes.</p>
+</blockquote>
+<p>This is essentially a critic of the fine-tuning approach taken by Bert.  I&#x2019;m interested in their solution.</p>
+<blockquote>
+<p>This paper presents a <strong>novel formulation</strong> of text classification that addresses these limitations.</p>
+</blockquote>
+<p>Emphasis mine.  Problem formulation is a non-trivial task.</p>
+<blockquote>
+<p>It imbues the notion of the task at hand into the transformer model itself by factorizing arbitrary classification problems into a generic binary classification problem.</p>
+</blockquote>
+<p>I like where this is going. It reminds me of the negative sampling technique that refactors the softmax function by sampling many binary cases.  I&#x2019;m not sure if that connection is valid, but it seems to follow the same ideation.</p>
+<h3 id="3-look-at-the-images-and-extract-a-set-of-questions-about-what-is-not-clear-about-their-method-from-the-images-now-your-job-is-to-answer-these-questions-by-reading-the-paper"><a class="markdownIt-Anchor" href="#3-look-at-the-images-and-extract-a-set-of-questions-about-what-is-not-clear-about-their-method-from-the-images-now-your-job-is-to-answer-these-questions-by-reading-the-paper"></a> 3. <strong>Look at the images</strong> and extract a set of &#x201C;questions&#x201D; about what is not clear about their method from the images. Now your job is to answer these questions by reading the paper.</h3>
+<p><img src="Bert_fine_tuning.png" alt="Bert_fine_tuning"><br>
+Ok this is a good image because it directly copies Bert&#x2019;s images.</p>
+<p><img src="arch.png" alt="arch"><br>
+And they follow it up with an easy to understand figure that demonstrates their approach: embed the framing question into Bert&#x2019;s input and train a binary classifier.  I like it.<br>
+They include text like: <code>&lt;&quot;topic politics&quot;, &quot;The White House announced that [..]&quot;&gt;</code> as an example input.</p>
+<p><img src="graph.png" alt="graph"><br>
+This still confuses me.  Why are some tasks still so bad?  Are they just hard or does the model struggle on certain datasets?  I guess I&#x2019;ll have to find out by reading.</p>
+<h3 id="5-read-the-method-aiming-to-answer-your-questions-about-the-paper-focus-on-understanding-only-the-things-relevant-for-the-story-ie-to-understand-the-contribution"><a class="markdownIt-Anchor" href="#5-read-the-method-aiming-to-answer-your-questions-about-the-paper-focus-on-understanding-only-the-things-relevant-for-the-story-ie-to-understand-the-contribution"></a> 5. <strong>Read the method</strong> aiming to answer your &#x201C;questions&#x201D; about the paper. Focus on understanding only the things relevant for the story (i.e., to understand the contribution).</h3>
+<blockquote>
+<p>Our proposed approach therefore reformulates the classification problem as a &#x201C;query&#x201D; in which a sentence and a potential class label is given to the transformer which makes a prediction whether or not this label holds.</p>
+</blockquote>
+<p>Ok, this makes a lot of sense now.  From the example given, <code>&lt;&quot;topic politics&quot;, &quot;The White House announced that [..]&quot;&gt;</code> it shows what the task is &#x201C;topic politics&#x201D; and how by adding a <code>&lt;SEP&gt;</code> between inputs, the model can learn to associate labels with semantic meaning.</p>
+<p>This method does in fact hold to the negative sampling formulation and is a good way to understand what they are doing.</p>
+<blockquote>
+<p>The core advantage of TARS is that the entire model (encoder and decoder) can be shared across tasks,<br>
+This is important if you want to maximize the effective model knowledge that gets transferred from task to task.</p>
+</blockquote>
+<h3 id="6-read-the-experiments-to-convince-you-that-the-show-results-are-caused-by-their-claim-be-aware-that-the-experiments-highlighted-are-the-best-scenarios-and-are-fully-hyper-parameter-tuned"><a class="markdownIt-Anchor" href="#6-read-the-experiments-to-convince-you-that-the-show-results-are-caused-by-their-claim-be-aware-that-the-experiments-highlighted-are-the-best-scenarios-and-are-fully-hyper-parameter-tuned"></a> 6. <strong>Read the experiments</strong> to convince you that the show results are caused by their claim. Be aware that the experiments highlighted are the best scenarios and are fully hyper-parameter tuned.</h3>
+<blockquote>
+<p>We also observe surprisingly powerful zero-shot learning abilities, indicating that TARS indeed learns to interpret the semantics of the label name and is thus able to correctly predict labels for classes without any training data at all.</p>
+</blockquote>
+<p>This is good to see.  It provides basic evidence that their approach is generally applicable and is fundamentally &#x201C;learning&#x201D; useful, transferable representations.</p>
+<p>The below table is quite impressive.  They have significant improvement over finetuned BERT with less variation.  One question would be how does this compare with next-generation BERTs such as roBERTa and XLM, etc.?<br>
+<img src="table.png" alt="table"></p>
+<h3 id="7-make-sure-you-answered-all-your-questions-did-the-authors-convince-you-that-their-story-has-the-effect-that-they-claim"><a class="markdownIt-Anchor" href="#7-make-sure-you-answered-all-your-questions-did-the-authors-convince-you-that-their-story-has-the-effect-that-they-claim"></a> 7. <strong>Make sure you answered all your questions.</strong> Did the authors convince you that their story has the effect that they claim?</h3>
+<p>Good paper.  I&#x2019;m convinced to try this out and see how it performs on my data.</p>
+
+                </div>
+            </div>
+    
+            <nav class="post-pagination">
+    
+    <span class="page-number"></span>
+    
+    <a class="older-posts" href="/06/22/2021/23AIMC/">
+        Next post<br>23 Using Analog MRAM-based Neurons and Synapses
+    </a>
+    
+</nav>
+
+    
+            
+
+
+        </div>
+    </div>
+    <div class="single-column-footer">
+    Proudly published with Hexo<br>
+    
+    Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
+    
+    &copy; 2021 <a href="www.apaperaday.com">aPaperADay</a>
+</div>
+</div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"
+        integrity="sha256-EGs9T1xMHdvM1geM8jPpoo8EZ1V1VRsmcJz8OByENLA=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+        integrity="sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js"
+        integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
+        integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
+<script src="/js/journal.js?21172742"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+</body>
+</html>
