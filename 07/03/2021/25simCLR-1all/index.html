@@ -1,0 +1,319 @@
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><title>25 SimCLR, Contrastive Learning - aPaperADay</title>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="Luke Thomas">
+<meta name="description" content="A simple framework for a contrastive learning of visual representations.">
+<meta name="keywords" content="">
+
+    <meta charset="utf-8">
+    <meta name="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="renderer" content="webkit">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/journal.css?84229534">
+
+<script src="/js/loadCSS.js"></script>
+<script>
+    loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Material+Icons");
+    (function (d) {
+        var config = {
+                kitId: 'dwg1tuc',
+                scriptTimeout: 3000,
+                async: true
+            },
+            h = d.documentElement, t = setTimeout(function () {
+                h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive";
+            }, config.scriptTimeout), tk = d.createElement("script"), f = false,
+            s = d.getElementsByTagName("script")[0], a;
+        h.className += " wf-loading";
+        tk.src = 'https://use.typekit.net/' + config.kitId + '.js';
+        tk.async = true;
+        tk.onload = tk.onreadystatechange = function () {
+            a = this.readyState;
+            if (f || a && a != "complete" && a != "loaded") return;
+            f = true;
+            clearTimeout(t);
+            try {
+                Typekit.load(config)
+            } catch (e) {
+            }
+        };
+        s.parentNode.insertBefore(tk, s)
+    })(document);
+</script>
+<noscript>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Lora|Montserrat|Anonymous+Pro:400|Material+Icons"/>
+</noscript><!-- hexo-inject:begin --><link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css'><!-- hexo-inject:end -->
+</head>
+<body>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="top"></div>
+<div id="app">
+<div class="single-column-drawer-container" ref="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            <a class="a-block drawer-menu-item false" href="www.apaperaday.com">
+                Home
+            </a>
+            
+            <a class="a-block drawer-menu-item false" href="/archives">
+                Archive
+            </a>
+            
+
+            
+            
+            <a class="a-block drawer-menu-item false" href="/post.html">
+                
+            </a>
+            
+            <a class="a-block drawer-menu-item false" href="/About/index.html">
+                About
+            </a>
+            
+
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div ref="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a ref="navTitle" class="navbar-brand" href="/">
+            aPaperADay
+        </a>
+    </div>
+</nav>
+<div class="single-column-header-container" ref="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="/">
+        <div class="single-column-header-title">aPaperADay</div>
+        <div class="single-column-header-subtitle"></div>
+    </a>
+</div>
+<div ref="sideContainer" class="side-container">
+    <a class="a-block nav-head false" href="/">
+        <div class="nav-title">
+            aPaperADay.
+        </div>
+        <div class="nav-subtitle">
+            read part of a deep<br>learning paper a day
+        </div>
+    </a>
+
+    <div class="nav-link-list">
+        
+        <a class="a-block no-tint nav-link-item false" href="/archives">
+            Archive
+        </a>
+        
+
+        
+        
+        <a class="a-block nav-link-item false" href="/post.html">
+            
+        </a>
+        
+        <a class="a-block nav-link-item false" href="/About/index.html">
+            About
+        </a>
+        
+
+        
+    </div>
+
+    
+    <div class="nav-footer">
+        Proudly published with Hexo<br>
+        
+        Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
+        
+        &copy; 2021 <a href="www.apaperaday.com">aPaperADay</a>
+    </div>
+</div>
+<div ref="extraContainer" class="extra-container">
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+
+        
+    </div>
+</div>
+
+
+
+<div ref="streamContainer" class="stream-container">
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            <div class="post-head-wrapper-text-only"
+                 style="background-image: url('')">
+                <div class="post-title">
+                    25 SimCLR, Contrastive Learning
+                    <div class="post-meta">
+                        <time datetime="2021-07-04T00:16:38.000Z" itemprop="datePublished">
+                            2021-07-03 17:16
+                        </time>&nbsp;
+                        
+    
+                        
+                        
+                        <i class="material-icons" style="">label</i>
+                        
+                        <a href='/tags/Contrastive-Learning/'>Contrastive Learning</a>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+    
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <h3 id="1-read-the-title-and-make-an-opinion-of-whats-in-the-paper-eg-the-area-the-task"><a class="markdownIt-Anchor" href="#1-read-the-title-and-make-an-opinion-of-whats-in-the-paper-eg-the-area-the-task"></a> 1. <strong>Read the title</strong> and make an opinion of what&#x2019;s in the paper (e.g., the area, the task)</h3>
+<blockquote>
+<p>A Simple Framework for Contrastive Learning of Visual Representations</p>
+</blockquote>
+<p>A couple of thoughts.</p>
+<ul>
+<li>I wonder how much of this is an actual framework of code, or just ideas.</li>
+<li>Contrastive Learning, so I&#x2019;m expecting semi-supervised learning</li>
+<li><em>Visual Representations</em>: not sure why they didn&#x2019;t just say images? Is there more to visual representations than images?</li>
+</ul>
+<h3 id="2-read-the-abstract-well-and-form-a-hypothesis-of"><a class="markdownIt-Anchor" href="#2-read-the-abstract-well-and-form-a-hypothesis-of"></a> 2. <strong>Read the abstract well</strong> and form a hypothesis of</h3>
+<ol>
+<li>What&#x2019;s new in the paper?</li>
+<li>Do you have a clear <em>overview</em> about what the paper is all about?</li>
+</ol>
+<blockquote>
+<p>We simplify recently proposed contrastive self-supervised learning algorithms without requiring specialized architectures or a memory bank.</p>
+</blockquote>
+<p>The novel approach seems to be a simplification of other contrastive literature.</p>
+<blockquote>
+<p>In order to understand what enables the contrastive prediction tasks to learn useful representations, we systematically study the major components of our framework.</p>
+</blockquote>
+<p>Citing three discoveries:</p>
+<blockquote>
+<ol>
+<li>composition of data augmentations plays a critical role in defining effective predictive tasks,</li>
+<li>introducing a learnable nonlinear transformation between the representation and the contrastive loss substantially improves the quality of the learned representations, and</li>
+<li>contrastive learning benefits from larger batch sizes and more training steps compared to supervised learning.</li>
+</ol>
+</blockquote>
+<p>Number three is an iteresting discovery, while two I haven&#x2019;t quite wrapped my head around, and one seems obvious, but I hope they can provide some compelling data for it.</p>
+<blockquote>
+<p>By combining these findings, we are able to considerably outperform previous methods for self-supervised and semi-supervised learning on ImageNet.</p>
+</blockquote>
+<p>It seems to be a leap forward in performance, but still does not appear to be better than supervised, which opens interesting possibilities.</p>
+<p><img src="graph.png" alt="graph"></p>
+<p>They state parity with top-1 accuracy as ResNet-50 (which is decent I&#x2019;d say) and competes with Alexnet against 1/100th of the labels.  Although the results are not ground-breaking, it does seem to be promising.</p>
+<p>I&#x2019;d say from the abstract, their actual framework is not obvious.  They mostly presented results, so I need to figure out what exactly they do for that.</p>
+<h3 id="3-look-at-the-images-and-extract-a-set-of-questions-about-what-is-not-clear-about-their-method-from-the-images-now-your-job-is-to-answer-these-questions-by-reading-the-paper"><a class="markdownIt-Anchor" href="#3-look-at-the-images-and-extract-a-set-of-questions-about-what-is-not-clear-about-their-method-from-the-images-now-your-job-is-to-answer-these-questions-by-reading-the-paper"></a> 3. <strong>Look at the images</strong> and extract a set of &#x201C;questions&#x201D; about what is not clear about their method from the images. Now your job is to answer these questions by reading the paper.</h3>
+<p><img src="framework.png" alt="framework"></p>
+<p>So it actually does look like a fairly simple framework, and looks to clearly depend on having well-engineered augmentations (however for some vision tasks, these may already have been done).</p>
+<p>A couple of images are used to describe the augmentations.  It seems like much of this paper will be understanding augmentations.</p>
+<h3 id="4-read-the-method-aiming-to-answer-your-questions-about-the-paper-focus-on-understanding-only-the-things-relevant-for-the-story-ie-to-understand-the-contribution"><a class="markdownIt-Anchor" href="#4-read-the-method-aiming-to-answer-your-questions-about-the-paper-focus-on-understanding-only-the-things-relevant-for-the-story-ie-to-understand-the-contribution"></a> 4. <strong>Read the method</strong> aiming to answer your &#x201C;questions&#x201D; about the paper. Focus on understanding only the things relevant for the story (i.e., to understand the contribution).</h3>
+<p>To see their method it is in short:</p>
+<blockquote>
+<p>SimCLR learns representations by maximizing agreement between differently augmented views of the same data example via contrastive loss in the latent space.</p>
+</blockquote>
+<p>This is a simple explanation of their idea.  This provokes me to the question, what if the augmentation is not from a augmentation function but from the simultaneous recordings of the same data with different devices (ie two pictures taken at the same time with different cameras of the same dog).  It may only complicate the task, or it may provide more stimulating learning tasks.</p>
+<p><em>There are four pieces to the framework:</em></p>
+<ul>
+<li><strong>Data Augmentation Module</strong>: this is an important function considering so much of the paper is devoted to augmentation.  This module from the framework does as follows:</li>
+</ul>
+<blockquote>
+<p>transforms any given data example randomly resulting in two correlated views of the same example, denoted <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mover accent="true"><mi mathvariant="bold-italic">x</mi><mo>~</mo></mover><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\tilde{\boldsymbol{x}}_{i}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8312999999999999em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6812999999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="mord boldsymbol">x</span></span></span></span></span><span style="top:-3.36344em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.25em;">~</span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mover accent="true"><mi mathvariant="bold-italic">x</mi><mo>~</mo></mover><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">\tilde{\boldsymbol{x}}_{j}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9674079999999998em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6812999999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="mord boldsymbol">x</span></span></span></span></span><span style="top:-3.36344em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.25em;">~</span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>, which we consider as a positive pair. In this work, we sequentially apply three simple augmentations: random cropping followed by resize back to the original size, random color distortions, and random Gaussian blur.</p>
+</blockquote>
+<ul>
+<li><strong>Base Encoder</strong> which is ResNet</li>
+<li><strong>Projection Head</strong> which is a 2 layer MLP</li>
+<li><strong>Contrastive Loss Function</strong> for this I&#x2019;m still confused because they say they don&#x2019;t explicitly sample negative examples, but treat the other 2(N-1) examples in minibatch as negative examples.  Hopefully I can clear this up.  They term the loss as NT-Xent (the normalized temperature-scaled cross entropy loss).</li>
+</ul>
+<p><strong>Essential Color Change</strong></p>
+<blockquote>
+<p>color histograms alone suffice to distinguish images. Neural nets may exploit this shortcut to solve the predictive task. There- fore, it is critical to compose cropping with color distortion in order to learn generalizable features.</p>
+</blockquote>
+<p>This is a good find.</p>
+<p>There are many more results they include I do not go into.  The paper is well written with a lot in it.</p>
+<h3 id="5-read-the-experiments-to-convince-you-that-the-show-results-are-caused-by-their-claim-be-aware-that-the-experiments-highlighted-are-the-best-scenarios-and-are-fully-hyper-parameter-tuned"><a class="markdownIt-Anchor" href="#5-read-the-experiments-to-convince-you-that-the-show-results-are-caused-by-their-claim-be-aware-that-the-experiments-highlighted-are-the-best-scenarios-and-are-fully-hyper-parameter-tuned"></a> 5. <strong>Read the experiments</strong> to convince you that the show results are caused by their claim. Be aware that the experiments highlighted are the best scenarios and are fully hyper-parameter tuned.</h3>
+<p>This image I found to be very interesting, where they show their results with using a single, double data augmentation.  Metric is ImageNet top-1 accuracy:</p>
+<p><img src="experiment.png" alt="experiment"></p>
+<p>There were many experiments, so I haven&#x2019;t covered all of them.  They essentially all point to the expected results:</p>
+<ol>
+<li>More data is needed</li>
+<li>Self supervised learning is able to leverage bigger models (4x ResNet)</li>
+<li>Less labels can be used</li>
+<li>Not yet as good as supervised learning if enough labels, but getting close.</li>
+<li>Augmentation choices make significant differences.</li>
+</ol>
+<h3 id="6-make-sure-you-answered-all-your-questions-did-the-authors-convince-you-that-their-story-has-the-effect-that-they-claim"><a class="markdownIt-Anchor" href="#6-make-sure-you-answered-all-your-questions-did-the-authors-convince-you-that-their-story-has-the-effect-that-they-claim"></a> 6. <strong>Make sure you answered all your questions.</strong> Did the authors convince you that their story has the effect that they claim?</h3>
+<p>They conclude with:</p>
+<blockquote>
+<p>The strength of this simple framework suggests that, despite a recent surge in interest, self-supervised learning remains undervalued.</p>
+</blockquote>
+<p>I don&#x2019;t know if I agree with that, but I think this paper was written in 2019, and times change.  I still need to spend more time understanding the actual implementation of the loss function and how they get negative samples, that is by biggest misunderstanding yet.  However, I see the value of low-label regimes that have tasks were unsupervised data is easy to come by.</p>
+
+                </div>
+            </div>
+    
+            <nav class="post-pagination">
+    
+    <span class="page-number"></span>
+    
+    <a class="older-posts" href="/06/29/2021/24TARS-1all/">
+        Next post<br>24 Task Aware Representation of Sentences
+    </a>
+    
+</nav>
+
+    
+            
+
+
+        </div>
+    </div>
+    <div class="single-column-footer">
+    Proudly published with Hexo<br>
+    
+    Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
+    
+    &copy; 2021 <a href="www.apaperaday.com">aPaperADay</a>
+</div>
+</div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"
+        integrity="sha256-EGs9T1xMHdvM1geM8jPpoo8EZ1V1VRsmcJz8OByENLA=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+        integrity="sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js"
+        integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
+        integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
+<script src="/js/journal.js?99096055"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+</body>
+</html>
