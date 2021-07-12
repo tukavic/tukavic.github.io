@@ -1,0 +1,307 @@
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><title>32 DINO Emerging Properties in Self-Supervised Vision Transformers - aPaperADay</title>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="Luke Thomas">
+<meta name="description" content="This paper looks at the incredible power (and compute) ViT can use with fully self-supervised tasks.">
+<meta name="keywords" content="">
+
+    <meta charset="utf-8">
+    <meta name="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="renderer" content="webkit">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/journal.css?10599790">
+
+<script src="/js/loadCSS.js"></script>
+<script>
+    loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Material+Icons");
+    (function (d) {
+        var config = {
+                kitId: 'dwg1tuc',
+                scriptTimeout: 3000,
+                async: true
+            },
+            h = d.documentElement, t = setTimeout(function () {
+                h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive";
+            }, config.scriptTimeout), tk = d.createElement("script"), f = false,
+            s = d.getElementsByTagName("script")[0], a;
+        h.className += " wf-loading";
+        tk.src = 'https://use.typekit.net/' + config.kitId + '.js';
+        tk.async = true;
+        tk.onload = tk.onreadystatechange = function () {
+            a = this.readyState;
+            if (f || a && a != "complete" && a != "loaded") return;
+            f = true;
+            clearTimeout(t);
+            try {
+                Typekit.load(config)
+            } catch (e) {
+            }
+        };
+        s.parentNode.insertBefore(tk, s)
+    })(document);
+</script>
+<noscript>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Lora|Montserrat|Anonymous+Pro:400|Material+Icons"/>
+</noscript><!-- hexo-inject:begin --><link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css'><!-- hexo-inject:end -->
+</head>
+<body>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="top"></div>
+<div id="app">
+<div class="single-column-drawer-container" ref="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            <a class="a-block drawer-menu-item false" href="www.apaperaday.com">
+                Home
+            </a>
+            
+            <a class="a-block drawer-menu-item false" href="/archives">
+                Archive
+            </a>
+            
+
+            
+            
+            <a class="a-block drawer-menu-item false" href="/post.html">
+                
+            </a>
+            
+            <a class="a-block drawer-menu-item false" href="/About/index.html">
+                About
+            </a>
+            
+
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div ref="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a ref="navTitle" class="navbar-brand" href="/">
+            aPaperADay
+        </a>
+    </div>
+</nav>
+<div class="single-column-header-container" ref="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="/">
+        <div class="single-column-header-title">aPaperADay</div>
+        <div class="single-column-header-subtitle"></div>
+    </a>
+</div>
+<div ref="sideContainer" class="side-container">
+    <a class="a-block nav-head false" href="/">
+        <div class="nav-title">
+            aPaperADay.
+        </div>
+        <div class="nav-subtitle">
+            read a deep learning<br>paper daily(ish)
+        </div>
+    </a>
+
+    <div class="nav-link-list">
+        
+        <a class="a-block no-tint nav-link-item false" href="/archives">
+            Archive
+        </a>
+        
+
+        
+        
+        <a class="a-block nav-link-item false" href="/post.html">
+            
+        </a>
+        
+        <a class="a-block nav-link-item false" href="/About/index.html">
+            About
+        </a>
+        
+
+        
+    </div>
+
+    
+    <div class="nav-footer">
+        Proudly published with Hexo<br>
+        
+        Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
+        
+        &copy; 2021 <a href="www.apaperaday.com">aPaperADay</a>
+    </div>
+</div>
+<div ref="extraContainer" class="extra-container">
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+
+        
+    </div>
+</div>
+
+
+
+<div ref="streamContainer" class="stream-container">
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            <div class="post-head-wrapper-text-only"
+                 style="background-image: url('')">
+                <div class="post-title">
+                    32 DINO Emerging Properties in Self-Supervised Vision Transformers
+                    <div class="post-meta">
+                        <time datetime="2021-07-12T15:54:57.000Z" itemprop="datePublished">
+                            2021-07-12 08:54
+                        </time>&nbsp;
+                        
+    
+                        
+                        
+                        <i class="material-icons" style="">label</i>
+                        
+                        <a href='/tags/ViT/'>ViT</a>, 
+                        
+                        <a href='/tags/SSL/'>SSL</a>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+    
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <h3 id="1-read-the-title-and-make-an-opinion-of-whats-in-the-paper-eg-the-area-the-task"><a class="markdownIt-Anchor" href="#1-read-the-title-and-make-an-opinion-of-whats-in-the-paper-eg-the-area-the-task"></a> 1. <strong>Read the title</strong> and make an opinion of what&#x2019;s in the paper (e.g., the area, the task)</h3>
+<p>Year: 2021</p>
+<blockquote>
+<p>Emerging Properties in Self-Supervised Vision Transformers</p>
+</blockquote>
+<p>This is an image based tasks and as I&#x2019;ve seen their blogpost, seemingly adapts well to video as well.  Self-Supervision has been a new wave that is sweeping through with transformer, so this paper looks at the extension of that into vision transformers (ViT).</p>
+<h3 id="2-read-the-abstract-well-and-form-a-hypothesis-of"><a class="markdownIt-Anchor" href="#2-read-the-abstract-well-and-form-a-hypothesis-of"></a> 2. <strong>Read the abstract well</strong> and form a hypothesis of</h3>
+<ol>
+<li>What&#x2019;s new in the paper?</li>
+<li>Do you have a clear <em>overview</em> about what the paper is all about?</li>
+</ol>
+<blockquote>
+<p>In this paper, we question if self-supervised learning provides new properties to Vision Transformer (ViT) [19] that stand out compared to convolutional networks (convnets).</p>
+</blockquote>
+<p>This clearly shows that the paper is looking at the <em>comparison</em> of the two.</p>
+<p>They make a few observations:</p>
+<blockquote>
+<p>first, self-supervised ViT features contain explicit information about the semantic segmentation of an image, which does not emerge as clearly with supervised ViTs, nor with convnets</p>
+</blockquote>
+<blockquote>
+<p>Second, these features are also excellent k-NN classifiers, reaching 78.3% top-1 on ImageNet</p>
+</blockquote>
+<blockquote>
+<p>Our study also underlines the importance of momentum encoder, multi-crop training, and the use of small patches with ViTs</p>
+</blockquote>
+<p>This should be particularly useful information as I try to understand what this paper contributes.</p>
+<p>They give the name Dino too:</p>
+<blockquote>
+<p>called DINO, which we interpret as a form of self-<strong>di</strong>stillation with <strong>no</strong> labels.</p>
+</blockquote>
+<p>I like easy to remember names, as it gives my brain something to hold on to and easily remember them by.</p>
+<h3 id="3-look-at-the-images-and-extract-a-set-of-questions-about-what-is-not-clear-about-their-method-from-the-images-now-your-job-is-to-answer-these-questions-by-reading-the-paper"><a class="markdownIt-Anchor" href="#3-look-at-the-images-and-extract-a-set-of-questions-about-what-is-not-clear-about-their-method-from-the-images-now-your-job-is-to-answer-these-questions-by-reading-the-paper"></a> 3. <strong>Look at the images</strong> and extract a set of &#x201C;questions&#x201D; about what is not clear about their method from the images. Now your job is to answer these questions by reading the paper.</h3>
+<p>These header results are quite impressive.  I wonder how hand picked these are, or if the model is more general.</p>
+<p><img src="header.png" alt="header"></p>
+<p>Figure 2 is an excellent short diagram of their method.  It seems quite unique to me to use self distillation and this exponential moving average.  It seems that this method is learning from its past self, a strong representation of images.</p>
+<p><img src="diagram.png" alt="diagram"></p>
+<p>The algorithm is surprisingly simple.</p>
+<p><img src="algo.png" alt="algo"></p>
+<p>It looks very similar to standard training, except with two models that are subtly tuned.</p>
+<p>They also have a beautifully formed table, which highlights their results, while clearly showing a multitude of comparisons, while the supervised method is greyed out for distinction.  This table is a 10/10:</p>
+<p><img src="table.png" alt="table"></p>
+<h3 id="4-read-the-method-aiming-to-answer-your-questions-about-the-paper-focus-on-understanding-only-the-things-relevant-for-the-story-ie-to-understand-the-contribution"><a class="markdownIt-Anchor" href="#4-read-the-method-aiming-to-answer-your-questions-about-the-paper-focus-on-understanding-only-the-things-relevant-for-the-story-ie-to-understand-the-contribution"></a> 4. <strong>Read the method</strong> aiming to answer your &#x201C;questions&#x201D; about the paper. Focus on understanding only the things relevant for the story (i.e., to understand the contribution).</h3>
+<blockquote>
+<p>The framework used for this work, DINO, shares the same overall structure as recent self-supervised approaches [10, 16, 12, 30, 33]. However, our method shares also similarities with knowledge distillation [35] and we present it under this angle</p>
+</blockquote>
+<p>The distillation process is still a bit foreign to me, but I see it show up often, so I will learn about it soon.  However, they provide a short description:</p>
+<blockquote>
+<p>Knowledge distillation is a learning paradigm where we train a student network g&#x3B8;s to match the output of a given teacher network g&#x3B8;t , parameterized by &#x3B8;s and &#x3B8;t respectively. Given an input image x, both networks output probability distributions over K dimensions denoted by Ps and Pt. The probability P is obtained by normalizing the output of the network g with a softmax function. More precisely,</p>
+</blockquote>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mi>s</mi></msub><mo stretchy="false">(</mo><mi>x</mi><msup><mo stretchy="false">)</mo><mrow><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo></mrow></msup><mo>=</mo><mfrac><mrow><mi>exp</mi><mo>&#x2061;</mo><mrow><mo fence="true">(</mo><msub><mi>g</mi><msub><mi>&#x3B8;</mi><mi>s</mi></msub></msub><mo stretchy="false">(</mo><mi>x</mi><msup><mo stretchy="false">)</mo><mrow><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo></mrow></msup><mi mathvariant="normal">/</mi><msub><mi>&#x3C4;</mi><mi>s</mi></msub><mo fence="true">)</mo></mrow></mrow><mrow><munderover><mo>&#x2211;</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>K</mi></munderover><mi>exp</mi><mo>&#x2061;</mo><mrow><mo fence="true">(</mo><msub><mi>g</mi><msub><mi>&#x3B8;</mi><mi>s</mi></msub></msub><mo stretchy="false">(</mo><mi>x</mi><msup><mo stretchy="false">)</mo><mrow><mo stretchy="false">(</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></msup><mi mathvariant="normal">/</mi><msub><mi>&#x3C4;</mi><mi>s</mi></msub><mo fence="true">)</mo></mrow></mrow></mfrac></mrow><annotation encoding="application/x-tex">P_{s}(x)^{(i)}=\frac{\exp \left(g_{\theta_{s}}(x)^{(i)} / \tau_{s}\right)}{\sum_{k=1}^{K} \exp \left(g_{\theta_{s}}(x)^{(k)} / \tau_{s}\right)}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.188em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">s</span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.938em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathdefault mtight">i</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.8492509999999998em;vertical-align:-1.221241em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6280099999999997em;"><span style="top:-2.128769em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">&#x2211;</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.981231em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.07153em;">K</span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.29971000000000003em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">exp</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">&#x3B8;</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.16454285714285719em;"><span style="top:-2.357em;margin-left:-0.02778em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">s</span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.2501em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.814em;"><span style="top:-2.989em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mord">/</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.1132em;">&#x3C4;</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.1132em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">s</span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">)</span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.7400100000000003em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mop">exp</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">&#x3B8;</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.16454285714285719em;"><span style="top:-2.357em;margin-left:-0.02778em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">s</span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.2501em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8879999999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathdefault mtight">i</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mord">/</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.1132em;">&#x3C4;</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.1132em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">s</span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">)</span></span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:1.221241em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p>Also there are some tricks with exactly what is passed to which Student/Teacher.  The local views of smaller resolution are passed only to student while global views are passed to both.</p>
+<h4 id="getting-it-to-work"><a class="markdownIt-Anchor" href="#getting-it-to-work"></a> Getting it to work</h4>
+<p>There are a few details in these papers that it is not always easier to determine how many weeks it took them to figure out a small addition that makes the idea work.  They discuss a few here:</p>
+<ul>
+<li>Teacher Network is best updated with a exponential moving average (EMA)</li>
+<li>Both ResNets and ViTs can be used as the backbone</li>
+<li>The projection head is a 3 layer MLP with <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>h</mi><mo>=</mo><mn>2048</mn></mrow><annotation encoding="application/x-tex">h = 2048</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">h</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">0</span><span class="mord">4</span><span class="mord">8</span></span></span></span>.</li>
+<li>Collapse is avoided by using a centering and sharpening of the momentum teacher.  SSL implementations sometimes differ only in their approach to solving this problem.</li>
+</ul>
+<h3 id="5-read-the-experiments-to-convince-you-that-the-show-results-are-caused-by-their-claim-be-aware-that-the-experiments-highlighted-are-the-best-scenarios-and-are-fully-hyper-parameter-tuned"><a class="markdownIt-Anchor" href="#5-read-the-experiments-to-convince-you-that-the-show-results-are-caused-by-their-claim-be-aware-that-the-experiments-highlighted-are-the-best-scenarios-and-are-fully-hyper-parameter-tuned"></a> 5. <strong>Read the experiments</strong> to convince you that the show results are caused by their claim. Be aware that the experiments highlighted are the best scenarios and are fully hyper-parameter tuned.</h3>
+<p>One result that is a bit alarming is the amount of compute required to run it, but this is also a first release, where there has not been much engineering time spent speeding it up.</p>
+<p>Another concern is there seems to be ad hoc results in terms of which attention head is used, so images showing segmentations in certain scenarios, are potentially cherry-picked.</p>
+<p>They address it in the appendix by showing a number of results: only two of which I show here:</p>
+<p><img src="results.png" alt="results"></p>
+<p>However, their experiments are overall compelling, and show good, results to me. The table shown earlier is a good reference.</p>
+<h3 id="6-make-sure-you-answered-all-your-questions-did-the-authors-convince-you-that-their-story-has-the-effect-that-they-claim"><a class="markdownIt-Anchor" href="#6-make-sure-you-answered-all-your-questions-did-the-authors-convince-you-that-their-story-has-the-effect-that-they-claim"></a> 6. <strong>Make sure you answered all your questions.</strong> Did the authors convince you that their story has the effect that they claim?</h3>
+<p>All in all, this was a great paper in my opinion.  Huge, and hard to get through in less than an hour, but there is a lot of good references.</p>
+<p>I think vision still struggles from a resolution barrier, and I don&#x2019;t know if that will just come with compute over time, or if it is a new technique that will enable better resolutions to be processed.  Either way, the future is bright.</p>
+
+                </div>
+            </div>
+    
+            <nav class="post-pagination">
+    
+    <span class="page-number"></span>
+    
+    <a class="older-posts" href="/07/10/2021/31BertGeneration/">
+        Next post<br>31 BertGeneration
+    </a>
+    
+</nav>
+
+    
+            
+
+
+        </div>
+    </div>
+    <div class="single-column-footer">
+    Proudly published with Hexo<br>
+    
+    Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
+    
+    &copy; 2021 <a href="www.apaperaday.com">aPaperADay</a>
+</div>
+</div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"
+        integrity="sha256-EGs9T1xMHdvM1geM8jPpoo8EZ1V1VRsmcJz8OByENLA=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+        integrity="sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js"
+        integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
+        integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
+<script src="/js/journal.js?17949693"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+</body>
+</html>
