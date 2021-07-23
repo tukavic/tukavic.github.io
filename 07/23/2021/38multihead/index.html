@@ -1,0 +1,280 @@
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><title>38 Are Sixteen Heads Really Better than One? - aPaperADay</title>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="Luke Thomas">
+<meta name="description" content="This paper investigates the tradeoffs to having multiple headed attention.">
+<meta name="keywords" content="">
+
+    <meta charset="utf-8">
+    <meta name="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="renderer" content="webkit">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/journal.css?98281699">
+
+<script src="/js/loadCSS.js"></script>
+<script>
+    loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Material+Icons");
+    (function (d) {
+        var config = {
+                kitId: 'dwg1tuc',
+                scriptTimeout: 3000,
+                async: true
+            },
+            h = d.documentElement, t = setTimeout(function () {
+                h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive";
+            }, config.scriptTimeout), tk = d.createElement("script"), f = false,
+            s = d.getElementsByTagName("script")[0], a;
+        h.className += " wf-loading";
+        tk.src = 'https://use.typekit.net/' + config.kitId + '.js';
+        tk.async = true;
+        tk.onload = tk.onreadystatechange = function () {
+            a = this.readyState;
+            if (f || a && a != "complete" && a != "loaded") return;
+            f = true;
+            clearTimeout(t);
+            try {
+                Typekit.load(config)
+            } catch (e) {
+            }
+        };
+        s.parentNode.insertBefore(tk, s)
+    })(document);
+</script>
+<noscript>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Lora|Montserrat|Anonymous+Pro:400|Material+Icons"/>
+</noscript><!-- hexo-inject:begin --><link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css'><!-- hexo-inject:end -->
+</head>
+<body>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="top"></div>
+<div id="app">
+<div class="single-column-drawer-container" ref="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            <a class="a-block drawer-menu-item false" href="www.apaperaday.com">
+                Home
+            </a>
+            
+            <a class="a-block drawer-menu-item false" href="/archives">
+                Archive
+            </a>
+            
+
+            
+            
+            <a class="a-block drawer-menu-item false" href="/post.html">
+                
+            </a>
+            
+            <a class="a-block drawer-menu-item false" href="/About/index.html">
+                About
+            </a>
+            
+
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div ref="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a ref="navTitle" class="navbar-brand" href="/">
+            aPaperADay
+        </a>
+    </div>
+</nav>
+<div class="single-column-header-container" ref="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="/">
+        <div class="single-column-header-title">aPaperADay</div>
+        <div class="single-column-header-subtitle"></div>
+    </a>
+</div>
+<div ref="sideContainer" class="side-container">
+    <a class="a-block nav-head false" href="/">
+        <div class="nav-title">
+            aPaperADay.
+        </div>
+        <div class="nav-subtitle">
+            read a deep learning<br>paper a day
+        </div>
+    </a>
+
+    <div class="nav-link-list">
+        
+        <a class="a-block no-tint nav-link-item false" href="/archives">
+            Archive
+        </a>
+        
+
+        
+        
+        <a class="a-block nav-link-item false" href="/post.html">
+            
+        </a>
+        
+        <a class="a-block nav-link-item false" href="/About/index.html">
+            About
+        </a>
+        
+
+        
+    </div>
+
+    
+    <div class="nav-footer">
+        Proudly published with Hexo<br>
+        
+        Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
+        
+        &copy; 2021 <a href="www.apaperaday.com">aPaperADay</a>
+    </div>
+</div>
+<div ref="extraContainer" class="extra-container">
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+
+        
+    </div>
+</div>
+
+
+
+<div ref="streamContainer" class="stream-container">
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            <div class="post-head-wrapper-text-only"
+                 style="background-image: url('')">
+                <div class="post-title">
+                    38 Are Sixteen Heads Really Better than One?
+                    <div class="post-meta">
+                        <time datetime="2021-07-23T16:22:21.000Z" itemprop="datePublished">
+                            2021-07-23 09:22
+                        </time>&nbsp;
+                        
+    
+                        
+                        
+                        <i class="material-icons" style="">label</i>
+                        
+                        <a href='/tags/NLP/'>NLP</a>, 
+                        
+                        <a href='/tags/Attention/'>Attention</a>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+    
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <h3 id="1-read-the-title-and-make-an-opinion-of-whats-in-the-paper-eg-the-area-the-task"><a class="markdownIt-Anchor" href="#1-read-the-title-and-make-an-opinion-of-whats-in-the-paper-eg-the-area-the-task"></a> 1. <strong>Read the title</strong> and make an opinion of what&#x2019;s in the paper (e.g., the area, the task)</h3>
+<p>Year: 2019</p>
+<blockquote>
+<p>Are Sixteen Heads Really Better than One?</p>
+</blockquote>
+<p>Looks like an analysis of NLP attention heads.  What are the benefits of keeping 16 heads, etc.</p>
+<h3 id="2-read-the-abstract-well-and-form-a-hypothesis-of"><a class="markdownIt-Anchor" href="#2-read-the-abstract-well-and-form-a-hypothesis-of"></a> 2. <strong>Read the abstract well</strong> and form a hypothesis of</h3>
+<ol>
+<li>What&#x2019;s new in the paper?</li>
+<li>Do you have a clear <em>overview</em> about what the paper is all about?</li>
+</ol>
+<blockquote>
+<p>with each attention &#x201C;head&#x201D; potentially focusing on different parts of the input, which makes it possible to express sophisticated functions beyond the simple weighted average.</p>
+</blockquote>
+<p>A description of the expressiveness of the multi-head attention mechanism.</p>
+<blockquote>
+<p>in practice, a large percentage of attention heads can be removed at test time without significantly impacting performance.</p>
+</blockquote>
+<p>This as they say is a bit surprising, based on the assumption that complicated relationships are being formed with language that must be understood.</p>
+<blockquote>
+<p>In fact, some layers can even be reduced to a single head.</p>
+</blockquote>
+<p>They go on to describe the memory and speed benefits of reducing the headcount.</p>
+<h3 id="3-look-at-the-images-and-extract-a-set-of-questions-about-what-is-not-clear-about-their-method-from-the-images-now-your-job-is-to-answer-these-questions-by-reading-the-paper"><a class="markdownIt-Anchor" href="#3-look-at-the-images-and-extract-a-set-of-questions-about-what-is-not-clear-about-their-method-from-the-images-now-your-job-is-to-answer-these-questions-by-reading-the-paper"></a> 3. <strong>Look at the images</strong> and extract a set of &#x201C;questions&#x201D; about what is not clear about their method from the images. Now your job is to answer these questions by reading the paper.</h3>
+<p>Table2 seems to show their main point the clearest.  They argue that MHA matters most for Enc-Dec setups, and is either statistically insignificant, or fairly minor for models not setup like Enc-Dec.</p>
+<p><img src="tab2.png" alt="tab2"></p>
+<p>Figure 2 shows the cross task performance as they prune heads.  Essentially it proves that their performance numbers are not anomalous to just they task they are pruning on.</p>
+<p><img src="fig2.png" alt="fig2"></p>
+<p>Finally the figure 3 shows the performance as heads are successively pruned.  It drops off a bit sooner than I would prefer, making the method only marginally useful in my opinion, but if you are trying to squeeze performance out of your models, this is important data.</p>
+<p><img src="fig3.png" alt="fig3"></p>
+<h3 id="4-read-the-method-aiming-to-answer-your-questions-about-the-paper-focus-on-understanding-only-the-things-relevant-for-the-story-ie-to-understand-the-contribution"><a class="markdownIt-Anchor" href="#4-read-the-method-aiming-to-answer-your-questions-about-the-paper-focus-on-understanding-only-the-things-relevant-for-the-story-ie-to-understand-the-contribution"></a> 4. <strong>Read the method</strong> aiming to answer your &#x201C;questions&#x201D; about the paper. Focus on understanding only the things relevant for the story (i.e., to understand the contribution).</h3>
+<p>They give a quick description of MHA, specifically showing they added a masking term <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>&#x3BE;</mi><mi>h</mi></msub></mrow><annotation encoding="application/x-tex">\xi_h</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.04601em;">&#x3BE;</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.04601em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">h</span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> which is a binary flag to enable or disable masking heads.  They then do a number of studies with different masked heads to compare performance.</p>
+<p><img src="eq1.png" alt="eq"></p>
+<p>Pruning is done via a proxy score of importance by looking at the sensitivity of the loss compared to the <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>&#x3BE;</mi><mi>h</mi></msub></mrow><annotation encoding="application/x-tex">\xi_h</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.04601em;">&#x3BE;</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.04601em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">h</span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> masking variable.</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>I</mi><mi>h</mi></msub><mo>=</mo><msub><mi mathvariant="double-struck">E</mi><mrow><mi>x</mi><mo>&#x223C;</mo><mi>X</mi></mrow></msub><mrow><mo fence="true">&#x2223;</mo><msub><mi mathvariant="normal">Att</mi><mo>&#x2061;</mo><mi>h</mi></msub><mo stretchy="false">(</mo><mi>x</mi><msup><mo stretchy="false">)</mo><mi>T</mi></msup><mfrac><mrow><mi mathvariant="normal">&#x2202;</mi><mi mathvariant="script">L</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><mrow><mi mathvariant="normal">&#x2202;</mi><msub><mi mathvariant="normal">Att</mi><mo>&#x2061;</mo><mi>h</mi></msub><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></mfrac><mo fence="true">&#x2223;</mo></mrow></mrow><annotation encoding="application/x-tex">I_{h}=\mathbb{E}_{x \sim X}\left|\operatorname{Att}_{h}(x)^{T} \frac{\partial \mathcal{L}(x)}{\partial \operatorname{Att}_{h}(x)}\right|
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">h</span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.424em;vertical-align:-0.9500199999999999em;"></span><span class="mord"><span class="mord"><span class="mord mathbb">E</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">x</span><span class="mrel mtight">&#x223C;</span><span class="mord mathdefault mtight" style="margin-right:0.07847em;">X</span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.47398em;"><span style="top:-1.65598em;"><span class="pstrut" style="height:2.606em;"></span><span class="delimsizinginner delim-size1"><span>&#x2223;</span></span></span><span style="top:-2.26198em;"><span class="pstrut" style="height:2.606em;"></span><span class="delimsizinginner delim-size1"><span>&#x2223;</span></span></span><span style="top:-2.86798em;"><span class="pstrut" style="height:2.606em;"></span><span class="delimsizinginner delim-size1"><span>&#x2223;</span></span></span><span style="top:-3.47398em;"><span class="pstrut" style="height:2.606em;"></span><span class="delimsizinginner delim-size1"><span>&#x2223;</span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500199999999999em;"><span></span></span></span></span></span></span><span class="mop"><span class="mop"><span class="mord mathrm">A</span><span class="mord mathrm">t</span><span class="mord mathrm">t</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">h</span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913309999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">T</span></span></span></span></span></span></span></span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.05556em;">&#x2202;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop"><span class="mop"><span class="mord mathrm">A</span><span class="mord mathrm">t</span><span class="mord mathrm">t</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">h</span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.05556em;">&#x2202;</span><span class="mord"><span class="mord mathcal">L</span></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.47398em;"><span style="top:-1.65598em;"><span class="pstrut" style="height:2.606em;"></span><span class="delimsizinginner delim-size1"><span>&#x2223;</span></span></span><span style="top:-2.26198em;"><span class="pstrut" style="height:2.606em;"></span><span class="delimsizinginner delim-size1"><span>&#x2223;</span></span></span><span style="top:-2.86798em;"><span class="pstrut" style="height:2.606em;"></span><span class="delimsizinginner delim-size1"><span>&#x2223;</span></span></span><span style="top:-3.47398em;"><span class="pstrut" style="height:2.606em;"></span><span class="delimsizinginner delim-size1"><span>&#x2223;</span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500199999999999em;"><span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p>They note that this formulation is a classic pruning technique used early in the 90&#x2019;s.</p>
+<h3 id="5-read-the-experiments-to-convince-you-that-the-show-results-are-caused-by-their-claim-be-aware-that-the-experiments-highlighted-are-the-best-scenarios-and-are-fully-hyper-parameter-tuned"><a class="markdownIt-Anchor" href="#5-read-the-experiments-to-convince-you-that-the-show-results-are-caused-by-their-claim-be-aware-that-the-experiments-highlighted-are-the-best-scenarios-and-are-fully-hyper-parameter-tuned"></a> 5. <strong>Read the experiments</strong> to convince you that the show results are caused by their claim. Be aware that the experiments highlighted are the best scenarios and are fully hyper-parameter tuned.</h3>
+<p>They show a performance benchmark where they achieve a speedup of 17.5% but that is only at higher batch sizes, and it doesn&#x2019;t report performance lost in the meantime.</p>
+<p><img src="tab4.png" alt="tab4"></p>
+<h3 id="6-make-sure-you-answered-all-your-questions-did-the-authors-convince-you-that-their-story-has-the-effect-that-they-claim"><a class="markdownIt-Anchor" href="#6-make-sure-you-answered-all-your-questions-did-the-authors-convince-you-that-their-story-has-the-effect-that-they-claim"></a> 6. <strong>Make sure you answered all your questions.</strong> Did the authors convince you that their story has the effect that they claim?</h3>
+<p>They conclude by arguing this information could lead to better utilization of parameters in attention.  I don&#x2019;t know if that would be totally true.  I think that it is good research, but it seems to me that the performance hit happens quite quickly showing that there is truly loss happening in the model by pruning.  There are probably better techniques to reduce complexity of models (like distillation), that can give comparable speed and memory boosts without suffering performance; however, this paper was well written and a good read for this information.</p>
+
+                </div>
+            </div>
+    
+            <nav class="post-pagination">
+    
+    <span class="page-number"></span>
+    
+    <a class="older-posts" href="/07/22/2021/37Attention/">
+        Next post<br>37 Attention in Natural Language Processing
+    </a>
+    
+</nav>
+
+    
+            
+
+
+        </div>
+    </div>
+    <div class="single-column-footer">
+    Proudly published with Hexo<br>
+    
+    Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
+    
+    &copy; 2021 <a href="www.apaperaday.com">aPaperADay</a>
+</div>
+</div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"
+        integrity="sha256-EGs9T1xMHdvM1geM8jPpoo8EZ1V1VRsmcJz8OByENLA=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+        integrity="sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js"
+        integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
+        integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
+<script src="/js/journal.js?56420515"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+</body>
+</html>
