@@ -18,7 +18,7 @@
     <meta name="renderer" content="webkit">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/journal.css?19143350">
+<link rel="stylesheet" href="/css/journal.css?78543535">
 
 <script src="/js/loadCSS.js"></script>
 <script>
@@ -218,9 +218,9 @@
 <p>I wonder if they compared directly between their setup and the MLM task.  I&#x2019;m surprised that it would be 30x faster.</p>
 <h3 id="3-look-at-the-images-and-extract-a-set-of-questions-about-what-is-not-clear-about-their-method-from-the-images-now-your-job-is-to-answer-these-questions-by-reading-the-paper"><a class="markdownIt-Anchor" href="#3-look-at-the-images-and-extract-a-set-of-questions-about-what-is-not-clear-about-their-method-from-the-images-now-your-job-is-to-answer-these-questions-by-reading-the-paper"></a> 3. <strong>Look at the images</strong> and extract a set of &#x201C;questions&#x201D; about what is not clear about their method from the images. Now your job is to answer these questions by reading the paper.</h3>
 <p>Their results are shown from the beginning, emphasizing that they care about the practical outcomes of this new pre-training task.</p>
-<p><a href="fig1.png">fig1</a></p>
+<p><img src="fig1.png" alt="fig1"></p>
 <p>This diagram shows the method, primarily how the Discriminator predicts whether a token has been replaced or not, but it seems like an impossible task if the <strong>Generator</strong> produces probable tokens.  The MLM task does predict real information, because it has to understand probable words, but this instance seems like you are only trying to understand the generator, not the language in general.</p>
-<p><a href="fig2.png">fig2</a></p>
+<p><img src="fig2.png" alt="fig2"></p>
 <p>With the understanding that there is a better signal because the task is per word, does this task have an effect on producing valid language models?</p>
 <h3 id="4-read-the-method-aiming-to-answer-your-questions-about-the-paper-focus-on-understanding-only-the-things-relevant-for-the-story-ie-to-understand-the-contribution"><a class="markdownIt-Anchor" href="#4-read-the-method-aiming-to-answer-your-questions-about-the-paper-focus-on-understanding-only-the-things-relevant-for-the-story-ie-to-understand-the-contribution"></a> 4. <strong>Read the method</strong> aiming to answer your &#x201C;questions&#x201D; about the paper. Focus on understanding only the things relevant for the story (i.e., to understand the contribution).</h3>
 <p>First they mention that they operate at the token level.</p>
@@ -233,9 +233,9 @@
 <h3 id="5-read-the-experiments-to-convince-you-that-the-show-results-are-caused-by-their-claim-be-aware-that-the-experiments-highlighted-are-the-best-scenarios-and-are-fully-hyper-parameter-tuned"><a class="markdownIt-Anchor" href="#5-read-the-experiments-to-convince-you-that-the-show-results-are-caused-by-their-claim-be-aware-that-the-experiments-highlighted-are-the-best-scenarios-and-are-fully-hyper-parameter-tuned"></a> 5. <strong>Read the experiments</strong> to convince you that the show results are caused by their claim. Be aware that the experiments highlighted are the best scenarios and are fully hyper-parameter tuned.</h3>
 <p>They evaluate performance on <strong>GLUE</strong> and <strong>SQuAD</strong> test sets.</p>
 <p>Table 1 shows the performance of training efficiency.</p>
-<p><a href="tab1.png">tab1</a></p>
+<p><img src="tab1.png" alt="tab1"></p>
 <p>Table2 shows good performance on smaller models in terms of GLUE benchmarks.</p>
-<p><a href="tab2.png">tab2</a></p>
+<p><img src="tab2.png" alt="tab2"></p>
 <p>They analyze the efficiency of the training objective by creating a number of pre-training objectives to compare to the proposed ELECTRA variant.</p>
 <p>In Table 5, they show the GLUE performance on a number of pre-training tasks, and show that there is 2 points improvement by calculating loss on all tokens (highlighted in yellow) compared to only a subset (highlighted in green).<br>
 <em>emphasis my own</em></p>
@@ -283,7 +283,7 @@
         integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
         integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
-<script src="/js/journal.js?77807429"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/js/journal.js?81137618"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
