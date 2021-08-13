@@ -1,0 +1,288 @@
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><title>47 CANINE,  Pre-training an Efficient Tokenization-Free Encoder for Language Representation - aPaperADay</title>
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="author" content="Luke Thomas">
+<meta name="description" content="Another proposal for a Tokenizer free Model that operates on Unicode.">
+<meta name="keywords" content="">
+
+    <meta charset="utf-8">
+    <meta name="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="renderer" content="webkit">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/journal.css?91290524">
+
+<script src="/js/loadCSS.js"></script>
+<script>
+    loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Material+Icons");
+    (function (d) {
+        var config = {
+                kitId: 'dwg1tuc',
+                scriptTimeout: 3000,
+                async: true
+            },
+            h = d.documentElement, t = setTimeout(function () {
+                h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive";
+            }, config.scriptTimeout), tk = d.createElement("script"), f = false,
+            s = d.getElementsByTagName("script")[0], a;
+        h.className += " wf-loading";
+        tk.src = 'https://use.typekit.net/' + config.kitId + '.js';
+        tk.async = true;
+        tk.onload = tk.onreadystatechange = function () {
+            a = this.readyState;
+            if (f || a && a != "complete" && a != "loaded") return;
+            f = true;
+            clearTimeout(t);
+            try {
+                Typekit.load(config)
+            } catch (e) {
+            }
+        };
+        s.parentNode.insertBefore(tk, s)
+    })(document);
+</script>
+<noscript>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Lora|Montserrat|Anonymous+Pro:400|Material+Icons"/>
+</noscript><!-- hexo-inject:begin --><link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css'><!-- hexo-inject:end -->
+</head>
+<body>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="top"></div>
+<div id="app">
+<div class="single-column-drawer-container" ref="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            <a class="a-block drawer-menu-item false" href="www.apaperaday.com">
+                Home
+            </a>
+            
+            <a class="a-block drawer-menu-item false" href="/archives">
+                Archive
+            </a>
+            
+
+            
+            
+            <a class="a-block drawer-menu-item false" href="/post.html">
+                
+            </a>
+            
+            <a class="a-block drawer-menu-item false" href="/About/index.html">
+                About
+            </a>
+            
+
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div ref="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a ref="navTitle" class="navbar-brand" href="/">
+            aPaperADay
+        </a>
+    </div>
+</nav>
+<div class="single-column-header-container" ref="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="/">
+        <div class="single-column-header-title">aPaperADay</div>
+        <div class="single-column-header-subtitle"></div>
+    </a>
+</div>
+<div ref="sideContainer" class="side-container">
+    <a class="a-block nav-head false" href="/">
+        <div class="nav-title">
+            aPaperADay.
+        </div>
+        <div class="nav-subtitle">
+            read a deep learning<br>paper a day
+        </div>
+    </a>
+
+    <div class="nav-link-list">
+        
+        <a class="a-block no-tint nav-link-item false" href="/archives">
+            Archive
+        </a>
+        
+
+        
+        
+        <a class="a-block nav-link-item false" href="/post.html">
+            
+        </a>
+        
+        <a class="a-block nav-link-item false" href="/About/index.html">
+            About
+        </a>
+        
+
+        
+    </div>
+
+    
+    <div class="nav-footer">
+        Proudly published with Hexo<br>
+        
+        Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
+        
+        &copy; 2021 <a href="www.apaperaday.com">aPaperADay</a>
+    </div>
+</div>
+<div ref="extraContainer" class="extra-container">
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+
+        
+    </div>
+</div>
+
+
+
+<div ref="streamContainer" class="stream-container">
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            <div class="post-head-wrapper-text-only"
+                 style="background-image: url('')">
+                <div class="post-title">
+                    47 CANINE,  Pre-training an Efficient Tokenization-Free Encoder for Language Representation
+                    <div class="post-meta">
+                        <time datetime="2021-08-13T16:05:00.000Z" itemprop="datePublished">
+                            2021-08-13 09:05
+                        </time>&nbsp;
+                        
+    
+                        
+                        
+                        <i class="material-icons" style="">label</i>
+                        
+                        <a href='/tags/NLP/'>NLP</a>, 
+                        
+                        <a href='/tags/Tokenizer-Free/'>Tokenizer Free</a>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+    
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <h3 id="1-read-the-title-and-make-an-opinion-of-whats-in-the-paper-eg-the-area-the-task"><a class="markdownIt-Anchor" href="#1-read-the-title-and-make-an-opinion-of-whats-in-the-paper-eg-the-area-the-task"></a> 1. <strong>Read the title</strong> and make an opinion of what&#x2019;s in the paper (e.g., the area, the task)</h3>
+<p>Year: 2021</p>
+<blockquote>
+<p>CANINE: Pre-training an Efficient Tokenization-Free Encoder for Language Representation</p>
+</blockquote>
+<h3 id="2-read-the-abstract-well-and-form-a-hypothesis-of"><a class="markdownIt-Anchor" href="#2-read-the-abstract-well-and-form-a-hypothesis-of"></a> 2. <strong>Read the abstract well</strong> and form a hypothesis of</h3>
+<ol>
+<li>What&#x2019;s new in the paper?</li>
+<li>Do you have a clear <em>overview</em> about what the paper is all about?</li>
+</ol>
+<blockquote>
+<p>Pipelined NLP systems have largely been superseded by end-to-end neural model- ing, yet nearly all commonly-used models still require an explicit tokenization step.</p>
+</blockquote>
+<p>This is another paper proposing the benefits of dropping tokenizers and using character level representation.</p>
+<p>They quote the advantages of this approach as benefitting multilingual tasks and the ability of the model to adapt.</p>
+<blockquote>
+<p>In this paper, we present CANINE, a neural encoder that operates directly on character sequences&#x2014;without explicit tokenization or vocabulary&#x2014;and a pre-training strategy that operates either directly on characters or optionally uses subwords as a soft inductive bias.</p>
+</blockquote>
+<p>They present two contributions, the model architecture and the pre-training strategy.  I curious about the meaning of the subwords being used as a soft inductive bias.</p>
+<blockquote>
+<p>To use its finer-grained input effectively and efficiently, CANINE combines downsampling, which reduces the input sequence length, with a deep transformer stack, which encodes context.</p>
+</blockquote>
+<p>It is key to reduce the input sequence length because without the tokens, you will have proportionally larger sequences, which the transformer stack will have a harder time to model if sequence is too large.</p>
+<h3 id="3-look-at-the-images-and-extract-a-set-of-questions-about-what-is-not-clear-about-their-method-from-the-images-now-your-job-is-to-answer-these-questions-by-reading-the-paper"><a class="markdownIt-Anchor" href="#3-look-at-the-images-and-extract-a-set-of-questions-about-what-is-not-clear-about-their-method-from-the-images-now-your-job-is-to-answer-these-questions-by-reading-the-paper"></a> 3. <strong>Look at the images</strong> and extract a set of &#x201C;questions&#x201D; about what is not clear about their method from the images. Now your job is to answer these questions by reading the paper.</h3>
+<p>I&#x2019;m not sure what their point is of table 1, but it shows how flexible languages can be compared to English, which is where most of the research in NLP is being done.</p>
+<p><img src="tab1.png" alt="tab1"></p>
+<p>Fig 1 presents an architecture which to me is a bit hard to discern.  What I assume as a key connection is the residual connection between the downsample and upsampling, however, it is not entirely clear that is what it is.  But this figure is as expected, with a long sequence input, a downsampling, to transformer, and a few interesting blocks to get it back to the original character length.</p>
+<p><img src="fig1.png" alt="fig1"></p>
+<p>This really makes me wonder how our minds ingest text.  Is it ultimately at a character level, and words come after an unconscious conversion that is relatively fixed, but allows for nuance, such as beingabletoputwordstogetherwithoutspaces.  We can still read that.</p>
+<p>I want to see if I can find a bit more about each piece they are proposing.</p>
+<h3 id="4-read-the-method-aiming-to-answer-your-questions-about-the-paper-focus-on-understanding-only-the-things-relevant-for-the-story-ie-to-understand-the-contribution"><a class="markdownIt-Anchor" href="#4-read-the-method-aiming-to-answer-your-questions-about-the-paper-focus-on-understanding-only-the-things-relevant-for-the-story-ie-to-understand-the-contribution"></a> 4. <strong>Read the method</strong> aiming to answer your &#x201C;questions&#x201D; about the paper. Focus on understanding only the things relevant for the story (i.e., to understand the contribution).</h3>
+<blockquote>
+<p>The overall form of the CANINE model is the composition of a downsampling function DOWN, a primary encoder ENCODE, and an upsampling function UP</p>
+</blockquote>
+<p>The paper uses a <strong>Character Hash Embedding</strong> to convert to unicode characters with relatively small numbers of paramters.</p>
+<p><strong>Downsampling</strong> The downsampling is interesting because they precondition the embeddings with a  single local transformer.</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mtable rowspacing="0.24999999999999992em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><msub><mi mathvariant="bold">h</mi><mtext>init&#xA0;</mtext></msub></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>&#x2190;</mo><msub><mtext>&#xA0;LOCALTRANSFORMER&#xA0;</mtext><mn>1</mn></msub><mo stretchy="false">(</mo><mi mathvariant="bold">e</mi><mo stretchy="false">)</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><msub><mi mathvariant="bold">h</mi><mtext>down&#xA0;</mtext></msub></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>&#x2190;</mo><mtext>&#xA0;STRIDEDCONV&#xA0;</mtext><mrow><mo fence="true">(</mo><msub><mi mathvariant="bold">h</mi><mtext>init&#xA0;</mtext></msub><mo separator="true">,</mo><mi>r</mi><mo fence="true">)</mo></mrow></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned} \mathbf{h}_{\text {init }} &amp; \leftarrow \text { LOCALTRANSFORMER }_{1}(\mathbf{e}) \\ \mathbf{h}_{\text {down }} &amp; \leftarrow \text { STRIDEDCONV }\left(\mathbf{h}_{\text {init }}, r\right) \end{aligned}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.0000000000000004em;vertical-align:-1.2500000000000002em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.7500000000000002em;"><span style="top:-3.91em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="mord mathbf">h</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31750199999999995em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">init&#xA0;</span></span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="mord mathbf">h</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">down&#xA0;</span></span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:1.2500000000000002em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.7500000000000002em;"><span style="top:-3.91em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&#x2190;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord"><span class="mord text"><span class="mord">&#xA0;LOCALTRANSFORMER&#xA0;</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathbf">e</span></span><span class="mclose">)</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&#x2190;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord text"><span class="mord">&#xA0;STRIDEDCONV&#xA0;</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord"><span class="mord"><span class="mord mathbf">h</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31750199999999995em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">init&#xA0;</span></span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose delimcenter" style="top:0em;">)</span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:1.2500000000000002em;"><span></span></span></span></span></span></span></span></span></span></span></p>
+<p>They did not comment directly why they chose to use the local transformer for this step.  I would think the downsample would be fine without it, but maybe that leads to the fact that this initial encoding is important.</p>
+<p><strong>Deep transformer stack</strong> This is the expected meat of the model using a BERT like model.</p>
+<p><strong>Upsampling</strong>: In order to perform some tasks, a matching input to output representation must be computed.  The upsampling step lifts the latent space up to the original input dims for tasks such as tagging and span prediction.</p>
+<p>I am not clear exactly where the vector concatenation happens of the representations to upsample.</p>
+<p><strong>Residual Connection</strong> They note that they do <em>not</em> use residual connections for the proposed model.  Obviously they tried it and it did not perform as well as without.</p>
+<p><strong>Pre-training</strong>: There are two tasks they use for self-supervised learning: 1. Span-wise masking (like MLM) and 2. Span Prediction (like GPT).</p>
+<h3 id="5-read-the-experiments-to-convince-you-that-the-show-results-are-caused-by-their-claim-be-aware-that-the-experiments-highlighted-are-the-best-scenarios-and-are-fully-hyper-parameter-tuned"><a class="markdownIt-Anchor" href="#5-read-the-experiments-to-convince-you-that-the-show-results-are-caused-by-their-claim-be-aware-that-the-experiments-highlighted-are-the-best-scenarios-and-are-fully-hyper-parameter-tuned"></a> 5. <strong>Read the experiments</strong> to convince you that the show results are caused by their claim. Be aware that the experiments highlighted are the best scenarios and are fully hyper-parameter tuned.</h3>
+<p><img src="tab2.png" alt="tab2"></p>
+<p>Table two shows their main results.  I wonder how this compares with ByT5, as they are comparable in solution design.</p>
+<h3 id="6-make-sure-you-answered-all-your-questions-did-the-authors-convince-you-that-their-story-has-the-effect-that-they-claim"><a class="markdownIt-Anchor" href="#6-make-sure-you-answered-all-your-questions-did-the-authors-convince-you-that-their-story-has-the-effect-that-they-claim"></a> 6. <strong>Make sure you answered all your questions.</strong> Did the authors convince you that their story has the effect that they claim?</h3>
+<p>I had to quickly speed through this one, and they clearly have positive results, but it is hard to compare to other SOTA techniques in terms of performance.</p>
+<p>They had a good collection of ablation studies to look through, even though I didn&#x2019;t comment on any of them.</p>
+<p>I do see the writing on the wall for removing tokenizers, but I wonder if it will be solved by increased attention flexibility or this proposed U-net architecture they have shown.  My gut leans towards full attention, but who knows?</p>
+
+                </div>
+            </div>
+    
+            <nav class="post-pagination">
+    
+    <span class="page-number"></span>
+    
+    <a class="older-posts" href="/08/10/2021/46ByT5/">
+        Next post<br>46 ByT5, Towards a token-free future with pre-trained byte-to-byte models
+    </a>
+    
+</nav>
+
+    
+            
+
+
+        </div>
+    </div>
+    <div class="single-column-footer">
+    Proudly published with Hexo<br>
+    
+    Theme <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> by <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a><br>
+    
+    &copy; 2021 <a href="www.apaperaday.com">aPaperADay</a>
+</div>
+</div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"
+        integrity="sha256-EGs9T1xMHdvM1geM8jPpoo8EZ1V1VRsmcJz8OByENLA=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+        integrity="sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js"
+        integrity="sha256-FtWfRI+thWlNz2sB3SJbwKx5PgMyKIVgwHCTwa3biXc=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@14.2.1/dist/smooth-scroll.polyfills.min.js"
+        integrity="sha256-CI4Gq5E0io1Pv0xM3qPM+NUIOhbIBvC3GiN1Y4KhXpw=" crossorigin="anonymous"></script>
+<script src="/js/journal.js?12972198"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+</body>
+</html>
